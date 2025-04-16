@@ -5,6 +5,9 @@ in {
     allowBroken = true;
   };
 
+  # should fix nmtui not saving network info problem :pray:
+  services.gnome.gnome-keyring.enable = true;
+
   # Make FHS work
   virtualisation.podman.enable = true;
   services.fhs-compat.enable = true;
@@ -91,5 +94,14 @@ in {
 
   system.autoUpgrade.enable = true;
   system.stateVersion = machine-settings.stateVersion;
+
+  # Impermanence persistence
+  environment.persistence."/nix/persist/systems" = {
+    hideMounts = true;
+    directories = [
+      "/etc/NetworkManager"
+    ];
+    files = [];
+  };
 }
 

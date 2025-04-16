@@ -195,6 +195,7 @@ in {
       "flathub:com.discordapp.Discord//stable"
       "flathub:de.shorsh.discord-screenaudio//stable"
       "flathub:xyz.armcord.ArmCord//stable"
+      "https://sober.vinegarhq.org/sober.flatpakref"
     ];
   };
 }

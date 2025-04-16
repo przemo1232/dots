@@ -8,5 +8,9 @@
     ./pipewire.nix
     ./hyprland.nix
     ./amd.nix
+    ./bluetooth.nix
+    # ./dropbox.nix
+    ./maestral.nix
   ];
+  services.flatpak.enable = true;
 }

@@ -2,6 +2,8 @@
 { pkgs, secrets, ... }:
 
 {
+  powerManagement.enable = true;
+  
   # Allow Unfree
   nixpkgs.config = {
     allowUnfree = true;
@@ -30,6 +32,7 @@
       "wheel"
       "video"
       "audio"
+      "dialout"
     ];
   };
 
