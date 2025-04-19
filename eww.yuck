@@ -1,25 +1,25 @@
-(defwidget bar []
-  (centerbox (left) (center) (right)))
-
-(defwidget left [] 
-  datetime)
-
-(defwidget center [] (literal :class "rcorners" :y "7%" "${EWW_BATTERY.BAT0.capacity}"))
-
-(defvar revealcalendar false)
-(defwidget right [] 
-  (box
-    (expander 
-        :expanded revealcalendar
-        (box :class "rcorners" (calendar)))
-    (literal :class "rcorners" "hello")))
-
-
 (defpoll datetime :interval "1s"
   `date "+%B %e %a %H:%M:%S %Y"`)
 
 (defpoll gpuusage :interval "1s"
   `gpustat --no-color | cut -d '|' -f2 | cut -b "9,10,11" | sed -e "1d" | sed -e "s/ //"`)
+
+(defwidget bar []
+  (centerbox (left) (center) (right)))
+
+(defwidget left [] 
+  (box
+    (literal :class "rcorners" "${datetime}")))
+
+(defwidget center []
+  (box
+    (literal :class "rcorners" "${EWW_BATTERY.BAT0.status == "Charging" ? "⚡" : ""} ${EWW_BATTERY.BAT0.capacity}%")))
+
+
+
+(defwidget right [] 
+  (box
+    (literal :class "rcorners" "🐑 ${round(EWW_RAM.used_mem / EWW_RAM.total_mem * 100, 2)}% 🔳 ${round(EWW_CPU.avg, 2)}% ↑ ${EWW_NET.wlp6s0.NET_UP > 1000000 ? round(EWW_NET.wlp6s0.NET_UP / 1000000, 2) + " mb" : (EWW_NET.wlp6s0.NET_UP > 1000 ? round(EWW_NET.wlp6s0.NET_UP / 1000, 2) + " kb" : round(EWW_NET.wlp6s0.NET_UP, 2) + " b")} ↓ ${EWW_NET.wlp6s0.NET_DOWN > 1000000 ? round(EWW_NET.wlp6s0.NET_DOWN / 1000000, 2) + " mb" : (EWW_NET.wlp6s0.NET_DOWN > 1000 ? round(EWW_NET.wlp6s0.NET_DOWN / 1000, 2) + " kb" : round(EWW_NET.wlp6s0.NET_DOWN, 2) + " b")}")))
 
 (defwindow bar
   :exclusive true
