@@ -12,5 +12,6 @@
     # ./dropbox.nix
     ./maestral.nix
   ];
+  services.upower.enable = true;
   services.flatpak.enable = true;
 }
