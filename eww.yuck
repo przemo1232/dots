@@ -11,15 +11,16 @@
   (box
     (literal :class "rcorners" "${datetime}")))
 
+(defpoll timeleft :interval "1s"
+  `upower -i $(upower -e | grep BAT) | grep --color=never -E "to full|to empty" | cut -d':' -f2- | sed 's/^[[:space:]]*//'`)
+
 (defwidget center []
-  (box
-    (literal :class "rcorners" "${EWW_BATTERY.BAT0.status == "Charging" ? "⚡" : ""} ${EWW_BATTERY.BAT0.capacity}%")))
-
-
+  (box :class "rcorners" 
+    (literal "${EWW_BATTERY.BAT0.status == "Charging" ? "⚡" : ""} ${EWW_BATTERY.BAT0.capacity}%  ${timeleft}")))
 
 (defwidget right [] 
   (box
-    (literal :class "rcorners" "🐑 ${round(EWW_RAM.used_mem / EWW_RAM.total_mem * 100, 2)}% 🔳 ${round(EWW_CPU.avg, 2)}% ↑ ${EWW_NET.wlp6s0.NET_UP > 1000000 ? round(EWW_NET.wlp6s0.NET_UP / 1000000, 2) + " mb" : (EWW_NET.wlp6s0.NET_UP > 1000 ? round(EWW_NET.wlp6s0.NET_UP / 1000, 2) + " kb" : round(EWW_NET.wlp6s0.NET_UP, 2) + " b")} ↓ ${EWW_NET.wlp6s0.NET_DOWN > 1000000 ? round(EWW_NET.wlp6s0.NET_DOWN / 1000000, 2) + " mb" : (EWW_NET.wlp6s0.NET_DOWN > 1000 ? round(EWW_NET.wlp6s0.NET_DOWN / 1000, 2) + " kb" : round(EWW_NET.wlp6s0.NET_DOWN, 2) + " b")}")))
+    (literal :class "rcorners" "🐑 ${round(EWW_RAM.used_mem / EWW_RAM.total_mem * 100, 2)}% 🔳 ${round(EWW_CPU.avg, 2)}% ↑ ${EWW_NET.wlp6s0.NET_UP > 1000000 ? round(EWW_NET.wlp6s0.NET_UP / 1000000, 2) + " mb/s" : (EWW_NET.wlp6s0.NET_UP > 1000 ? round(EWW_NET.wlp6s0.NET_UP / 1000, 2) + " kb/s" : round(EWW_NET.wlp6s0.NET_UP, 2) + " b/s")} ↓ ${EWW_NET.wlp6s0.NET_DOWN > 1000000 ? round(EWW_NET.wlp6s0.NET_DOWN / 1000000, 2) + " mb/s" : (EWW_NET.wlp6s0.NET_DOWN > 1000 ? round(EWW_NET.wlp6s0.NET_DOWN / 1000, 2) + " kb/s" : round(EWW_NET.wlp6s0.NET_DOWN, 2) + " b/s")}")))
 
 (defwindow bar
   :exclusive true
