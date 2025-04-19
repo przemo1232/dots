@@ -3,7 +3,8 @@
 in {
   imports = [
   ] ++ machine-settings.mkSystemModulePaths [
-    ./nvidia-pinned.nix
+    # ./nvidia-open.nix
+    # ./nvidia-pinned.nix
     ./fonts.nix
     ./razer.nix
     ./qmk.nix
@@ -13,6 +14,7 @@ in {
     ./polkit.nix
     # ./android.nix
     ./virtual.nix
+    ./enableopengl.nix
   ];
 
   programs.kdeconnect.enable = true;
@@ -22,6 +24,8 @@ in {
 
     # Syncing
     syncthing
+
+    linuxKernel.packages.linux_zen.xone
   ];
 
   # bluetooth
@@ -43,4 +47,6 @@ in {
     CC = "clang";
     NIXPKGS_ALLOW_UNFREE = "1";
   };
+  hardware.xpadneo.enable = true;
+  hardware.xone.enable = true; 
 }

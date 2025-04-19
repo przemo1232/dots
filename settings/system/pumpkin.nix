@@ -34,6 +34,9 @@
       "audio"
       "dialout"
     ];
+    openssh.authorizedKeys.keys = [
+      secrets.git-key
+    ];
   };
 
   # CUPS

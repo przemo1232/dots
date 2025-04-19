@@ -8,10 +8,10 @@
     };
     hyprland.url = "github:hyprwm/Hyprland";
     xdg-desktop-portal-hyprland.url = "github:hyprwm/xdg-desktop-portal-hyprland";
-    fhs.url = "github:GermanBread/nixos-fhs/stable";
+    # fhs.url = "github:GermanBread/nixos-fhs";
 
     # Lilex Font
-#    lilex-font.url = "github:LemonjamesD/Lilex-Flake/pre-compiled";
+    #    lilex-font.url = "github:LemonjamesD/Lilex-Flake/pre-compiled";
 
     # Impermanence
     impermanence.url = "github:nix-community/impermanence";
@@ -20,12 +20,12 @@
     home-manager.url = "github:nix-community/home-manager";
     # helix bs (the workaround is insane)
     # dream2nix.url = "github:nix-community/dream2nix";
- #   nci = {
+    #   nci = {
     #  url = "github:yusdacra/nix-cargo-integration";
-      # inputs.dream2nix.follows = "dream2nix";
-  #  };
+    # inputs.dream2nix.follows = "dream2nix";
+    #  };
     helix-master = {
-      url = "github:LemonjamesD/helix/new-daily-driver";
+      url = "github:SoraTenshi/helix/new-daily-driver";
       # inputs.nci.follows = "nci";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -35,10 +35,11 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    zig.url = "github:mitchellh/zig-overlay";
   };
 
   outputs = {
-    self, nixpkgs, hyprland, xdg-desktop-portal-hyprland, home-manager, helix-master, hypr-contrib, flatpaks, fhs, impermanence, nixvim, fenix, ... 
+    self, nixpkgs, hyprland, xdg-desktop-portal-hyprland, home-manager, helix-master, hypr-contrib, flatpaks, impermanence, nixvim, fenix, zig, ... 
   }@inputs: let
     secrets = import "/etc/nixos/secrets.nix";
     machine-settings = import ./settings/machine-settings.nix;
@@ -53,7 +54,7 @@
       specialArgs = { inherit nixpkgs system stateVersion machine-settings host user secrets inputs; };
       modules = [
         machine-settings.system-settings
-        inputs.fhs.nixosModules.default
+        # inputs.fhs.nixosModules.default
         "${inputs.impermanence}/nixos.nix"
         # System
         (./configuration.nix)

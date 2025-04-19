@@ -1,9 +1,6 @@
 { pkgs, secrets, ... }:
 
 {
-  # Should fix bluetnooth controll thing
-  boot.extraModprobeConfig = '' options bluetooth disable_ertm=1 '';
-
   # Allow Unfree
   nixpkgs.config = {
     allowUnfree = true;
@@ -12,7 +9,7 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Host name
-  networking.hostName = "prometheus";
+  networking.hostName = "janus";
   
   # Timezone
   time.timeZone = "America/New_York";
@@ -25,7 +22,7 @@
   };
 
   # Default User
-  users.users.lemon = {
+  users.users.orange = {
     isNormalUser = true;
     initialHashedPassword = secrets.passwd;
     extraGroups = [
@@ -38,6 +35,11 @@
 
   # CUPS
   services.printing.enable = true;
+  services.avahi = {
+    enable = true;
+    nssmdns = true;
+    openFirewall = true;
+  };
 
   # zsh default shell
   programs.zsh.enable = true;

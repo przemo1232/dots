@@ -43,10 +43,6 @@
     enable = true;
     userName = "LemonjamesD";
     userEmail = "lemon@lemonjamesd.com";
-    signing = {
-      signByDefault = true;
-      key = secrets.git-key;
-    };
     extraConfig = {
       credential.helper = "store";
       safe.directory = "*";
@@ -87,6 +83,8 @@
     syncthing
 
     stremio
+
+    spotify
 
     # pi pico
     openocd

@@ -10,7 +10,7 @@ in {
 
   # Make FHS work
   virtualisation.podman.enable = true;
-  services.fhs-compat.enable = true;
+  # services.fhs-compat.enable = true;
 
   users.users.root.initialHashedPassword = secrets.passwd;
 
@@ -47,7 +47,7 @@ in {
     pinentry-curses
 
     # Replace coreutils
-    busybox
+    # busybox
 
     # for zipping/unzipping
     p7zip
@@ -94,8 +94,6 @@ in {
 
   system.autoUpgrade.enable = true;
   system.stateVersion = machine-settings.stateVersion;
-
-  # Impermanence persistence
   environment.persistence."/nix/persist/systems" = {
     hideMounts = true;
     directories = [
@@ -103,5 +101,6 @@ in {
     ];
     files = [];
   };
+  nix.settings.trusted-users = [ "root" "lemon" "orange" "pumpkin" ];
 }
 
