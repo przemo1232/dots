@@ -50,6 +50,13 @@
     };
   };
 
+  programs.gh = {
+    enable = true;
+    gitCredentialHelper = {
+      enable = true;
+    };
+  };
+
   programs.gpg = {
     enable = true;
     settings = {
@@ -79,7 +86,7 @@
 
     glxinfo
 
-    obsidian
+    # obsidian
     syncthing
 
     stremio

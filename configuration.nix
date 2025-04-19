@@ -5,6 +5,10 @@ in {
     allowBroken = true;
   };
 
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-25.9.0"
+  ];
+
   # should fix nmtui not saving network info problem :pray:
   services.gnome.gnome-keyring.enable = true;
 
