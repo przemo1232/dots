@@ -16,7 +16,7 @@
 
 (defwidget center []
   (box :class "rcorners" 
-    (literal "${EWW_BATTERY.BAT0.status == "Charging" ? "⚡" : ""} ${EWW_BATTERY.BAT0 != null ? EWW_BATERY.BAT0.capacity : "No Battery"}%  ${timeleft}")))
+    (literal "${EWW_BATTERY.BAT0.status == "Charging" ? "⚡" : ""} ${EWW_BATTERY.BAT0.capacity ?: "No Battery"}%  ${timeleft}")))
 
 (defpoll volume :interval "0.1s"
   `wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2}'`)
