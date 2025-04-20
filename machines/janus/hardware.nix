@@ -33,25 +33,21 @@
     }; 
   };
 
-  # fileSystems."/run/media/Gaming" =
-  #   { device = "/dev/disk/by-uuid/b909f5c5-311d-4750-ba60-ba1f165f2926";
-  #     fsType = "btrfs";
-  #   };
+  fileSystems."/run/media/Gaming" =
+    { device = "/dev/disk/by-uuid/01DAE9350CD253A0";
+      fsType = "ntfs";
+    };
 
-  # fileSystems."/run/media/Programmador" =
-  #   { device = "/dev/disk/by-uuid/01D78420CB137970";
-  #     fsType = "ntfs";
-  #   };
+  fileSystems."/run/media/Programmador" =
+    { device = "/dev/disk/by-uuid/01D78420CB137970";
+      fsType = "ntfs";
+    };
 
-  # fileSystems."/run/media/Programming" =
-  #   { device = "/dev/disk/by-uuid/7BE462B403C20D04";
-  #     fsType = "ntfs";
-  #   };
-    
-  # fileSystems."/run/media/HiSpedGames" =
-  #   { device = "/dev/disk/by-uuid/01DA6374569C2200";
-  #     fsType = "ntfs";
-  #   };
+  fileSystems."/run/media/Programming" =
+    { device = "/dev/disk/by-uuid/7BE462B403C20D04";
+      fsType = "ntfs";
+    };
+   
 
   # Make some extra kernel modules available to NixOS
   boot.extraModulePackages = with config.boot.kernelPackages;

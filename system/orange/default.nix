@@ -3,6 +3,7 @@
 in {
   imports = [
   ] ++ machine-settings.mkSystemModulePaths [
+    ./amd.nix
     # ./nvidia-open.nix
     # ./nvidia-pinned.nix
     ./fonts.nix
@@ -22,6 +23,9 @@ in {
 
   environment.systemPackages = with pkgs; [
     ntfs3g
+
+    # Celeste Mod Manager
+    everest-mons
 
     # Syncing
     syncthing
