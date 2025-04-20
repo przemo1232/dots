@@ -16,7 +16,7 @@
 
 (defwidget center []
   (box :class "rcorners" 
-    (literal "${EWW_BATTERY.BAT0.status == "Charging" ? "⚡" : ""} ${EWW_BATTERY.BAT0.capacity ?: "No Battery"}%  ${timeleft}")))
+    (literal "${EWW_BATTERY == {} ? (EWW_BATTERY.BAT0.status == "Charging" ? "⚡" : "") : ""} ${EWW_BATTERY == {} ? EWW_BATTERY.BAT0.capacity + "%" : "No Battery"}${" " + timeleft}")))
 
 (defpoll volume :interval "0.1s"
   `wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2}'`)
@@ -26,7 +26,7 @@
 
 (defwidget right [] 
   (box
-    (literal :class "rcorners" "🐑 ${round(EWW_RAM.used_mem / EWW_RAM.total_mem * 100, 2)}% 🔳 ${round(EWW_CPU.avg, 2)}% ↑ ${EWW_NET.wlp6s0.NET_UP > 1000000 ? round(EWW_NET.wlp6s0.NET_UP / 1000000, 2) + " mb/s" : (EWW_NET.wlp6s0.NET_UP > 1000 ? round(EWW_NET.wlp6s0.NET_UP / 1000, 2) + " kb/s" : round(EWW_NET.wlp6s0.NET_UP, 2) + " b/s")} ↓ ${EWW_NET.wlp6s0.NET_DOWN > 1000000 ? round(EWW_NET.wlp6s0.NET_DOWN / 1000000, 2) + " mb/s" : (EWW_NET.wlp6s0.NET_DOWN > 1000 ? round(EWW_NET.wlp6s0.NET_DOWN / 1000, 2) + " kb/s" : round(EWW_NET.wlp6s0.NET_DOWN, 2) + " b/s")} ${muted != "[MUTED]" ? (volume > 0.5 ? "🔊" : (volume < 0.20 ? "🔈" : "🔉")) : "🔇"} ${round(volume * 100, 2)}%")))
+    (literal :class "rcorners" "🐑 ${round(EWW_RAM.used_mem / EWW_RAM.total_mem * 100, 2)}% 🔳 ${round(EWW_CPU.avg, 2)}% ↑ ${(EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_UP > 1000000 ? round((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_UP / 1000000, 2) + " mb/s" : ((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_UP > 1000 ? round((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_UP / 1000, 2) + " kb/s" : round((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_UP, 2) + " b/s")} ↓ ${(EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_DOWN > 1000000 ? round((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_DOWN / 1000000, 2) + " mb/s" : ((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_DOWN > 1000 ? round((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_DOWN / 1000, 2) + " kb/s" : round((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_DOWN, 2) + " b/s")} ${muted != "[MUTED]" ? (volume > 0.5 ? "🔊" : (volume < 0.20 ? "🔈" : "🔉")) : "🔇"} ${round(volume * 100, 2)}%")))
 
 (defwindow bar
   :exclusive true
