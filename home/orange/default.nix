@@ -29,14 +29,17 @@
     enable = true;
     userName = "LemonjamesD";
     userEmail = "lemon@lemonjamesd.com";
-    signing = {
-      signByDefault = true;
-      key = secrets.git-key;
-    };
     extraConfig = {
       credential.helper = "store";
       safe.directory = "*";
       init.defaultBranch = "main";
+    };
+  };
+
+  programs.gh = {
+    enable = true;
+    gitCredentialHelper = {
+      enable = true;
     };
   };
 
@@ -81,7 +84,6 @@
   home.packages = with pkgs; [
     # Browser
     firefox
-    google-chrome
 
     # Notes
     obsidian

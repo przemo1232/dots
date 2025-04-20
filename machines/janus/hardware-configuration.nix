@@ -8,7 +8,7 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
@@ -16,33 +16,34 @@
   fileSystems."/" =
     { device = "none";
       fsType = "tmpfs";
-      options = ["size=20G" "mode=755"];
+      options = ["size=20g" "mode=755"];
+    };
+
+  fileSystems."/etc" =
+    { device = "/dev/disk/by-uuid/b581f0d9-a115-4907-91b6-e03f88b94b89";
+      fsType = "btrfs";
+      options = [ "subvol=@etc" ];
     };
 
   fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/6089663c-5dbc-4fdb-b12f-9212bc2a28c9";
+    { device = "/dev/disk/by-uuid/b581f0d9-a115-4907-91b6-e03f88b94b89";
       fsType = "btrfs";
-      options = [ "subvol=nix" ];
-    };
-
-  fileSystems."/etc/nixos" =
-    { device = "/dev/disk/by-uuid/6089663c-5dbc-4fdb-b12f-9212bc2a28c9";
-      fsType = "btrfs";
-      options = [ "subvol=nixos" ];
-    };
-
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/CC17-919C";
-      fsType = "vfat";
+      options = [ "subvol=@nix" ];
     };
 
   fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/fd0ddaa9-9743-44f1-9ddd-aafc78b74657";
+    { device = "/dev/disk/by-uuid/1c74cb21-4dc1-4ff3-9faa-ded19fb2e884";
       fsType = "ext4";
     };
 
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/79E6-06D2";
+      fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" ];
+    };
+
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/dcd92448-c2cf-4af7-95a3-9f0ddbbc0455"; }
+    [ { device = "/dev/disk/by-uuid/a2c02c12-5269-454d-8cd2-b138da0067ec"; }
     ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
@@ -50,9 +51,7 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.docker0.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp42s0.useDHCP = lib.mkDefault true;
-  # networking.interfaces.vboxnet0.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlo1.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
