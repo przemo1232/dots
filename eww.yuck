@@ -24,79 +24,9 @@
 (defpoll muted :interval "0.1s"
   `wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $3}'`)
 
-(defwidget internet-aphordite []
-  (literal "${(EWW_NET.wlp6s0 ?: "") == "" 
-    ? 
-      "" 
-    : 
-      "↑ " + 
-      (EWW_NET.wlp6s0.NET_UP > 1000000
-      ?
-        round(EWW_NET.wlp6s0.NET_UP / 1000000, 2) + " mb/s" 
-      : 
-        (EWW_NET.wlp6s0.NET_UP > 1000 
-        ? 
-          round(EWW_NET.wlp6s0.NET_UP / 1000, 2) + " kb/s" 
-        : 
-          round(EWW_NET.wlp6s0.NET_UP, 2) + " b/s"
-        )
-      ) 
-      + " ↓ " + 
-      (EWW_NET.wlp6s0.NET_DOWN > 1000000
-      ?
-        round(EWW_NET.wlp6s0.NET_DOWN / 1000000, 2) + " mb/s" 
-      : 
-        (EWW_NET.wlp6s0.NET_DOWN > 1000 
-        ? 
-          round(EWW_NET.wlp6s0.NET_DOWN / 1000, 2) + " kb/s" 
-        : 
-          round(EWW_NET.wlp6s0.NET_DOWN, 2) + " b/s"
-        )
-      ) 
-   }"
-  )
-)
-
-(defwidget internet-janus []
-  (literal "${(EWW_NET.enp42s0 ?: "") == "" 
-    ? 
-      "" 
-    : 
-      "↑ " + 
-      (EWW_NET.enp42s0.NET_UP > 1000000
-      ?
-        round(EWW_NET.enp42s0.NET_UP / 1000000, 2) + " mb/s" 
-      : 
-        (EWW_NET.enp42s0.NET_UP > 1000 
-        ? 
-          round(EWW_NET.enp42s0.NET_UP / 1000, 2) + " kb/s" 
-        : 
-          round(EWW_NET.enp42s0.NET_UP, 2) + " b/s"
-        )
-      ) 
-      + " ↓ " + 
-      (EWW_NET.enp42s0.NET_DOWN > 1000000
-      ?
-        round(EWW_NET.enp42s0.NET_DOWN / 1000000, 2) + " mb/s" 
-      : 
-        (EWW_NET.enp42s0.NET_DOWN > 1000 
-        ? 
-          round(EWW_NET.enp42s0.NET_DOWN / 1000, 2) + " kb/s" 
-        : 
-          round(EWW_NET.enp42s0.NET_DOWN, 2) + " b/s"
-        )
-      ) 
-   }"
-  )
-)
-
 (defwidget right [] 
-  (box :class "rcorners"
-    (literal "🐑 ${round(EWW_RAM.used_mem / EWW_RAM.total_mem * 100, 2)}% 🔳 ${round(EWW_CPU.avg, 2)}% ${muted != "[MUTED]" ? (volume > 0.5 ? "🔊" : (volume < 0.20 ? "🔈" : "🔉")) : "🔇"} ${round(volume * 100, 2)}% 💾 Home: ${round(EWW_DISK["/home"].used_perc, 2)}% 💾 Nix: ${round(EWW_DISK["/nix"].used_perc, 2)}%")
-    (literal :content "(internet-janus)")
-    (literal :content "(internet-aphrodite)")
-  )
-)
+  (box
+    (literal :class "rcorners" "🐑 ${round(EWW_RAM.used_mem / EWW_RAM.total_mem * 100, 2)}% 🔳 ${round(EWW_CPU.avg, 2)}% ↑ ${(EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_UP > 1000000 ? round((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_UP / 1000000, 2) + " mb/s" : ((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_UP > 1000 ? round((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_UP / 1000, 2) + " kb/s" : round((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_UP, 2) + " b/s")} ↓ ${(EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_DOWN > 1000000 ? round((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_DOWN / 1000000, 2) + " mb/s" : ((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_DOWN > 1000 ? round((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_DOWN / 1000, 2) + " kb/s" : round((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_DOWN, 2) + " b/s")} ${muted != "[MUTED]" ? (volume > 0.5 ? "🔊" : (volume < 0.20 ? "🔈" : "🔉")) : "🔇"} ${round(volume * 100, 2)}% 💾 Home: ${round(EWW_DISK["/home"].used_perc, 2)}% 💾 Nix: ${round(EWW_DISK["/nix"].used_perc, 2)}%")))
 
 (defwindow bar
   :exclusive true
