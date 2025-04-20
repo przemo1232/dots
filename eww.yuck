@@ -93,8 +93,8 @@
 (defwidget right [] 
   (box :class "rcorners"
     (literal "🐑 ${round(EWW_RAM.used_mem / EWW_RAM.total_mem * 100, 2)}% 🔳 ${round(EWW_CPU.avg, 2)}% ${muted != "[MUTED]" ? (volume > 0.5 ? "🔊" : (volume < 0.20 ? "🔈" : "🔉")) : "🔇"} ${round(volume * 100, 2)}% 💾 Home: ${round(EWW_DISK["/home"].used_perc, 2)}% 💾 Nix: ${round(EWW_DISK["/nix"].used_perc, 2)}%")
-    (literal :content internet-aphrodite)
     (literal :content "(internet-janus)")
+    (literal :content "(internet-aphrodite)")
   )
 )
 
