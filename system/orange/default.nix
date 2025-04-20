@@ -17,6 +17,7 @@ in {
     ./virtual.nix
     #./enableopengl.nix
     ./maestral.nix
+    ./bluetooth.nix
   ];
 
   programs.kdeconnect.enable = true;
@@ -25,12 +26,14 @@ in {
     ntfs3g
 
     # Celeste Mod Manager
-    everest-mons
+    mons
 
     # Syncing
     syncthing
 
     linuxKernel.packages.linux_zen.xone
+    
+    gparted
   ];
 
   # bluetooth

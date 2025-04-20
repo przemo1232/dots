@@ -12,7 +12,6 @@
   
   imports = [
     ../lemon/helix.nix
-    ../lemon/spotify.nix
   ] ++ machine-settings.mkHomeModulePaths [
     ./gaming.nix
     ./vulkan-glfw.nix
@@ -80,6 +79,17 @@
     "/usr/bin"
   ];
 
+  home.sessionVariables.GTK_THEME = "Catppuccin-Latte-Rosewater";
+  home.sessionVariables.XCURSOR_THEME = "Catppuccin-Latte-Rosewater";
+  home.sessionVariables.XCURSOR_SIZE = "16";
+
+  nixpkgs.config.packageOverrides = pkgs: {
+    catppuccin-gtk = pkgs.catppuccin-gtk.override {
+      accents = [ "rosewater" ]; # You can specify multiple accents here to output multiple themes 
+      size = "standard";
+      variant = "latte";
+    };
+  };
   
   home.packages = with pkgs; [  
     # Browser
@@ -95,6 +105,14 @@
     # Network
     netcat
     socat
+
+    # Cursor theming
+    glib
+    nwg-look
+    catppuccin-gtk
+    catppuccin-cursors.latteRosewater
+
+    spotify
 
     # image
     gimp
@@ -128,6 +146,7 @@
       "flathub-beta" = "https://flathub.org/beta-repo/flathub-beta.flatpakrepo";
     };
     packages = [
+      "flathub:io.github.everestapi.Olympus//stable"
       "flathub:com.discordapp.Discord//stable"
       "flathub:de.shorsh.discord-screenaudio//stable"
       "flathub:xyz.armcord.ArmCord//stable"
