@@ -34,6 +34,7 @@ in {
     linuxKernel.packages.linux_zen.xone
     
     gparted
+    xorg.xhost
   ];
 
   # bluetooth

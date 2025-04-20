@@ -34,8 +34,8 @@
   };
 
   fileSystems."/run/media/Gaming" =
-    { device = "/dev/disk/by-uuid/01DAE9350CD253A0";
-      fsType = "ntfs";
+    { device = "/dev/disk/by-uuid/7bb09db8-c207-45da-8dc8-72953335a45c";
+      fsType = "ext4";
     };
 
   fileSystems."/run/media/Programmador" =
