@@ -10,20 +10,12 @@
 (defpoll workspace-json :interval "5s"
   `hyprctl workspaces -j`)
 
-(defvar showcurrentworkspace false)
-(defvar workspacenum "0")
-
 (defwidget workspace [number]
-  (eventbox
-    :timeout "0.1s"
-    :onhover `${EWW_EXECUTABLE} update showcurrentworkspace=true; ${EWW_EXECUTABLE} update workspacenum="${number}"`
-    :onhoverlost `${EWW_EXECUTABLE} update showcurrentworkspace=false; ${EWW_EXECUTABLE} update workspacenum="0"`
-    (button 
-      :class "workspace-button"
-      :onclick "hyprctl dispatch workspace ${number}"
-      :tooltip "${(jq(workspace-json, ".[] | select(.id == " + workspacenum + ")") ?: "") == "" ? "" : jq(workspace-json, ".[] | select(.id == " + workspacenum + ")").lastwindowtitle}"
-        (literal :content number)
-    )
+  (button 
+    :class "workspace-button"
+    :onclick "hyprctl dispatch workspace ${number}"
+    :tooltip "${(jq(workspace-json, ".[] | select(.id == " + number + ")") ?: "") == "" ? "No Monitor" : "Monitor " + jq(workspace-json, ".[] | select(.id == " + number + ")").monitorID}${(jq(workspace-json, ".[] | select(.id == " + number + ")") ?: "") == "" ? "" : " | " + (jq(workspace-json, ".[] | select(.id == " + number + ")").lastwindowtitle)}"
+    (literal :content number :class "monitor-${(jq(workspace-json, ".[] | select(.id == " + number + ")") ?: "") == "" ? "none" : jq(workspace-json, ".[] | select(.id == " + number + ")").monitorID}")
   )
 )
 
@@ -53,8 +45,8 @@
   `upower -i $(upower -e | grep BAT) | grep --color=never -E "to full|to empty" | cut -d':' -f2- | sed 's/^[[:space:]]*//'`)
 
 (defwidget center []
-  (box :class "rcorners" 
-    (literal "${EWW_BATTERY == {} ? (EWW_BATTERY.BAT0.status == "Charging" ? "⚡" : "") : ""} ${(EWW_BATTERY ?: "") != "" ? EWW_BATTERY.BAT0.capacity + "% " : "No Battery"}${timeleft}")))
+  (box :class "${(EWW_BATTERY ?: "") != "" ? "rcorners" : ""}" 
+    (literal "${EWW_BATTERY == {} ? (EWW_BATTERY.BAT0.status == "Charging" ? "⚡" : "") : ""} ${(EWW_BATTERY ?: "") != "" ? EWW_BATTERY.BAT0.capacity + "% " : ""}${timeleft}")))
 
 (defpoll volume :interval "0.1s"
   `wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2}'`)

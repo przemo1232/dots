@@ -2,6 +2,16 @@
   all: unset; //Unsets everything so you can style everything from scratch
 }
 
+.monitor-none {
+  color: #5c5c5c;
+}
+.monitor-0 {
+  color: #ff32c9;
+}
+.monitor-1 {
+  color: #32f0ff;
+}
+
 .workspace-button {
   border-radius: 2px;
   background-color: #401160;
