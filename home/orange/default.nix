@@ -20,6 +20,7 @@
     ./graphics.nix
     ./haskell.nix
     ./retro-emulation.nix
+    ./spotify.nix
     # ./c-clang.nix
   ];
 
@@ -110,8 +111,6 @@
     glib
     nwg-look
     catppuccin-gtk
-
-    spotify
 
     # image
     gimp
