@@ -7,9 +7,47 @@
 (defwidget bar []
   (centerbox (left) (center) (right)))
 
+(defpoll workspace-json :interval "5s"
+  `hyprctl workspaces -j`)
+
+(defvar showcurrentworkspace false)
+(defvar workspacenum "0")
+
+(defwidget workspace [number]
+  (eventbox
+    :timeout "0.1s"
+    :onhover `${EWW_EXECUTABLE} update showcurrentworkspace=true; ${EWW_EXECUTABLE} update workspacenum="${number}"`
+    :onhoverlost `${EWW_EXECUTABLE} update showcurrentworkspace=false; ${EWW_EXECUTABLE} update workspacenum="0"`
+    (button 
+      :class "workspace-button"
+      :onclick "hyprctl dispatch workspace ${number}"
+      :tooltip "${(jq(workspace-json, ".[] | select(.id == " + workspacenum + ")") ?: "") == "" ? "" : jq(workspace-json, ".[] | select(.id == " + workspacenum + ")").lastwindowtitle}"
+        (literal :content number)
+    )
+  )
+)
+
+(defwidget workspaces []
+  (box :class "rcorners"
+    (workspace :number "1")
+    (workspace :number "2")
+    (workspace :number "3")
+    (workspace :number "4")
+    (workspace :number "5")
+    (workspace :number "6")
+    (workspace :number "7")
+    (workspace :number "8")
+    (workspace :number "9")
+    (workspace :number "10")
+  )
+)
+
 (defwidget left [] 
   (box
-    (literal :class "rcorners" "${datetime}")))
+    :halign "start"
+    (literal :class "rcorners" "${datetime}")
+    (workspaces)
+))
 
 (defpoll timeleft :interval "1s"
   `upower -i $(upower -e | grep BAT) | grep --color=never -E "to full|to empty" | cut -d':' -f2- | sed 's/^[[:space:]]*//'`)
@@ -25,7 +63,8 @@
   `wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $3}'`)
 
 (defwidget right [] 
-  (box
+  (box 
+    :halign "end"
     (literal :class "rcorners" "🐑 ${round(EWW_RAM.used_mem / EWW_RAM.total_mem * 100, 2)}% 🔳 ${round(EWW_CPU.avg, 2)}% ↑ ${(EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_UP > 1000000 ? round((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_UP / 1000000, 2) + " mb/s" : ((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_UP > 1000 ? round((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_UP / 1000, 2) + " kb/s" : round((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_UP, 2) + " b/s")} ↓ ${(EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_DOWN > 1000000 ? round((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_DOWN / 1000000, 2) + " mb/s" : ((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_DOWN > 1000 ? round((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_DOWN / 1000, 2) + " kb/s" : round((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_DOWN, 2) + " b/s")} ${muted != "[MUTED]" ? (volume > 0.5 ? "🔊" : (volume < 0.20 ? "🔈" : "🔉")) : "🔇"} ${round(volume * 100, 2)}% 💾 Home: ${round(EWW_DISK["/home"].used_perc, 2)}% 💾 Nix: ${round(EWW_DISK["/nix"].used_perc, 2)}%${(EWW_DISK["/run/media/Gaming"] ?: "") == "" ? "" : " 💾 Gaming: " + round(EWW_DISK["/run/media/Gaming"].used_perc, 2) + "%"}")))
 
 (defwindow bar
