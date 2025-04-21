@@ -12,7 +12,7 @@
 
 (defwidget workspace [number]
   (button 
-    :class "workspace-button"
+    ; :class "workspace-button"
     :onclick "hyprctl dispatch workspace ${number}"
     :tooltip "${(jq(workspace-json, ".[] | select(.id == " + number + ")") ?: "") == "" ? "No Monitor" : "Monitor " + jq(workspace-json, ".[] | select(.id == " + number + ")").monitorID}${(jq(workspace-json, ".[] | select(.id == " + number + ")") ?: "") == "" ? "" : " | " + (jq(workspace-json, ".[] | select(.id == " + number + ")").lastwindowtitle)}"
     (literal :content number :class "monitor-${(jq(workspace-json, ".[] | select(.id == " + number + ")") ?: "") == "" ? "none" : jq(workspace-json, ".[] | select(.id == " + number + ")").monitorID}")
@@ -64,6 +64,7 @@
 
 (defwidget left [] 
   (box
+    :space-evenly false
     :halign "start"
     (literal :class "rcorners" "${datetime}")
     (workspaces)
