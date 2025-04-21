@@ -34,19 +34,50 @@
   )
 )
 
+(defpoll song-title :interval "1s"
+  `spotifycli --song`)
+
+(defpoll artist :interval "1s"
+  `spotifycli --artist`)
+
+(defpoll position :interval "0.25s"
+  `spotifycli --position`)
+  
+(defpoll positionraw1 :interval "0.25s"
+  `spotifycli --position | sed 's/[()]//g' | awk -F '/' '{print $1}'`)
+  
+(defpoll positionraw2 :interval "0.25s"
+  `spotifycli --position | sed 's/[()]//g' | awk -F '/' '{print $2}'`)
+
+(defpoll playstatus :interval "0.1s"
+  `spotifycli --playbackstatus`)
+
+(defwidget spotify []
+  (box 
+    :spacing 5
+    :space-evenly false
+    :class "rcorners"
+    :visible "${positionraw1 == "" ? "false" : "true"}"
+    (button :onclick "spotifycli --playpause" (literal "${playstatus}"))
+    (literal "${song-title} - ${artist} | ${positionraw1} / ${positionraw2}")
+))
+
 (defwidget left [] 
   (box
     :halign "start"
     (literal :class "rcorners" "${datetime}")
     (workspaces)
+    (spotify)
 ))
 
 (defpoll timeleft :interval "1s"
   `upower -i $(upower -e | grep BAT) | grep --color=never -E "to full|to empty" | cut -d':' -f2- | sed 's/^[[:space:]]*//'`)
 
 (defwidget center []
-  (box :class "${(EWW_BATTERY ?: "") != "" ? "rcorners" : ""}" 
-    (literal "${EWW_BATTERY != {} ? (EWW_BATTERY.BAT0.status == "Charging" ? "⚡" : "") : ""} ${(EWW_BATTERY ?: "") != "" ? EWW_BATTERY.BAT0.capacity + "% " : ""}${timeleft}")))
+  (box 
+    :class "rcorners"
+    :visible "${(EWW_BATTERY ?: "") != "" ? "true" : "false"}"
+    (literal "${(EWW_BATTERY ?: "") != "" ? (EWW_BATTERY.BAT0.status == "Charging" ? "⚡" : "") : ""} ${(EWW_BATTERY ?: "") != "" ? EWW_BATTERY.BAT0.capacity + "% " : ""}${timeleft}")))
 
 (defpoll volume :interval "0.1s"
   `wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2}'`)
