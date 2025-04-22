@@ -21,23 +21,19 @@
 
 (defwidget workspaces []
   (box :class "rcorners"
-    (workspace :number "1")
-    (workspace :number "2")
-    (workspace :number "3")
-    (workspace :number "4")
-    (workspace :number "5")
-    (workspace :number "6")
-    (workspace :number "7")
-    (workspace :number "8")
-    (workspace :number "9")
-    (workspace :number "10")
+    (for entry in "[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
+      (workspace :number entry)
+    )
   )
 )
 
 (defpoll song-title :interval "1s"
   `spotifycli --song`)
 
-(defpoll artist :interval "1s"
+(defpoll album :interval "1s"
+  `spotifycli --album`)
+
+(defpoll artist :interval "0.5s"
   `spotifycli --artist`)
 
 (defpoll position :interval "0.25s"
@@ -58,8 +54,10 @@
     :space-evenly false
     :class "rcorners"
     :visible "${positionraw1 == "" ? "false" : "true"}"
-    (button :onclick "spotifycli --playpause" (literal "${playstatus}"))
-    (literal "${song-title} - ${artist} | ${positionraw1} / ${positionraw2}")
+    (button :onclick "spotifycli --prev" (literal "⏮"))
+    (button :onclick "spotifycli --playpause" (literal "${playstatus == "▮▮" ? "⏸" : "⏵"}"))
+    (button :onclick "spotifycli --next" (literal "⏭"))
+    (literal " | ${song-title}${song-title != album ? " ∈ " + album : ""} - ${artist} | ${positionraw1} / ${positionraw2}")
 ))
 
 (defwidget left [] 
@@ -86,10 +84,70 @@
 (defpoll muted :interval "0.1s"
   `wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $3}'`)
 
+(defwidget internet [net]
+  (literal "${(net ?: "") != "" ? (net > 1000000 ? round(net / 1000000, 2) + " mb/s" : (net > 1000 ? round(net / 1000, 2) + " kb/s" : net + " b/s")) : ""}")
+)
+
+(defwidget network []
+  (box
+    :space-evenly false
+    :spacing 5
+    (literal "↑")
+    (box
+      :space-evenly false
+      (internet
+        :net "${EWW_NET?.enp42s0?.NET_UP}")
+      (internet
+        :net "${EWW_NET?.wlp6s0?.NET_UP}")
+    )
+    (literal "↓")
+    (box
+      :space-evenly false
+      (internet
+        :net "${EWW_NET?.enp42s0?.NET_DOWN}")
+      (internet
+        :net "${EWW_NET?.wlp6s0?.NET_DOWN}")
+    )
+  )
+)
+
+(defwidget ram []
+  (literal "🐑 ${round(EWW_RAM.used_mem / EWW_RAM.total_mem * 100, 2)}%")
+)
+
+(defwidget cpu [] 
+  (literal "🔳 ${round(EWW_CPU.avg, 2)}%")
+)
+
+(defwidget audio []
+  (literal "${muted != "[MUTED]" ? (volume > 0.5 ? "🔊" : (volume < 0.20 ? "🔈" : "🔉")) : "🔇"} ${round(volume * 100, 2)}%")
+)
+
+(defwidget disk [disk-name mount-point]
+  (literal "${(EWW_DISK[mount-point] ?: "") != "" ? "💾 " + disk-name + ": " + round(EWW_DISK[mount-point].used_perc, 2) + "%" : ""}")
+)
+
 (defwidget right [] 
   (box 
+    :class "rcorners"
+    :space-evenly false
+    :spacing 5
     :halign "end"
-    (literal :class "rcorners" "🐑 ${round(EWW_RAM.used_mem / EWW_RAM.total_mem * 100, 2)}% 🔳 ${round(EWW_CPU.avg, 2)}% ↑ ${(EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_UP > 1000000 ? round((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_UP / 1000000, 2) + " mb/s" : ((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_UP > 1000 ? round((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_UP / 1000, 2) + " kb/s" : round((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_UP, 2) + " b/s")} ↓ ${(EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_DOWN > 1000000 ? round((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_DOWN / 1000000, 2) + " mb/s" : ((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_DOWN > 1000 ? round((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_DOWN / 1000, 2) + " kb/s" : round((EWW_NET.wlp6s0 ?: EWW_NET.enp42s0).NET_DOWN, 2) + " b/s")} ${muted != "[MUTED]" ? (volume > 0.5 ? "🔊" : (volume < 0.20 ? "🔈" : "🔉")) : "🔇"} ${round(volume * 100, 2)}% 💾 Home: ${round(EWW_DISK["/home"].used_perc, 2)}% 💾 Nix: ${round(EWW_DISK["/nix"].used_perc, 2)}%${(EWW_DISK["/run/media/Gaming"] ?: "") == "" ? "" : " 💾 Gaming: " + round(EWW_DISK["/run/media/Gaming"].used_perc, 2) + "%"}")))
+    (ram)
+    (cpu)
+    (network)
+    (audio)
+    (disk 
+      :disk-name "Home"
+      :mount-point "/home")
+    (disk 
+      :disk-name "Nix"
+      :mount-point "/nix")
+    (disk 
+      :disk-name "Gaming"
+      :mount-point "/run/media/Gaming")
+  )
+)
 
 (defwindow bar
   :exclusive true
