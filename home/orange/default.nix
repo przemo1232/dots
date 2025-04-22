@@ -93,6 +93,9 @@
   };
   
   home.packages = with pkgs; [  
+    feh
+    vlc
+
     # macro thing
     xnee
   
