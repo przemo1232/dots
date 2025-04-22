@@ -37,9 +37,6 @@ in {
     xorg.xhost
   ];
 
-  # bluetooth
-  hardware.bluetooth.enable = true;
-
   # Flatpak
   services.flatpak.enable = true;
 
