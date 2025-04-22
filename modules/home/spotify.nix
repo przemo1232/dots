@@ -5,13 +5,13 @@
     spotify-cli-linux
   ];
 
-  # services.spotifyd = {
-  #   enable = true;
-  #   settings = {
-  #     global = {
-  #       username = secrets.spotify-username;
-  #       password = secrets.spotify-password;
-  #     };
-  #   };
-  # };
+  services.spotifyd = {
+    enable = true;
+    # settings = {
+    #   global = {
+    #     username = secrets.spotify-username;
+    #     password = secrets.spotify-password;
+    #   };
+    # };
+  };
 }

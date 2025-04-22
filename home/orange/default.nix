@@ -93,6 +93,9 @@
   };
   
   home.packages = with pkgs; [  
+    # macro thing
+    xnee
+  
     # Browser
     firefox
 

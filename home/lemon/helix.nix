@@ -4,7 +4,7 @@
     enable = true;
     package = inputs.helix-master.packages."x86_64-linux".default;
     settings = {
-      theme = "catppuccin_frappe";
+      theme = "catppuccin_latte";
       # icons = "nerdfonts";
       editor = {
         line-number = "relative";
