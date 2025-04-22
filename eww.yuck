@@ -48,15 +48,23 @@
 (defpoll playstatus :interval "0.1s"
   `spotifycli --playbackstatus`)
 
+(defwidget player []
+  (box
+    :space-evenly false
+    :spacing 0
+    (button :onclick "spotifycli --prev" (literal "⏮"))
+    (button :onclick "spotifycli --playpause" (literal "${playstatus == "▮▮" ? "⏵" : "⏸"}"))
+    (button :onclick "spotifycli --next" (literal "⏭"))
+  )
+)
+
 (defwidget spotify []
   (box 
     :spacing 5
     :space-evenly false
     :class "rcorners"
     :visible "${positionraw1 == "" ? "false" : "true"}"
-    (button :onclick "spotifycli --prev" (literal "⏮"))
-    (button :onclick "spotifycli --playpause" (literal "${playstatus == "▮▮" ? "⏸" : "⏵"}"))
-    (button :onclick "spotifycli --next" (literal "⏭"))
+    (player)
     (literal " | ${song-title}${song-title != album ? " ∈ " + album : ""} - ${artist} | ${positionraw1} / ${positionraw2}")
 ))
 
