@@ -18,6 +18,7 @@ in {
     #./enableopengl.nix
     ./maestral.nix
     ./bluetooth.nix
+    ./protonvpn.nix
   ];
 
   programs.kdeconnect.enable = true;
@@ -54,5 +55,6 @@ in {
     NIXPKGS_ALLOW_UNFREE = "1";
   };
   hardware.xpadneo.enable = true;
-  hardware.xone.enable = true; 
+  hardware.xone.enable = true;
+
 }

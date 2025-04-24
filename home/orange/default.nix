@@ -95,12 +95,10 @@
   home.packages = with pkgs; [  
     feh
     vlc
+    gifsicle
 
     # macro thing
     xnee
-  
-    # Browser
-    firefox
 
     # Notes
     obsidian
@@ -156,6 +154,7 @@
       "flathub:com.discordapp.Discord//stable"
       "flathub:de.shorsh.discord-screenaudio//stable"
       "flathub:xyz.armcord.ArmCord//stable"
+      "flathub:net.waterfox.waterfox//stable"
       "flathub:org.vinegarhq.Sober//stable"
     ];
   };

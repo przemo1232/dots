@@ -36,10 +36,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     zig.url = "github:mitchellh/zig-overlay";
+    waterfox = {
+      url = "github:sammypanda/nixos-waterfox";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
-    self, nixpkgs, hyprland, xdg-desktop-portal-hyprland, home-manager, helix-master, hypr-contrib, flatpaks, impermanence, nixvim, fenix, zig, ... 
+    self, nixpkgs, hyprland, xdg-desktop-portal-hyprland, home-manager, helix-master, hypr-contrib, flatpaks, impermanence, nixvim, fenix, zig, waterfox, ... 
   }@inputs: let
     secrets = import "/etc/nixos/secrets.nix";
     machine-settings = import ./settings/machine-settings.nix;
@@ -63,7 +67,6 @@
         (./system + "/${machine-settings.user}/default.nix")
       ];
     };
-
   in {
   
     homeConfigurations = import ./home/home-configuration.nix { 
