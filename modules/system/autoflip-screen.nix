@@ -8,7 +8,7 @@
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
     script = ''
-      ${pkgs.bash}/bin/bash /etc/nixos/scripts/autorotatelistener.sh
+      ${pkgs.bash}/bin/bash -l -c /etc/nixos/scripts/autorotatelistener.sh
     '';
     serviceConfig = {
       User = "${user}";
