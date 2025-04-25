@@ -56,9 +56,6 @@
     :space-evenly false
     :spacing 5
     :halign "end"
-    (literal
-      :class "testing"
-      "test")
     (ram)
     (cpu)
     (network)
