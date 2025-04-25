@@ -159,7 +159,7 @@
 
 (defwindow bar
   :exclusive true
-  :monitor { monitor ?: 0 }
+  :monitor 0
   :windowtype "normal"
   :geometry (geometry :x "0%"
                       :y "1%"
