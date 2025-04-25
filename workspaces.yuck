@@ -1,0 +1,70 @@
+(defwindow workspace-preview
+  :monitor 0
+  :exclusive false
+  :stacking "overlay"
+  :geometry (geometry
+    :anchor "top left"
+    :x "7.66%"
+    :y 10
+  )
+  (workspace-preview)
+)
+
+(defpoll monitor-info :interval "30m"
+  `hyprctl monitors -j`)
+
+(defvar current-number 0)
+
+(defwidget workspace-preview []
+  (box
+    :class "rcorners"
+    :spacing 0
+    :hexpand false
+    :vexpand false
+    :space-evenly false
+    (for entry in "${monitor-info}"
+      (box
+        :class "bg-monitor bg-monitor-${entry.id}"
+        :halign "center"
+        :valign "end"
+        :hexpand false
+        :vexpand false
+        :width "${entry.width / 10}"
+        :height "${entry.height / 10}"
+        (label
+          :hexpand false
+          :vexpand false
+          :xalign 0
+          :yalign 0
+          :wrap true
+          :show-truncated true
+          :truncate true
+          :visible { ((jq(workspace-json, ".[] | select(.id == " + current-number + ")") ?: "") == "" ? "none" : jq(workspace-json, ".[] | select(.id == " + current-number + ")").monitorID) == entry.id ? true : false }
+          :text {((jq(workspace-json, ".[] | select(.id == " + current-number + ")") ?: "") == "" ? "none" : jq(workspace-json, ".[] | select(.id == " + current-number + ")").monitorID) == entry.id ? (jq(workspace-json, ".[] | select(.id == " + current-number + ")") ?: "") == "" ? "" : (jq(workspace-json, ".[] | select(.id == " + current-number + ")").lastwindowtitle) : "I HAVE NOTHING"}))
+    )
+  )
+)
+
+(defpoll workspace-json :interval "5s"
+  `hyprctl workspaces -j`)
+
+(defwidget workspace [number]
+  (eventbox
+    :onhover "${EWW_EXECUTABLE} open workspace-preview --toggle; ${EWW_EXECUTABLE} update current-number=${number}"
+    :onhoverlost "${EWW_EXECUTABLE} open workspace-preview --toggle; ${EWW_EXECUTABLE} update current-number=${number}"
+    ; :tooltip "${(jq(workspace-json, ".[] | select(.id == " + current-number + ")") ?: "") == "" ? "No Monitor" : "Monitor " + jq(workspace-json, ".[] | select(.id == " + current-number + ")").monitorID}${(jq(workspace-json, ".[] | select(.id == " + current-number + ")") ?: "") == "" ? "" : " | " + (jq(workspace-json, ".[] | select(.id == " + current-number + ")").lastwindowtitle)}"
+    (button 
+      ; :class "workspace-button"
+      :onclick "hyprctl dispatch workspace ${number}"
+      (literal :content number :class "monitor-${(jq(workspace-json, ".[] | select(.id == " + number + ")") ?: "") == "" ? "none" : jq(workspace-json, ".[] | select(.id == " + number + ")").monitorID}")
+    )
+  )
+)
+
+(defwidget workspaces []
+  (box :class "rcorners"
+    (for entry in "[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
+      (workspace :number entry)
+    )
+  )
+)
