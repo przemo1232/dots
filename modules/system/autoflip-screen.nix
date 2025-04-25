@@ -10,7 +10,7 @@
     path = with pkgs; [ bash iio-sensor-proxy ];
     serviceConfig = {
       ExecStart = ''
-        bash /etc/nixos/scripts/autorotateslistener.sh
+        bash /etc/nixos/scripts/autorotatelistener.sh
       '';
       Restart = "always";
       RestartSec = 5;
