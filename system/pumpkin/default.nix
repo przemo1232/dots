@@ -13,6 +13,7 @@
     ./maestral.nix
     ./protonvpn.nix
     ./laptop-coolaid.nix
+    ./autoflip-screen.nix
   ];
   services.upower.enable = true;
   services.flatpak.enable = true;

@@ -3,5 +3,14 @@
 { ... }:
 
 {
-  
+  systemd.services.orientation-watcher = {
+    description = "Orientation Change Handler";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      ExecStart = "/etc/nixos/scripts/autorotatelistener.sh";
+      Restart = "always";
+      RestartSec = 5;
+    };
+  };
 }
