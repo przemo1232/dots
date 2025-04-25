@@ -63,6 +63,30 @@
 (defpoll datetime :interval "1s"
   `date "+%B %e %a %H:%M:%S %Y"`)
 
+(defwidget funny-widget []
+  (literal "hello")
+)
+
+(defwindow funny-menu
+  :monitor 0
+  :exclusive false
+  :stacking "overlay"
+  :geometry (geometry
+    :anchor "top left"
+    :x 1000
+    :y 0)
+  (funny-widget))
+
+(defwidget testing []
+  (box
+    (literal :class "rcorners" "testing")
+    (expander
+      :expanded true
+      (funny-menu)
+    )
+  )
+)
+
 (defwidget left [] 
   (box
     :space-evenly false
@@ -70,4 +94,5 @@
     (literal :class "rcorners" "${datetime}")
     (workspaces)
     (spotify)
+    (testing)
 ))
