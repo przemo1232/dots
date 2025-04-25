@@ -1,0 +1,76 @@
+(defpoll gpuusage :interval "1s"
+  `gpustat --no-color | cut -d '|' -f2 | cut -b "9,10,11" | sed -e "1d" | sed -e "s/ //"`)
+
+(defpoll volume :interval "0.1s"
+  `wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $2}'`)
+
+(defpoll muted :interval "0.1s"
+  `wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $3}'`)
+
+(defwidget internet [net]
+  (literal "${(net ?: "") != "" ? (net > 1000000 ? round(net / 1000000, 2) + " mb/s" : (net > 1000 ? round(net / 1000, 2) + " kb/s" : net + " b/s")) : ""}")
+)
+
+(defwidget network []
+  (box
+    :space-evenly false
+    :spacing 5
+    (literal "↑")
+    (box
+      :space-evenly false
+      (internet
+        :net "${EWW_NET?.enp42s0?.NET_UP}")
+      (internet
+        :net "${EWW_NET?.wlp6s0?.NET_UP}")
+    )
+    (literal "↓")
+    (box
+      :space-evenly false
+      (internet
+        :net "${EWW_NET?.enp42s0?.NET_DOWN}")
+      (internet
+        :net "${EWW_NET?.wlp6s0?.NET_DOWN}")
+    )
+  )
+)
+
+(defwidget ram []
+  (literal "🐑 ${round(EWW_RAM.used_mem / EWW_RAM.total_mem * 100, 2)}%")
+)
+
+(defwidget cpu [] 
+  (literal "🔳 ${round(EWW_CPU.avg, 2)}%")
+)
+
+(defwidget audio []
+  (literal "${muted != "[MUTED]" ? (volume > 0.5 ? "🔊" : (volume < 0.20 ? "🔈" : "🔉")) : "🔇"} ${round(volume * 100, 2)}%")
+)
+
+(defwidget disk [disk-name mount-point]
+  (literal "${(EWW_DISK[mount-point] ?: "") != "" ? "💾 " + disk-name + ": " + round(EWW_DISK[mount-point].used_perc, 2) + "%" : ""}")
+)
+
+(defwidget right [] 
+  (box 
+    :class "rcorners"
+    :space-evenly false
+    :spacing 5
+    :halign "end"
+    (literal
+      :class "testing"
+      "test")
+    (ram)
+    (cpu)
+    (network)
+    (audio)
+    (disk 
+      :disk-name "Home"
+      :mount-point "/home")
+    (disk 
+      :disk-name "Nix"
+      :mount-point "/nix")
+    (disk 
+      :disk-name "Gaming"
+      :mount-point "/run/media/Gaming")
+  )
+)
