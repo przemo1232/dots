@@ -3,15 +3,13 @@
 { user, pkgs, ... }:
 
 {
-  systemd.services.orientation-watcher = {
+  systemd.user.services.orientation-watcher = {
     description = "Orientation Change Handler";
-    after = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
+    wantedBy = [ "default.target" ];
     script = ''
       ${pkgs.bash}/bin/bash -l -c /etc/nixos/scripts/autorotatelistener.sh
     '';
     serviceConfig = {
-      User = "${user}";
       Restart = "always";
       RestartSec = 5;
     };
