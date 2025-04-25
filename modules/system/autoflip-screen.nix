@@ -11,7 +11,6 @@
       ${pkgs.bash}/bin/bash /etc/nixos/scripts/autorotatelistener.sh
     '';
     serviceConfig = {
-      Type = "oneshot";
       User = "${user}";
       Restart = "always";
       RestartSec = 5;
