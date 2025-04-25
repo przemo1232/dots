@@ -157,7 +157,7 @@
   )
 )
 
-(defwindow bar [monitor]
+(defwindow bar
   :exclusive true
   :monitor { monitor ?: 0 }
   :windowtype "normal"
