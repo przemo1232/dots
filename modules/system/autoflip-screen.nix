@@ -7,7 +7,7 @@
     description = "Orientation Change Handler";
     after = [ "network.target" ];
     wantedBy = [ "multi-user.target" ];
-    path = with pkgs [ bash iio-sensor-proxy ];
+    path = with pkgs; [ bash iio-sensor-proxy ];
     serviceConfig = {
       ExecStart = ''
         bash /etc/nixos/scripts/autorotateslistener.sh
