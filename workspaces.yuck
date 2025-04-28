@@ -38,7 +38,6 @@
           :yalign 0
           :wrap true
           :show-truncated true
-          :truncate true
           :visible { ((jq(workspace-json, ".[] | select(.id == " + current-number + ")") ?: "") == "" ? "none" : jq(workspace-json, ".[] | select(.id == " + current-number + ")").monitorID) == entry.id ? true : false }
           :text {((jq(workspace-json, ".[] | select(.id == " + current-number + ")") ?: "") == "" ? "none" : jq(workspace-json, ".[] | select(.id == " + current-number + ")").monitorID) == entry.id ? (jq(workspace-json, ".[] | select(.id == " + current-number + ")") ?: "") == "" ? "" : (jq(workspace-json, ".[] | select(.id == " + current-number + ")").lastwindowtitle) : "I HAVE NOTHING"}))
     )
@@ -48,8 +47,12 @@
 (defpoll workspace-json :interval "5s"
   `hyprctl workspaces -j`)
 
+(defpoll active-workspace :interval "0.1s"
+  `hyprctl activeworkspace -j`)
+
 (defwidget workspace [number]
   (eventbox
+    :space-evenly false
     :visible { number > 5 ? ((jq(workspace-json, ".[] | select(.id == " + number + ")") ?: "") == "" ? false : true) : true }
     :onhover "${EWW_EXECUTABLE} open workspace-preview --toggle; ${EWW_EXECUTABLE} update current-number=${number}"
     :onhoverlost "${EWW_EXECUTABLE} open workspace-preview --toggle; ${EWW_EXECUTABLE} update current-number=${number}"
@@ -57,14 +60,14 @@
     (button 
       ; :class "workspace-button"
       :onclick "hyprctl dispatch workspace ${number}"
-      (literal :content number :class "monitor-${(jq(workspace-json, ".[] | select(.id == " + number + ")") ?: "") == "" ? "none" : jq(workspace-json, ".[] | select(.id == " + number + ")").monitorID}")
+      (literal :class "${number == active-workspace.id ? "monitor-long" : "monitor"} monitor-${(jq(workspace-json, ".[] | select(.id == " + number + ")") ?: "") == "" ? "none" : jq(workspace-json, ".[] | select(.id == " + number + ")").monitorID}" " ")
     )
   )
 )
 
 (defwidget workspaces []
   (box
-    :space-evenly true
+    :space-evenly false
     :spacing 5
     :class "rcorners"
     (for entry in "[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"

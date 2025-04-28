@@ -7,17 +7,25 @@
 .testing {
 }
 
+.monitor {
+  padding-left: 17px;
+  border-radius: 15px;
+}
+.monitor-long {
+  padding-left: 42px;
+  border-radius: 15px;
+}
 .monitor-none {
-  color: #5c5c5c;
+  background-color: #5c5c5c;
 }
 .monitor-0 {
-  color: #fe7ff7;
+  background-color: #fe7ff7;
 }
 .monitor-1 {
-  color: #b8fcf6;
+  background-color: #b8fcf6;
 }
 .monitor-2 {
-  color: #fffdf4;
+  background-color: #fffdf4;
 }
 
 
@@ -69,10 +77,6 @@
   color: #D35D6E;
   background-color: #303030;
   border-radius: 10px;
-}
-
-.circ {
-  margin: 3px;
 }
 
 .bar {

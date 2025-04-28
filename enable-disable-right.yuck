@@ -34,7 +34,7 @@
     (button
       :class "rcorners"
       :visible { disk-labels ?: false }
-      :onclick "${EWW_EXECUTABLE} update disk-labels=${!disk-labels-variable}"
+      :onclick "${EWW_EXECUTABLE} update disk-labels=${!(disk-labels-variable ?: false)}"
       (literal "${disk-labels-variable == true ? "Y" : "N"} LABELS")
     )
   )
