@@ -1,0 +1,81 @@
+(defwindow toggle-items
+  :monitor 0
+  :exclusive false
+  :stacking "overlay"
+  :geometry (geometry
+    :anchor "top right"
+    :x "0.60%"
+    :y 10
+  )
+  (toggle-items-window)
+)
+
+(defwidget toggle-items []
+  (button
+    :onclick "${EWW_EXECUTABLE} open toggle-items --toggle"
+    (literal :class "rcorners" "✧̣̇˚.")
+  )
+)
+
+(defwidget right-item [item-name name variable emoji-variable ?disk-labels-variable ?disk-labels]
+  (box
+    :space-evenly false
+    :orientation "vertical"
+    (button
+      :class "rcorners"
+      :onclick "${EWW_EXECUTABLE} update ${name}=${!variable}"
+      (literal item-name)
+    )
+    (button
+      :class "rcorners"
+      :onclick "${EWW_EXECUTABLE} update ${name}-emoji=${!emoji-variable}"
+      (literal "${emoji-variable == true ? "Y" : "N"} EMOJI")
+    )
+    (button
+      :class "rcorners"
+      :visible { disk-labels ?: false }
+      :onclick "${EWW_EXECUTABLE} update disk-labels=${!disk-labels-variable}"
+      (literal "${disk-labels-variable == true ? "Y" : "N"} LABELS")
+    )
+  )
+)
+
+(defwidget toggle-items-window []
+  (box
+    :space-evenly true
+    :spacing 5
+    :class "bar"
+    (right-item
+      :item-name "RAM"
+      :name "ram-visible"
+      :variable { ram-visible }
+      :emoji-variable { ram-visible-emoji }
+    )
+    (right-item
+      :item-name "CPU"
+      :name "cpu-visible"
+      :variable { cpu-visible }
+      :emoji-variable { cpu-visible-emoji }
+    )
+    (right-item
+      :item-name "NETWORK"
+      :name "network-visible"
+      :variable { network-visible }
+      :emoji-variable { network-visible-emoji }
+    )
+    (right-item
+      :item-name "AUDIO"
+      :name "audio-visible"
+      :variable { audio-visible }
+      :emoji-variable { audio-visible-emoji }
+    )
+    (right-item
+      :item-name "DISK"
+      :name "disk-visible"
+      :variable { disk-visible }
+      :emoji-variable { disk-visible-emoji }
+      :disk-labels true
+      :disk-labels-variable { disk-labels }
+    )
+  )
+)

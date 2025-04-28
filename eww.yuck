@@ -2,7 +2,9 @@
 (include "./left.yuck")
 
 (defwidget bar []
-  (centerbox (left) (center) (right)))
+  (centerbox 
+    :class "bar"
+    (left) (center) (right)))
 
 (defpoll timeleft :interval "1s"
   `upower -i $(upower -e | grep BAT) | grep --color=never -E "to full|to empty" | cut -d':' -f2- | sed 's/^[[:space:]]*//'`)
@@ -19,7 +21,7 @@
   :windowtype "normal"
   :geometry (geometry :x "0%"
                       :y "1%"
-					  :width "97%"
+					  :width "98.8%"
 					  :height "2%"
 					  :anchor "top center")
   :stacking "fg"

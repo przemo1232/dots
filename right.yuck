@@ -1,3 +1,5 @@
+(include "./enable-disable-right.yuck")
+
 (defpoll gpuusage :interval "1s"
   `gpustat --no-color | cut -d '|' -f2 | cut -b "9,10,11" | sed -e "1d" | sed -e "s/ //"`)
 
@@ -7,18 +9,25 @@
 (defpoll muted :interval "0.1s"
   `wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print $3}'`)
 
+; (defwidget ascii-bar [amount]
+;   (if { number }):wq
+; )
+
 (defwidget internet [net]
   (literal "${(net ?: "") != "" ? (net > 1000000 ? round(net / 1000000, 2) + " mb/s" : (net > 1000 ? round(net / 1000, 2) + " kb/s" : net + " b/s")) : ""}")
 )
 
-(defwidget network []
+(defwidget network [?visible ?visible-emoji]
   (box
+    :visible { visible ?: true }
     :spacing 5
     :space-evenly false
     (box
       :class "rcorners"
       :space-evenly false
-      (literal "↑ ")
+      (literal 
+        :visible { visible-emoji }
+        "↑ ")
       (box
         :spacing 5
         :space-evenly false
@@ -31,7 +40,9 @@
     (box
       :class "rcorners"
       :space-evenly false
-      (literal "↓ ")
+      (literal 
+        :visible { visible-emoji }
+        "↓ ")
       (box
         :spacing 5
         :space-evenly false
@@ -44,47 +55,85 @@
   )
 )
 
-(defwidget ram []
+(defwidget ram [?visible ?visible-emoji]
   (literal 
+    :visible { visible ?: true }
     :class "rcorners"
-    "🐑 ${round(EWW_RAM.used_mem / EWW_RAM.total_mem * 100, 2)}%")
+    "${visible-emoji ? "🐑 " : ""}${round(EWW_RAM.used_mem / EWW_RAM.total_mem * 100, 2)}%")
 )
 
-(defwidget cpu [] 
+(defwidget cpu [?visible ?visible-emoji] 
   (literal 
+    :visible { visible ?: true }
     :class "rcorners"
-    "🔳 ${round(EWW_CPU.avg, 2)}%")
+    "${visible-emoji ? "🔳 " : ""}${round(EWW_CPU.avg, 2)}%")
 )
 
-(defwidget audio []
+(defwidget audio [?visible ?visible-emoji]
   (literal 
+    :visible { visible ?: true }
     :class "rcorners"
-    "${muted != "[MUTED]" ? (volume > 0.5 ? "🔊" : (volume < 0.20 ? "🔈" : "🔉")) : "🔇"} ${round(volume * 100, 2)}%")
+    "${visible-emoji ? (muted != "[MUTED]" ? (volume > 0.5 ? "🔊 " : (volume < 0.20 ? "🔈 " : "🔉 ")) : "🔇 ") : ""}${round(volume * 100, 2)}%")
 )
 
-(defwidget disk [disk-name mount-point]
+(defwidget disk [?visible ?visible-emoji ?disk-labels-visible disk-name mount-point]
   (literal 
+    :visible { visible ?: true }
     :class "rcorners"
-    "${(EWW_DISK[mount-point] ?: "") != "" ? "💾 " + disk-name + ": " + round(EWW_DISK[mount-point].used_perc, 2) + "%" : ""}")
+    "${(EWW_DISK[mount-point] ?: "") != "" ? (visible-emoji ? "💾 " : "") + (disk-labels-visible ? disk-name + ": " : "") + round(EWW_DISK[mount-point].used_perc, 2) + "%" : ""}")
 )
+
+(defvar ram-visible true)
+(defvar cpu-visible true)
+(defvar network-visible true)
+(defvar audio-visible true)
+(defvar disk-visible true)
+(defvar ram-visible-emoji true)
+(defvar cpu-visible-emoji true)
+(defvar network-visible-emoji true)
+(defvar audio-visible-emoji true)
+(defvar disk-visible-emoji true)
+(defvar disk-labels true)
 
 (defwidget right [] 
   (box 
     :space-evenly false
     :spacing 5
     :halign "end"
-    (ram)
-    (cpu)
-    (network)
-    (audio)
+    (ram
+      :visible { ram-visible }
+      :visible-emoji { ram-visible-emoji }
+    )
+    (cpu
+      :visible { cpu-visible }
+      :visible-emoji { cpu-visible-emoji }
+    )
+    (network
+      :visible { network-visible }
+      :visible-emoji { network-visible-emoji }
+    )
+    (audio
+      :visible { audio-visible }
+      :visible-emoji { audio-visible-emoji }
+    )
     (disk 
+      :visible { disk-visible }
+      :visible-emoji { disk-visible-emoji }
+      :disk-labels-visible { disk-labels }
       :disk-name "Home"
       :mount-point "/home")
     (disk 
+      :visible { disk-visible }
+      :visible-emoji { disk-visible-emoji }
+      :disk-labels-visible { disk-labels }
       :disk-name "Nix"
       :mount-point "/nix")
     (disk 
+      :visible { disk-visible }
+      :visible-emoji { disk-visible-emoji }
+      :disk-labels-visible { disk-labels }
       :disk-name "Gaming"
       :mount-point "/run/media/Gaming")
+    (toggle-items)
   )
 )
