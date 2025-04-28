@@ -13,46 +13,63 @@
 
 (defwidget network []
   (box
-    :space-evenly false
     :spacing 5
-    (literal "↑")
+    :space-evenly false
     (box
+      :class "rcorners"
       :space-evenly false
-      (internet
-        :net "${EWW_NET?.enp42s0?.NET_UP}")
-      (internet
-        :net "${EWW_NET?.wlp6s0?.NET_UP}")
+      (literal "↑ ")
+      (box
+        :spacing 5
+        :space-evenly false
+        (internet
+          :net "${EWW_NET?.enp42s0?.NET_UP}")
+        (internet
+          :net "${EWW_NET?.wlp6s0?.NET_UP}")
+      )
     )
-    (literal "↓")
     (box
+      :class "rcorners"
       :space-evenly false
-      (internet
-        :net "${EWW_NET?.enp42s0?.NET_DOWN}")
-      (internet
-        :net "${EWW_NET?.wlp6s0?.NET_DOWN}")
+      (literal "↓ ")
+      (box
+        :spacing 5
+        :space-evenly false
+        (internet
+          :net "${EWW_NET?.enp42s0?.NET_DOWN}")
+        (internet
+          :net "${EWW_NET?.wlp6s0?.NET_DOWN}")
+      )
     )
   )
 )
 
 (defwidget ram []
-  (literal "🐑 ${round(EWW_RAM.used_mem / EWW_RAM.total_mem * 100, 2)}%")
+  (literal 
+    :class "rcorners"
+    "🐑 ${round(EWW_RAM.used_mem / EWW_RAM.total_mem * 100, 2)}%")
 )
 
 (defwidget cpu [] 
-  (literal "🔳 ${round(EWW_CPU.avg, 2)}%")
+  (literal 
+    :class "rcorners"
+    "🔳 ${round(EWW_CPU.avg, 2)}%")
 )
 
 (defwidget audio []
-  (literal "${muted != "[MUTED]" ? (volume > 0.5 ? "🔊" : (volume < 0.20 ? "🔈" : "🔉")) : "🔇"} ${round(volume * 100, 2)}%")
+  (literal 
+    :class "rcorners"
+    "${muted != "[MUTED]" ? (volume > 0.5 ? "🔊" : (volume < 0.20 ? "🔈" : "🔉")) : "🔇"} ${round(volume * 100, 2)}%")
 )
 
 (defwidget disk [disk-name mount-point]
-  (literal "${(EWW_DISK[mount-point] ?: "") != "" ? "💾 " + disk-name + ": " + round(EWW_DISK[mount-point].used_perc, 2) + "%" : ""}")
+  (literal 
+    :class "rcorners"
+    "${(EWW_DISK[mount-point] ?: "") != "" ? "💾 " + disk-name + ": " + round(EWW_DISK[mount-point].used_perc, 2) + "%" : ""}")
 )
 
 (defwidget right [] 
   (box 
-    :class "rcorners"
     :space-evenly false
     :spacing 5
     :halign "end"
