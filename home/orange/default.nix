@@ -93,7 +93,9 @@
     };
   };
   
-  home.packages = with pkgs; [  
+  home.packages = with pkgs; [
+    whatsapp-for-linux
+  
     feh
     vlc
     gifsicle
