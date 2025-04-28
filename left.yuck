@@ -1,5 +1,3 @@
-(include "./workspaces.yuck")
-
 (defpoll song-title :interval "1s"
   `spotifycli --song`)
 
@@ -50,7 +48,11 @@
     :space-evenly false
     :halign "start"
     (literal :class "rcorners" "${datetime}")
-    (workspaces)
+    (literal 
+      :class "rcorners"
+      :visible "${(EWW_BATTERY ?: "") != "" ? "true" : "false"}"
+      "${(EWW_BATTERY ?: "") != "" ? (EWW_BATTERY.BAT0.status == "Charging" ? "⚡" : "") : ""} ${(EWW_BATTERY ?: "") != "" ? EWW_BATTERY.BAT0.capacity + "% " : ""}${timeleft}"
+    )
     (spotify)
   )
 )

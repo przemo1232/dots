@@ -1,5 +1,6 @@
 (include "./right.yuck")
 (include "./left.yuck")
+(include "./workspaces.yuck")
 
 (defwidget bar []
   (centerbox 
@@ -11,9 +12,9 @@
 
 (defwidget center []
   (box 
-    :class "rcorners"
-    :visible "${(EWW_BATTERY ?: "") != "" ? "true" : "false"}"
-    (literal "${(EWW_BATTERY ?: "") != "" ? (EWW_BATTERY.BAT0.status == "Charging" ? "⚡" : "") : ""} ${(EWW_BATTERY ?: "") != "" ? EWW_BATTERY.BAT0.capacity + "% " : ""}${timeleft}")))
+    (workspaces)
+  )
+)
 
 (defwindow bar
   :exclusive true
