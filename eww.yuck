@@ -4,7 +4,7 @@
 
 (defwidget bar []
   (centerbox 
-    :class "bar"
+    ; :class "bar"
     (left) (center) (right)))
 
 (defpoll timeleft :interval "1s"
