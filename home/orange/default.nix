@@ -22,6 +22,7 @@
     ./retro-emulation.nix
     ./spotify.nix
     # ./c-clang.nix
+    ./catppuccin.nix
   ];
 
   # Git
@@ -110,11 +111,6 @@
     # Network
     netcat
     socat
-
-    # Cursor theming
-    glib
-    nwg-look
-    catppuccin-gtk
 
     # image
     gimp

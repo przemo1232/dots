@@ -25,9 +25,6 @@ in {
     # Setup home-manager
     home-manager
 
-    # Used to look up stuff
-    firefox
-
     # Audio
     pipewire
 
