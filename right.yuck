@@ -17,7 +17,7 @@
   (literal "${(net ?: "") != "" ? (net > 1000000 ? round(net / 1000000, 2) + " mb/s" : (net > 1000 ? round(net / 1000, 2) + " kb/s" : net + " b/s")) : ""}")
 )
 
-(defwidget network [?visible ?visible-emoji]
+(defwidget network [?visible ?visible-emoji ?labels-visible]
   (box
     :visible { visible ?: true }
     :spacing 5
@@ -28,6 +28,9 @@
       (literal 
         :visible { visible-emoji }
         "↑ ")
+      (literal
+        :visible { labels-visible }
+        "UP: ")
       (box
         :spacing 5
         :space-evenly false
@@ -43,6 +46,9 @@
       (literal 
         :visible { visible-emoji }
         "↓ ")
+      (literal
+        :visible { labels-visible }
+        "DOWN: ")
       (box
         :spacing 5
         :space-evenly false
@@ -55,32 +61,32 @@
   )
 )
 
-(defwidget ram [?visible ?visible-emoji]
+(defwidget ram [?visible ?visible-emoji ?labels-visible]
   (literal 
     :visible { visible ?: true }
     :class "rcorners"
-    "${visible-emoji ? "🐑 " : ""}${round(EWW_RAM.used_mem / EWW_RAM.total_mem * 100, 2)}%")
+    "${visible-emoji ? "🐑 " : ""}${labels-visible ? "RAM: " : ""}${round(EWW_RAM.used_mem / EWW_RAM.total_mem * 100, 2)}%")
 )
 
-(defwidget cpu [?visible ?visible-emoji] 
+(defwidget cpu [?visible ?visible-emoji ?labels-visible] 
   (literal 
     :visible { visible ?: true }
     :class "rcorners"
-    "${visible-emoji ? "🔳 " : ""}${round(EWW_CPU.avg, 2)}%")
+    "${visible-emoji ? "🔳 " : ""}${labels-visible ? "CPU: " : ""}${round(EWW_CPU.avg, 2)}%")
 )
 
-(defwidget audio [?visible ?visible-emoji]
+(defwidget audio [?visible ?visible-emoji ?labels-visible]
   (literal 
     :visible { visible ?: true }
     :class "rcorners"
-    "${visible-emoji ? (muted != "[MUTED]" ? (volume > 0.5 ? "🔊 " : (volume < 0.20 ? "🔈 " : "🔉 ")) : "🔇 ") : ""}${round(volume * 100, 2)}%")
+    "${visible-emoji ? (muted != "[MUTED]" ? (volume > 0.5 ? "🔊 " : (volume < 0.20 ? "🔈 " : "🔉 ")) : "🔇 ") : ""}${labels-visible ? "AUDIO: " : ""}${round(volume * 100, 2)}%")
 )
 
-(defwidget disk [?visible ?visible-emoji ?disk-labels-visible disk-name mount-point]
+(defwidget disk [?visible ?visible-emoji ?labels-visible disk-name mount-point]
   (literal 
     :visible { visible ?: true }
     :class "rcorners"
-    "${(EWW_DISK[mount-point] ?: "") != "" ? (visible-emoji ? "💾 " : "") + (disk-labels-visible ? disk-name + ": " : "") + round(EWW_DISK[mount-point].used_perc, 2) + "%" : ""}")
+    "${(EWW_DISK[mount-point] ?: "") != "" ? (visible-emoji ? "💾 " : "") + (labels-visible ? disk-name + ": " : "") + round(EWW_DISK[mount-point].used_perc, 2) + "%" : ""}")
 )
 
 (defvar ram-visible true)
@@ -93,45 +99,53 @@
 (defvar network-visible-emoji true)
 (defvar audio-visible-emoji true)
 (defvar disk-visible-emoji true)
-(defvar disk-labels true)
+(defvar ram-visible-labels false)
+(defvar cpu-visible-labels false)
+(defvar network-visible-labels false)
+(defvar audio-visible-labels false)
+(defvar disk-visible-labels true)
 
 (defwidget right [] 
   (box 
     :space-evenly false
-    :spacing 5
+    :spacing 0
     :halign "end"
     (ram
       :visible { ram-visible }
       :visible-emoji { ram-visible-emoji }
+      :labels-visible { ram-visible-labels }
     )
     (cpu
       :visible { cpu-visible }
       :visible-emoji { cpu-visible-emoji }
+      :labels-visible { cpu-visible-labels }
     )
     (network
       :visible { network-visible }
       :visible-emoji { network-visible-emoji }
+      :labels-visible { network-visible-labels }
     )
     (audio
       :visible { audio-visible }
       :visible-emoji { audio-visible-emoji }
+      :labels-visible { audio-visible-labels }
     )
     (disk 
       :visible { disk-visible }
       :visible-emoji { disk-visible-emoji }
-      :disk-labels-visible { disk-labels }
+      :labels-visible { disk-visible-labels }
       :disk-name "Home"
       :mount-point "/home")
     (disk 
       :visible { disk-visible }
       :visible-emoji { disk-visible-emoji }
-      :disk-labels-visible { disk-labels }
+      :labels-visible { disk-visible-labels }
       :disk-name "Nix"
       :mount-point "/nix")
     (disk 
       :visible { disk-visible }
       :visible-emoji { disk-visible-emoji }
-      :disk-labels-visible { disk-labels }
+      :labels-visible { disk-visible-labels }
       :disk-name "Gaming"
       :mount-point "/run/media/Gaming")
     (toggle-items)

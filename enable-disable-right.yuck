@@ -17,25 +17,24 @@
   )
 )
 
-(defwidget right-item [item-name name variable emoji-variable ?disk-labels-variable ?disk-labels]
+(defwidget right-item [item-name name variable emoji-variable ?labels-variable]
   (box
     :space-evenly false
     :orientation "vertical"
     (button
       :class "rcorners"
       :onclick "${EWW_EXECUTABLE} update ${name}=${!variable}"
-      (literal item-name)
+      (literal "${variable ? "Y" : "N"} ❥ ${item-name}")
     )
     (button
       :class "rcorners"
       :onclick "${EWW_EXECUTABLE} update ${name}-emoji=${!emoji-variable}"
-      (literal "${emoji-variable == true ? "Y" : "N"} EMOJI")
+      (literal "${emoji-variable ? "Y" : "N"} ❥ EMOJI")
     )
     (button
       :class "rcorners"
-      :visible { disk-labels ?: false }
-      :onclick "${EWW_EXECUTABLE} update disk-labels=${!(disk-labels-variable ?: false)}"
-      (literal "${disk-labels-variable == true ? "Y" : "N"} LABELS")
+      :onclick "${EWW_EXECUTABLE} update ${name}-labels=${!labels-variable}"
+      (literal "${labels-variable ? "Y" : "N"} ❥ LABELS")
     )
   )
 )
@@ -43,39 +42,42 @@
 (defwidget toggle-items-window []
   (box
     :space-evenly true
-    :spacing 5
+    :spacing 0
     :class "bar"
     (right-item
       :item-name "RAM"
       :name "ram-visible"
       :variable { ram-visible }
       :emoji-variable { ram-visible-emoji }
+      :labels-variable { ram-visible-labels }
     )
     (right-item
       :item-name "CPU"
       :name "cpu-visible"
       :variable { cpu-visible }
       :emoji-variable { cpu-visible-emoji }
+      :labels-variable { cpu-visible-labels }
     )
     (right-item
       :item-name "NETWORK"
       :name "network-visible"
       :variable { network-visible }
       :emoji-variable { network-visible-emoji }
+      :labels-variable { network-visible-labels }
     )
     (right-item
       :item-name "AUDIO"
       :name "audio-visible"
       :variable { audio-visible }
       :emoji-variable { audio-visible-emoji }
+      :labels-variable { audio-visible-labels }
     )
     (right-item
       :item-name "DISK"
       :name "disk-visible"
       :variable { disk-visible }
       :emoji-variable { disk-visible-emoji }
-      :disk-labels true
-      :disk-labels-variable { disk-labels }
+      :labels-variable { disk-visible-labels }
     )
   )
 )

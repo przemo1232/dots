@@ -44,7 +44,7 @@
 
 (defwidget left [] 
   (box
-    :spacing 5
+    :spacing 0
     :space-evenly false
     :halign "start"
     (literal :class "rcorners" "${datetime}")
