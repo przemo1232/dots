@@ -94,6 +94,11 @@
   };
   
   home.packages = with pkgs; [
+    jq
+  
+    # converts shit to json
+    jc
+  
     whatsapp-for-linux
   
     feh

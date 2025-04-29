@@ -19,6 +19,7 @@ in {
     ./maestral.nix
     ./bluetooth.nix
     ./protonvpn.nix
+    # ./single-gpu-passthrough.nix
   ];
 
   programs.kdeconnect.enable = true;

@@ -38,6 +38,7 @@ in {
     wofi-emoji
     wl-clipboard
     swayidle
+    hyprpicker
 
     libsForQt5.qt5.qtwayland
     libsForQt5.polkit-kde-agent
