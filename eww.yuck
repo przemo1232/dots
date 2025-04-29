@@ -1,6 +1,7 @@
 (include "./right.yuck")
 (include "./left.yuck")
 (include "./workspaces.yuck")
+(include "./kepi.yuck")
 
 (defwidget bar []
   (centerbox 
@@ -11,7 +12,7 @@
   `upower -i $(upower -e | grep BAT) | grep --color=never -E "to full|to empty" | cut -d':' -f2- | sed 's/^[[:space:]]*//'`)
 
 (defwidget center []
-  (box 
+  (box
     (workspaces)
   )
 )

@@ -1,0 +1,30 @@
+; help me
+
+(defwindow audio-devices
+  :monitor 0
+  :exclusive false
+  :stacking "overlay"
+  :geometry (geometry
+    :anchor "top right"
+    :x "15%"
+    :y 10
+  )
+  (audio-devices-list)
+)
+
+(defpoll nodes :interval "10m"
+  `pw-dump | jq '[.[] | select(.type == "PipeWire:Interface:Node" and .info.props."media.class" == "Audio/Sink")]'`)
+
+(defwidget audio-devices-list []
+  (box
+    :class "bar"
+    :orientation "vertical"
+    (for device in nodes
+      (button
+        :visible { (device.info.props["node.nick"] ?: "") == "" ? false : true }
+        :onclick `wpctl set-default ${device.id}`
+        :class "rcorners" 
+        { device.info.props["node.nick"] })
+    )
+  )
+)

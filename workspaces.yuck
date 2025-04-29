@@ -3,8 +3,8 @@
   :exclusive false
   :stacking "overlay"
   :geometry (geometry
-    :anchor "top left"
-    :x "7.66%"
+    :anchor "top center"
+    :x 0
     :y 10
   )
   (workspace-preview)

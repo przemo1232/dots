@@ -1,0 +1,19 @@
+
+(defwindow kepi
+  :monitor 0
+  :exclusive false
+  :stacking "overlay"
+  :geometry (geometry
+    :anchor "top left"
+    :x "1%"
+    :y 10
+  )
+  (kepi)
+)
+
+(defwidget kepi []
+  (image
+    :class "rcorners"
+    :path "images/kepi.png"
+  )
+)

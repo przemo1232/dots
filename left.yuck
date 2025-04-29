@@ -47,7 +47,12 @@
     :spacing 0
     :space-evenly false
     :halign "start"
-    (literal :class "rcorners" "${datetime}")
+    (eventbox
+      :onhover "${EWW_EXECUTABLE} open kepi --toggle"
+      :onhoverlost "${EWW_EXECUTABLE} open kepi --toggle"
+      (literal 
+        :class "rcorners"
+        "${datetime}"))
     (literal 
       :class "rcorners"
       :visible "${(EWW_BATTERY ?: "") != "" ? "true" : "false"}"

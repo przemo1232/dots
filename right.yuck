@@ -1,4 +1,5 @@
 (include "./enable-disable-right.yuck")
+(include "./audio-devices.yuck")
 
 (defpoll gpuusage :interval "1s"
   `gpustat --no-color | cut -d '|' -f2 | cut -b "9,10,11" | sed -e "1d" | sed -e "s/ //"`)
@@ -76,8 +77,9 @@
 )
 
 (defwidget audio [?visible ?visible-emoji ?labels-visible]
-  (literal 
+  (button
     :visible { visible ?: true }
+    :onclick `${EWW_EXECUTABLE} open audio-devices --toggle`
     :class "rcorners"
     "${visible-emoji ? (muted != "[MUTED]" ? (volume > 0.5 ? "🔊 " : (volume < 0.20 ? "🔈 " : "🔉 ")) : "🔇 ") : ""}${labels-visible ? "AUDIO: " : ""}${round(volume * 100, 2)}%")
 )
