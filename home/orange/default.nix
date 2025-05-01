@@ -93,9 +93,7 @@
     };
   };
   
-  home.packages = with pkgs; [
-    jq
-  
+  home.packages = with pkgs; [  
     # converts shit to json
     jc
   

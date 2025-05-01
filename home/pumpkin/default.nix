@@ -13,6 +13,7 @@
   imports = [
     ../lemon/helix.nix
   ] ++ machine-settings.mkHomeModulePaths [
+    ./spotify.nix
     ./haskell.nix
     ./rust.nix
     ./vulkan-glfw.nix
@@ -69,6 +70,8 @@
   ];
 
   home.packages = with pkgs; [
+    firefox
+  
     syncthing
     keepassxc
     inputs.hypr-contrib.packages.${pkgs.system}.grimblast
@@ -91,10 +94,10 @@
 
     stremio
 
-    spotify
-
     # pi pico
     openocd
+
+    flip-link
   ];
 
   services.flatpak = {
