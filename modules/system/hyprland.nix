@@ -34,6 +34,7 @@ in {
     wdisplays
     wlr-randr
     eww-wayland
+    jq
     wofi
     wofi-emoji
     wl-clipboard

@@ -13,6 +13,7 @@
   imports = [
     ../lemon/helix.nix
   ] ++ machine-settings.mkHomeModulePaths [
+    ./spotify.nix
     ./haskell.nix
     ./rust.nix
     ./vulkan-glfw.nix
@@ -92,8 +93,6 @@
     syncthing
 
     stremio
-
-    spotify
 
     # pi pico
     openocd
