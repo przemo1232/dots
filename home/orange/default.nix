@@ -105,6 +105,9 @@
     vlc
     gifsicle
 
+    # browser
+    firefox
+
     # macro thing
     xnee
 
