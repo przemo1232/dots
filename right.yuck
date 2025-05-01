@@ -84,13 +84,35 @@
     "${visible-emoji ? (muted != "[MUTED]" ? (volume > 0.5 ? "🔊 " : (volume < 0.20 ? "🔈 " : "🔉 ")) : "🔇 ") : ""}${labels-visible ? "AUDIO: " : ""}${round(volume * 100, 2)}%")
 )
 
+(defvar disk-revealed false)
+
 (defwidget disk [?visible ?visible-emoji ?labels-visible disk-name mount-point]
-  (literal 
-    :visible { visible ?: true }
+  (simple-revealer
     :class "rcorners"
-    "${(EWW_DISK[mount-point] ?: "") != "" ? (visible-emoji ? "💾 " : "") + (labels-visible ? disk-name + ": " : "") + round(EWW_DISK[mount-point].used_perc, 2) + "%" : ""}")
+    :variable { disk-revealed }
+    :var-name "disk-revealed"
+    (literal 
+      :visible { visible ?: true }
+      "${(EWW_DISK[mount-point] ?: "") != "" ? (visible-emoji ? "💾 " : "") + (labels-visible ? disk-name + ": " : "") + round(EWW_DISK[mount-point].used_perc, 2) + "%" : ""}")
+  )
 )
 
+(defwidget simple-revealer [var-name variable ?class]
+  (eventbox
+    :class "${class} simple-revealer"
+    :onhover "${EWW_EXECUTABLE} update ${var-name}=true"
+    :onhoverlost "${EWW_EXECUTABLE} update ${var-name}=false"
+    (box
+      (revealer
+        :transition "slideleft"
+        :reveal variable
+        (children)
+      )
+    )
+  )
+)
+
+; this shit kinda annoying but it's the sacrifice I have to make :drooling:
 (defvar ram-visible true)
 (defvar cpu-visible true)
 (defvar network-visible true)
