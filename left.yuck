@@ -1,3 +1,5 @@
+(include "./simple-revealer.yuck")
+
 (defpoll song-title :interval "1s"
   `spotifycli --song`)
 
@@ -29,15 +31,19 @@
   )
 )
 
+(defvar spotify-revealed false)
+
 (defwidget spotify []
-  (box 
-    :spacing 5
-    :space-evenly false
-    :class "rcorners"
+  (simple-revealer
     :visible "${positionraw1 == "" ? "false" : "true"}"
+    :class "rcorners"
+    :variable { spotify-revealed }
+    :var-name "spotify-revealed"
+    :transition "slideright"
     (player)
     (literal " | ${song-title}${song-title != album ? " ∈ " + album : ""} - ${artist} | ${positionraw1} / ${positionraw2}")
-))
+  )
+)
 
 (defpoll datetime :interval "1s"
   `date "+%B %e %a %H:%M:%S %Y"`)

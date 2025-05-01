@@ -1,5 +1,6 @@
 (include "./enable-disable-right.yuck")
 (include "./audio-devices.yuck")
+(include "./simple-revealer.yuck")
 
 (defpoll gpuusage :interval "1s"
   `gpustat --no-color | cut -d '|' -f2 | cut -b "9,10,11" | sed -e "1d" | sed -e "s/ //"`)
@@ -130,26 +131,6 @@
     (literal "${(visible-emoji ? "💾" : "")}")
     (literal 
       "${(EWW_DISK[mount-point] ?: "") != "" ? (labels-visible ? disk-name + ": " : "") + round(EWW_DISK[mount-point].used_perc, 2) + "%" : ""}")
-  )
-)
-
-(defwidget simple-revealer [var-name variable ?class ?visible]
-  (eventbox
-    :visible { visible ?: true }
-    :class "${class} simple-revealer"
-    :onhover "${EWW_EXECUTABLE} update ${var-name}=true"
-    :onhoverlost "${EWW_EXECUTABLE} update ${var-name}=false"
-    (box
-      :space-evenly false
-      :spacing { variable ? 5 : 0 }
-      :class "simple-revealer"
-      (children :nth 0)
-      (revealer
-        :transition "slideleft"
-        :reveal { variable }
-        (children :nth 1)
-      )
-    )
   )
 )
 
