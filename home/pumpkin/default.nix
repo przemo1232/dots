@@ -69,6 +69,8 @@
   ];
 
   home.packages = with pkgs; [
+    firefox
+  
     syncthing
     keepassxc
     inputs.hypr-contrib.packages.${pkgs.system}.grimblast
@@ -95,6 +97,8 @@
 
     # pi pico
     openocd
+
+    flip-link
   ];
 
   services.flatpak = {
