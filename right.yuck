@@ -18,95 +18,136 @@
   (literal "${(net ?: "") != "" ? (net > 1000000 ? round(net / 1000000, 2) + " mb/s" : (net > 1000 ? round(net / 1000, 2) + " kb/s" : net + " b/s")) : ""}")
 )
 
+(defvar network-revealed false)
+
 (defwidget network [?visible ?visible-emoji ?labels-visible]
   (box
     :visible { visible ?: true }
-    :spacing 5
+    :spacing 0
     :space-evenly false
-    (box
+    (simple-revealer
+      :visible { visible ?: true }
       :class "rcorners"
-      :space-evenly false
+      :variable { network-revealed }
+      :var-name "network-revealed"
       (literal 
         :visible { visible-emoji }
-        "↑ ")
-      (literal
-        :visible { labels-visible }
-        "UP: ")
+        "↑")
       (box
-        :spacing 5
         :space-evenly false
-        (internet
-          :net "${EWW_NET?.enp42s0?.NET_UP}")
-        (internet
-          :net "${EWW_NET?.wlp6s0?.NET_UP}")
+        (literal
+          :visible { labels-visible }
+          "UP: ")
+        (box
+          :spacing 5
+          :space-evenly false
+          (internet
+            :net "${EWW_NET?.enp42s0?.NET_UP}")
+          (internet
+            :net "${EWW_NET?.wlp6s0?.NET_UP}")
+        )
       )
     )
-    (box
+    (simple-revealer
+      :visible { visible ?: true }
       :class "rcorners"
-      :space-evenly false
+      :variable { network-revealed }
+      :var-name "network-revealed"
       (literal 
         :visible { visible-emoji }
-        "↓ ")
-      (literal
-        :visible { labels-visible }
-        "DOWN: ")
+        "↓")
       (box
-        :spacing 5
         :space-evenly false
-        (internet
-          :net "${EWW_NET?.enp42s0?.NET_DOWN}")
-        (internet
-          :net "${EWW_NET?.wlp6s0?.NET_DOWN}")
+        (literal
+          :visible { labels-visible }
+          "DOWN: ")
+        (box
+          :spacing 5
+          :space-evenly false
+          (internet
+            :net "${EWW_NET?.enp42s0?.NET_DOWN}")
+          (internet
+            :net "${EWW_NET?.wlp6s0?.NET_DOWN}")
+        )
       )
     )
   )
 )
 
+(defvar ram-revealed false)
+
 (defwidget ram [?visible ?visible-emoji ?labels-visible]
-  (literal 
+  (simple-revealer
     :visible { visible ?: true }
     :class "rcorners"
-    "${visible-emoji ? "🐑 " : ""}${labels-visible ? "RAM: " : ""}${round(EWW_RAM.used_mem / EWW_RAM.total_mem * 100, 2)}%")
+    :variable { ram-revealed }
+    :var-name "ram-revealed"
+    (literal "${visible-emoji ? "🐑" : ""}")
+    (literal 
+      :visible { visible ?: true }
+      "${labels-visible ? "RAM: " : ""}${round(EWW_RAM.used_mem / EWW_RAM.total_mem * 100, 2)}%")
+  )
 )
 
-(defwidget cpu [?visible ?visible-emoji ?labels-visible] 
-  (literal 
+(defvar cpu-revealed false)
+
+(defwidget cpu [?visible ?visible-emoji ?labels-visible]
+  (simple-revealer
     :visible { visible ?: true }
     :class "rcorners"
-    "${visible-emoji ? "🔳 " : ""}${labels-visible ? "CPU: " : ""}${round(EWW_CPU.avg, 2)}%")
+    :variable { cpu-revealed }
+    :var-name "cpu-revealed"
+    (literal "${visible-emoji ? "🔳" : ""}")
+    (literal 
+      :visible { visible ?: true }
+      "${labels-visible ? "CPU: " : ""}${round(EWW_CPU.avg, 2)}%")
+  )
 )
+
+(defvar audio-revealed false)
 
 (defwidget audio [?visible ?visible-emoji ?labels-visible]
-  (button
+  (simple-revealer
     :visible { visible ?: true }
-    :onclick `${EWW_EXECUTABLE} open audio-devices --toggle`
     :class "rcorners"
-    "${visible-emoji ? (muted != "[MUTED]" ? (volume > 0.5 ? "🔊 " : (volume < 0.20 ? "🔈 " : "🔉 ")) : "🔇 ") : ""}${labels-visible ? "AUDIO: " : ""}${round(volume * 100, 2)}%")
+    :variable { audio-revealed }
+    :var-name "audio-revealed"
+    (literal "${visible-emoji ? (muted != "[MUTED]" ? (volume > 0.5 ? "🔊" : (volume < 0.20 ? "🔈" : "🔉")) : "🔇") : ""}")
+    (button
+      :onclick `${EWW_EXECUTABLE} open audio-devices --toggle`
+      "${labels-visible ? "AUDIO: " : ""}${round(volume * 100, 2)}%")
+  )
 )
 
 (defvar disk-revealed false)
 
 (defwidget disk [?visible ?visible-emoji ?labels-visible disk-name mount-point]
   (simple-revealer
+    :visible { (visible ?: true) && ((EWW_DISK[mount-point] ?: "") != "") }
     :class "rcorners"
     :variable { disk-revealed }
     :var-name "disk-revealed"
+    (literal "${(visible-emoji ? "💾" : "")}")
     (literal 
-      :visible { visible ?: true }
-      "${(EWW_DISK[mount-point] ?: "") != "" ? (visible-emoji ? "💾 " : "") + (labels-visible ? disk-name + ": " : "") + round(EWW_DISK[mount-point].used_perc, 2) + "%" : ""}")
+      "${(EWW_DISK[mount-point] ?: "") != "" ? (labels-visible ? disk-name + ": " : "") + round(EWW_DISK[mount-point].used_perc, 2) + "%" : ""}")
   )
 )
 
-(defwidget simple-revealer [var-name variable ?class]
+(defwidget simple-revealer [var-name variable ?class ?visible]
   (eventbox
+    :visible { visible ?: true }
     :class "${class} simple-revealer"
     :onhover "${EWW_EXECUTABLE} update ${var-name}=true"
     :onhoverlost "${EWW_EXECUTABLE} update ${var-name}=false"
     (box
+      :space-evenly false
+      :spacing { variable ? 5 : 0 }
+      :class "simple-revealer"
+      (children :nth 0)
       (revealer
         :transition "slideleft"
-        :reveal variable
-        (children)
+        :reveal { variable }
+        (children :nth 1)
       )
     )
   )
