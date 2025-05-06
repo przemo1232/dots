@@ -1,7 +1,8 @@
-(defwidget simple-revealer [var-name variable ?class ?visible ?transition]
+(defwidget simple-revealer [var-name variable ?class ?visible ?transition ?style ?style-second]
   (eventbox
     :visible { visible ?: true }
-    :class "${class} simple-revealer"
+    :class "${class}"
+    :style { style ?: "" }
     :onhover "${EWW_EXECUTABLE} update ${var-name}=true"
     :onhoverlost "${EWW_EXECUTABLE} update ${var-name}=false"
     (box
@@ -10,8 +11,10 @@
       :class "simple-revealer"
       (children :nth 0)
       (revealer
+        :style { style-second ?: "" }
         :transition { transition ?: "slideleft" }
         :reveal { variable }
+        :duration { !variable ? "500" : "2000" }
         (children :nth 1)
       )
     )
