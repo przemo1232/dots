@@ -98,7 +98,12 @@
     jc
   
     whatsapp-for-linux
-  
+
+    kdenlive
+
+    torrential
+
+    sxiv
     feh
     vlc
     gifsicle

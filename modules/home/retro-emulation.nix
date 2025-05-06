@@ -7,7 +7,7 @@
     citra-nightly
 
     # Retro Games
-    # retroarchFull # broken
+    retroarch # broken
     # dolphin-emu
     # pcsx2
   ];
