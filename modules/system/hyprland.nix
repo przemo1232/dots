@@ -33,7 +33,7 @@ in {
     mako
     wdisplays
     wlr-randr
-    eww-wayland
+    eww # wayland version is now deprecated yippeee
     jq
     wofi
     wofi-emoji
@@ -43,7 +43,7 @@ in {
 
     libsForQt5.qt5.qtwayland
     libsForQt5.polkit-kde-agent
-    qt5ct
+    libsForQt5.qt5ct
     libva
   ];
 

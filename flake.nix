@@ -40,14 +40,15 @@
       url = "github:sammypanda/nixos-waterfox";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    firefox-overlay = {
-      url = "https://github.com/mozilla/nixpkgs-mozilla/archive/master.tar.gz";
-      flake = false;
+    firefox-nightly = {
+      url = "github:nix-community/flake-firefox-nightly";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixpkgs2405.url = "github:NixOS/nixpkgs/nixos-24.05";
   };
 
   outputs = {
-    self, nixpkgs, hyprland, xdg-desktop-portal-hyprland, home-manager, helix-master, hypr-contrib, flatpaks, impermanence, nixvim, fenix, zig, waterfox, firefox-overlay, ... 
+    self, nixpkgs, hyprland, xdg-desktop-portal-hyprland, home-manager, helix-master, hypr-contrib, flatpaks, impermanence, nixvim, fenix, zig, waterfox, firefox-nightly, nixpkgs2405, ... 
   }@inputs: let
     secrets = import "/etc/nixos/secrets.nix";
     machine-settings = import ./settings/machine-settings.nix;

@@ -1,13 +1,16 @@
-{ pkgs, ... }:
+{ pkgs, pkgs2405, ... }:
 
 {
   home.packages = with pkgs; [
-    # Nintendo
-    yuzu-mainline
-    citra-nightly
+    torzu # Switch
+    cemu # Wii U
 
     # Retro Games
-    retroarch
+    (pkgs.retroarch.withCores (cores: with cores; [
+      mupen64plus # Ninetndo 64
+      dolphin # Game Cube
+      citra # 3ds
+    ]))
     # dolphin-emu
     # pcsx2
   ];

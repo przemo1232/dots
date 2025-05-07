@@ -14,7 +14,7 @@ in {
     ./hyprland.nix
     ./polkit.nix
     # ./android.nix
-    ./virtual.nix
+    # ./virtual.nix
     #./enableopengl.nix
     ./maestral.nix
     ./bluetooth.nix

@@ -77,7 +77,7 @@ in {
   services.pcscd.enable = true;
   programs.gnupg.agent = {
     enable = true;
-    pinentryFlavor = "curses";
+    pinentryPackage = pkgs.pinentry-curses;
     enableSSHSupport = true;
   };
   
@@ -98,6 +98,7 @@ in {
   environment.persistence."/nix/persist/systems" = {
     hideMounts = true;
     directories = [
+      "/var/lib/nixos"
       "/etc/NetworkManager"
     ];
     files = [];

@@ -10,7 +10,7 @@ let
     config.allowUnfree = true;
     config.xdg.configHome = configHome;
     overlays = [
-      (import "${inputs.firefox-overlay}/firefox-overlay.nix")
+      inputs.firefox-nightly.overlays.default
     ];
   };
 
