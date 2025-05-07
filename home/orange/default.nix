@@ -109,7 +109,7 @@
     gifsicle
 
     # browser
-    firefox
+    latest.firefox-nightly-bin
 
     # macro thing
     xnee

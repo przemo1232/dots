@@ -9,6 +9,9 @@ let
     inherit system;
     config.allowUnfree = true;
     config.xdg.configHome = configHome;
+    overlays = [
+      (import "${inputs.firefox-overlay}/firefox-overlay.nix")
+    ];
   };
 
   home-nix = "/etc/nixos/home/${username}";

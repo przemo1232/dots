@@ -40,14 +40,18 @@
       url = "github:sammypanda/nixos-waterfox";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    firefox-overlay = {
+      url = "https://github.com/mozilla/nixpkgs-mozilla/archive/master.tar.gz";
+      flake = false;
+    };
   };
 
   outputs = {
-    self, nixpkgs, hyprland, xdg-desktop-portal-hyprland, home-manager, helix-master, hypr-contrib, flatpaks, impermanence, nixvim, fenix, zig, waterfox, ... 
+    self, nixpkgs, hyprland, xdg-desktop-portal-hyprland, home-manager, helix-master, hypr-contrib, flatpaks, impermanence, nixvim, fenix, zig, waterfox, firefox-overlay, ... 
   }@inputs: let
     secrets = import "/etc/nixos/secrets.nix";
     machine-settings = import ./settings/machine-settings.nix;
-
+    
     system = machine-settings.system;
     host = machine-settings.host;
     user = machine-settings.user;

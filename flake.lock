@@ -51,6 +51,19 @@
         "type": "github"
       }
     },
+    "firefox-overlay": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1744624473,
+        "narHash": "sha256-S6zT/w5SyAkJ//dYdjbrXgm+6Vkd/k7qqUl4WgZ6jjk=",
+        "type": "tarball",
+        "url": "https://github.com/mozilla/nixpkgs-mozilla/archive/master.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://github.com/mozilla/nixpkgs-mozilla/archive/master.tar.gz"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -628,6 +641,7 @@
     "root": {
       "inputs": {
         "fenix": "fenix",
+        "firefox-overlay": "firefox-overlay",
         "flatpaks": "flatpaks",
         "helix-master": "helix-master",
         "home-manager": "home-manager",
