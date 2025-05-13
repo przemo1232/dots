@@ -16,7 +16,7 @@
 ; )
 
 (defwidget internet [net]
-  (literal "${(net ?: "") != "" ? (net > 1000000 ? round(net / 1000000, 2) + " mb/s" : (net > 1000 ? round(net / 1000, 2) + " kb/s" : net + " b/s")) : ""}")
+  (literal "${(net ?: "") != "" ? (net > 1000000 ? round(net / 1000000, 2) + " mb/s" : (net > 1000 ? round(net / 1000, 2) + " kb/s" : round(net, 2) + " b/s")) : ""}")
 )
 
 (defvar network-revealed false)

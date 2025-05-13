@@ -6,7 +6,7 @@
   :stacking "overlay"
   :geometry (geometry
     :anchor "top right"
-    :x "15%"
+    :x "0.5%"
     :y 10
   )
   (audio-devices-list)
@@ -22,7 +22,7 @@
     (for device in nodes
       (button
         :visible { (device.info.props["node.nick"] ?: "") == "" ? false : true }
-        :onclick `wpctl set-default ${device.id}`
+        :onclick `wpctl set-default ${device.id}; ${EWW_EXECUTABLE} close audio-devices`
         :class "rcorners" 
         { device.info.props["node.nick"] })
     )

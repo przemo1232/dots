@@ -54,13 +54,13 @@
   (eventbox
     :space-evenly false
     :visible { number > 5 ? ((jq(workspace-json, ".[] | select(.id == " + number + ")") ?: "") == "" ? false : true) : true }
-    :onhover "${EWW_EXECUTABLE} open workspace-preview --toggle; ${EWW_EXECUTABLE} update current-number=${number}"
-    :onhoverlost "${EWW_EXECUTABLE} open workspace-preview --toggle; ${EWW_EXECUTABLE} update current-number=${number}"
+    :onhover "${EWW_EXECUTABLE} open workspace-preview; ${EWW_EXECUTABLE} update current-number=${number}"
+    :onhoverlost "${EWW_EXECUTABLE} close workspace-preview; ${EWW_EXECUTABLE} update current-number=${number}"
     ; :tooltip "${(jq(workspace-json, ".[] | select(.id == " + current-number + ")") ?: "") == "" ? "No Monitor" : "Monitor " + jq(workspace-json, ".[] | select(.id == " + current-number + ")").monitorID}${(jq(workspace-json, ".[] | select(.id == " + current-number + ")") ?: "") == "" ? "" : " | " + (jq(workspace-json, ".[] | select(.id == " + current-number + ")").lastwindowtitle)}"
     (button 
       ; :class "workspace-button"
-      :onclick "hyprctl dispatch workspace ${number}"
-      (literal :class "${number == active-workspace.id ? "monitor-long" : "monitor"} monitor-${(jq(workspace-json, ".[] | select(.id == " + number + ")") ?: "") == "" ? "none" : jq(workspace-json, ".[] | select(.id == " + number + ")").monitorID}" " ")
+      :onclick "hyprctl dispatch workspace ${number}; ${EWW_EXECUTABLE} close workspace-preview"
+      (literal :class "${number == active-workspace.id ? "monitor-long" : "monitor"} monitor-${(jq(workspace-json, ".[] | select(.id == " + number + ")") ?: "") == "" ? "none" : jq(workspace-json, ".[] | select(.id == " + number + ")").monitorID}" "")
     )
   )
 )

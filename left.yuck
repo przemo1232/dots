@@ -43,12 +43,12 @@
     ; :style "background-color: #92ff58"
     ; :style-second "background-color: #5bac31"
     (player)
-    (literal " | ${song-title}${song-title != album ? " ∈ " + album : ""} - ${artist} | ${positionraw1} / ${positionraw2}")
+    (literal "${song-title}${song-title != album ? " ∈ " + album : ""} - ${artist} | ${positionraw1} / ${positionraw2}")
   )
 )
 
 (defpoll datetime :interval "1s"
-  `date "+%B%e %a %H:%M:%S %Y"`)
+  `date "+%B %e %a %H:%M:%S %Y"`)
 
 (defwidget left [] 
   (box
@@ -56,8 +56,8 @@
     :space-evenly false
     :halign "start"
     (eventbox
-      :onhover "${EWW_EXECUTABLE} open kepi --toggle"
-      :onhoverlost "${EWW_EXECUTABLE} open kepi --toggle"
+      :onhover "${EWW_EXECUTABLE} open kepi"
+      :onhoverlost "${EWW_EXECUTABLE} close kepi"
       (literal 
         :class "rcorners"
         "${datetime}"))

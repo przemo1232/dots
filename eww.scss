@@ -34,7 +34,7 @@
 
 
 .bg-monitor {
-  padding: 10px;
+  padding: 0px;
   color: #000000;
 }
 .bg-monitor-0 {
@@ -83,6 +83,12 @@
   border-radius: 10px;
 }
 
+.noanything {
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
+}
+
 .bar {
   background-color: #272727;
   border-image-source: linear-gradient(
@@ -112,7 +118,8 @@
   border-style: solid;
   border-width: 2.5px;
   border-radius: 10px;
-  padding: 10px;
+  padding-right: 10px;
+  padding-left: 10px;
   padding-top: 7px;
   padding-bottom: 7px
 }
