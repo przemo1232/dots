@@ -54,10 +54,11 @@ in {
     p7zip
     zip
     unzip
+    rar
+    unrar
+    unp
 
     xfce.thunar
-
-    kitty
   ];
 
   environment.sessionVariables = rec {

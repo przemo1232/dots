@@ -9,7 +9,7 @@
       noto-fonts-emoji
       noto-fonts-emoji-blob-bin
       ipafont
-    ];
-    # ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts); # all nerd fonts
+    ]
+    ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts); # all nerd fonts
   };
 }

@@ -22,79 +22,21 @@
     ./retro-emulation.nix
     ./spotify.nix
     # ./c-clang.nix
-    ./catppuccin.nix
+    ./catppuccin-latte-rosewater-theme.nix
+    ./terminal-kitty.nix
+    ./git.nix
   ];
-
-  # Git
-  programs.git = {
-    enable = true;
-    userName = "LemonjamesD";
-    userEmail = "lemon@lemonjamesd.com";
-    extraConfig = {
-      credential.helper = "store";
-      safe.directory = "*";
-      init.defaultBranch = "main";
-    };
-  };
-
-  programs.gh = {
-    enable = true;
-    gitCredentialHelper = {
-      enable = true;
-    };
-  };
-
-  # zsh
-  programs.zsh = {
-    enable = true;
-    shellAliases = {
-      rebuild-system = ''echo -e "\x1b[0;32mNixOs\x1b[0m" && sudo nixos-rebuild switch --flake /etc/nixos --impure && echo -e "\x1b[0;32mHome-manager\x1b[0m" && home-manager switch --flake /etc/nixos --impure'';
-      rebuild-system-upgrade = ''echo -e "\x1b[0;32mNixOs\x1b[0m" && sudo nixos-rebuild switch --flake /etc/nixos --impure --upgrade && echo -e "\x1b[0;32mHome-manager\x1b[0m" && home-manager switch --flake /etc/nixos --impure'';
-      rebuild-system-trace = ''echo -e "\x1b[0;32mNixOs\x1b[0m" && sudo nixos-rebuild switch --show-trace --flake /etc/nixos --impure && echo -e "\x1b[0;32mHome-manager\x1b[0m" && home-manager switch --show-trace --flake /etc/nixos --impure'';
-      update-dots = ''export GOBACK="$(pwd)" && cd /etc/nixos && git pull && ./update-dots.sh && cd $GOBACK'';
-      notif = "ntfy send";
-      ls = "eza";
-      "..." = "../..";
-      "...." = "../../..";
-      "....." = "../../../..";
-    };
-    plugins = [
-      {
-        name = "zsh-nix-shell";
-        file = "nix-shell.plugin.zsh";
-        src = pkgs.fetchFromGitHub {
-          owner = "chisui";
-          repo = "zsh-nix-shell";
-          rev = "v0.8.0";
-          sha256 = "1lzrn0n4fxfcgg65v0qhnj7wnybybqzs4adz7xsrkgmcsr0ii8b7";
-        };
-      }
-    ];
-    oh-my-zsh = {
-      enable = true;
-      plugins = [ "git" ];
-      theme = "darkblood";
-    };
-  };
 
   home.sessionPath = [
     "$HOME/.cargo/bin"
     "/usr/bin"
   ];
-
-  home.sessionVariables.GTK_THEME = "Catppuccin-Latte-Rosewater";
-  home.sessionVariables.XCURSOR_THEME = "Catppuccin-Latte-Rosewater";
-  home.sessionVariables.XCURSOR_SIZE = "16";
-
-  nixpkgs.config.packageOverrides = pkgs: {
-    catppuccin-gtk = pkgs.catppuccin-gtk.override {
-      accents = [ "rosewater" ]; # You can specify multiple accents here to output multiple themes 
-      size = "standard";
-      variant = "latte";
-    };
-  };
   
-  home.packages = with pkgs; [  
+  home.packages = with pkgs; [
+    remote-touchpad
+  
+    libqalculate
+  
     # converts shit to json
     jc
   
@@ -157,6 +99,7 @@
       "flathub-beta" = "https://flathub.org/beta-repo/flathub-beta.flatpakrepo";
     };
     packages = [
+      "flathub:org.freedesktop.portal.RemoteDesktop//stable"
       "flathub:io.github.everestapi.Olympus//stable"
       "flathub:com.discordapp.Discord//stable"
       "flathub:de.shorsh.discord-screenaudio//stable"

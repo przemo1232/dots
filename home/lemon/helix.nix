@@ -4,6 +4,15 @@
     enable = true;
     package = inputs.helix-master.packages."x86_64-linux".default;
     settings = {
+      keys = {
+        normal = {
+          "space" = {
+            f = "file_picker_in_current_directory";
+            F = "file_picker";
+          };
+        };
+      };
+    
       theme = "catppuccin_latte";
       # icons = "nerdfonts";
       editor = {

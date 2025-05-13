@@ -9,7 +9,7 @@
     settings = {
       default_session = {
         command = ''
-          ${pkgs.greetd.tuigreet}/bin/tuigreet -g \"Pure Joy, Functions\" -c Hyprland -r --remember-session --time --asterisks --power-shutdown shutdown now --power-reboot reboot
+          ${pkgs.greetd.tuigreet}/bin/tuigreet -g "Pure Joy, Functions" -c Hyprland -r --remember-session --time --asterisks --power-shutdown shutdown now --power-reboot reboot
         '';
         user = user;
       };

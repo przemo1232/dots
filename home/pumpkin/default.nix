@@ -18,53 +18,11 @@
     ./rust.nix
     ./vulkan-glfw.nix
     ./gaming.nix
+    ./catppuccin-latte-rosewater-theme.nix
+    ./terminal-kitty.nix
+    ./git.nix
   ];
   
-  # zsh
-  programs.zsh = {
-    enable = true;
-    shellAliases = {
-      rebuild-system = ''echo -e "\x1b[0;32mNixOs\x1b[0m" && sudo nixos-rebuild switch --flake /etc/nixos --impure && echo -e "\x1b[0;32mHome-manager\x1b[0m" && home-manager switch --flake /etc/nixos --impure'';
-      rebuild-system-trace = ''echo -e "\x1b[0;32mNixOs\x1b[0m" && sudo nixos-rebuild switch --show-trace --flake /etc/nixos --impure && echo -e "\x1b[0;32mHome-manager\x1b[0m" && home-manager switch --show-trace --flake /etc/nixos --impure'';
-      update-dots = ''export GOBACK="$(pwd)" && cd /etc/nixos && git pull && ./update-dots.sh && cd $GOBACK'';
-      notif = "ntfy send";
-      "..." = "../..";
-      "...." = "../../..";
-      "....." = "../../../..";
-    };
-    oh-my-zsh = {
-      enable = true;
-      plugins = [ "git" ];
-      theme = "darkblood";
-    };
-  };
-
-  # Git
-  programs.git = {
-    enable = true;
-    userName = "LemonjamesD";
-    userEmail = "lemon@lemonjamesd.com";
-    extraConfig = {
-      credential.helper = "store";
-      safe.directory = "*";
-      init.defaultBranch = "main";
-    };
-  };
-
-  programs.gh = {
-    enable = true;
-    gitCredentialHelper = {
-      enable = true;
-    };
-  };
-
-  programs.gpg = {
-    enable = true;
-    settings = {
-      default-key = "06408C83157BC3925756EBFA1428E0EE4572A07B";
-    };
-  };
-
   home.sessionPath = [
     "$HOME/.cargo/bin"
   ];

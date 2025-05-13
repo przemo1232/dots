@@ -2,7 +2,8 @@ args@{ config, pkgs, machine-settings, inputs, ...}: let
 
 in {
   imports = [
-    ./hyprland-tuigreet.nix
+    # ./hyprland-tuigreet.nix
+    ./gnome-display-manager.nix
   ];
 
   # make stuff work on wayland
@@ -31,6 +32,7 @@ in {
     egl-wayland
     hyprpaper
     mako
+    libnotify
     wdisplays
     wlr-randr
     eww # wayland version is now deprecated yippeee
@@ -40,6 +42,8 @@ in {
     wl-clipboard
     swayidle
     hyprpicker
+    hypridle
+    hyprlock
 
     libsForQt5.qt5.qtwayland
     libsForQt5.polkit-kde-agent

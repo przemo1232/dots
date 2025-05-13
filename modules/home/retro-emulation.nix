@@ -4,14 +4,9 @@
   home.packages = with pkgs; [
     torzu # Switch
     cemu # Wii U
+    cdecrypt # Decript WII U shit?
+    rpcs3 # PS3
 
-    # Retro Games
-    (pkgs.retroarch.withCores (cores: with cores; [
-      mupen64plus # Ninetndo 64
-      dolphin # Game Cube
-      citra # 3ds
-    ]))
-    # dolphin-emu
-    # pcsx2
+    retroarchFull
   ];
 }
