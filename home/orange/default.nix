@@ -17,14 +17,15 @@
     ./vulkan-glfw.nix
     ./rust.nix
     ./zig.nix
+    ./c-clang.nix
     ./graphics.nix
     ./haskell.nix
     ./retro-emulation.nix
     ./spotify.nix
-    # ./c-clang.nix
     ./catppuccin-latte-rosewater-theme.nix
     ./terminal-kitty.nix
     ./git.nix
+    ./archive-tools.nix
   ];
 
   home.sessionPath = [
@@ -60,10 +61,6 @@
     # Notes
     obsidian
 
-    # Screenshot
-    inputs.hypr-contrib.packages.${pkgs.system}.grimblast
-    slurp
-
     # Network
     netcat
     socat
@@ -91,6 +88,10 @@
     htop
 
     stremio
+
+    godot_4
+
+    zoom-us
   ];
 
   services.flatpak = {

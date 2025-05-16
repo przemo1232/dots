@@ -1,7 +1,7 @@
 { user, secrets, ... }: 
 
 {
-  # Run this command to import
+  # Run this command to import something for example
   # sudo nmcli connection import type wireguard file usnyprotonvpn.conf
 
   networking.firewall = {

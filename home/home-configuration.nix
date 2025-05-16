@@ -11,6 +11,7 @@ let
     config.xdg.configHome = configHome;
     overlays = [
       inputs.firefox-nightly.overlays.default
+      inputs.nur.overlay
     ];
   };
 

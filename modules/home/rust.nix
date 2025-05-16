@@ -3,6 +3,7 @@
     latest.cargo
     latest.rustc
     targets."x86_64-unknown-linux-gnu".latest.rust-std
+    targets."wasm32-unknown-unknown".latest.rust-std
     targets."thumbv6m-none-eabi".latest.rust-std
     latest.rust-docs
   ];
@@ -12,14 +13,13 @@ in {
   ];
   
   home.packages = with pkgs; [
-    gcc
     openssl
     cargo-expand
-    glibc_multi
     rust-analyzer-nightly
     toolchain
     rusty-man
     rustfmt
     bacon
+    clippy
   ];
 }

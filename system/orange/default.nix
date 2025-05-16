@@ -20,6 +20,7 @@ in {
     ./bluetooth.nix
     ./protonvpn.nix
     # ./single-gpu-passthrough.nix
+    ./thunar.nix
   ];
 
   programs.kdeconnect.enable = true;

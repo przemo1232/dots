@@ -30,6 +30,7 @@ in {
   environment.systemPackages = with pkgs; [
     wayland
     egl-wayland
+    
     hyprpaper
     mako
     libnotify
@@ -45,10 +46,24 @@ in {
     hypridle
     hyprlock
 
+    # Screenshot
+    inputs.hypr-contrib.packages.${pkgs.system}.grimblast
+    slurp
+    satty
+
     libsForQt5.qt5.qtwayland
     libsForQt5.polkit-kde-agent
     libsForQt5.qt5ct
     libva
+  ];
+
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    xorg.libX11
+    xorg.libXcursor
+    xorg.libxcb
+    xorg.libXi
+    libxkbcommon
   ];
 
   # Enable polkit

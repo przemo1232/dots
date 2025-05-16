@@ -5,20 +5,12 @@ in {
     allowBroken = true;
   };
 
-  nixpkgs.config.permittedInsecurePackages = [
-    "electron-25.9.0"
-  ];
-
+  networking.networkmanager.enable = true;
   # should fix nmtui not saving network info problem :pray:
   services.gnome.gnome-keyring.enable = true;
 
   # Make FHS work
   virtualisation.podman.enable = true;
-  # services.fhs-compat.enable = true;
-
-  users.users.root.initialHashedPassword = secrets.passwd;
-
-  networking.networkmanager.enable = true;
 
   environment.defaultPackages = lib.mkForce [];
   environment.systemPackages = with pkgs; [
@@ -30,15 +22,10 @@ in {
 
     # Edit Files
     vim
-    neovim
-    helix
 
     # Get files from the web
     wget
     git
-
-    # Look up stuff
-    comma
 
     # See system info
     hyfetch
@@ -46,19 +33,6 @@ in {
     # Verify commits and such
     gnupg
     pinentry-curses
-
-    # Replace coreutils
-    # busybox
-
-    # for zipping/unzipping
-    p7zip
-    zip
-    unzip
-    rar
-    unrar
-    unp
-
-    xfce.thunar
   ];
 
   environment.sessionVariables = rec {
@@ -105,5 +79,7 @@ in {
     files = [];
   };
   nix.settings.trusted-users = [ "root" "lemon" "orange" "pumpkin" ];
+  
+  users.users.root.initialHashedPassword = secrets.passwd;
 }
 

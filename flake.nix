@@ -1,6 +1,14 @@
 {
   inputs = {
+    ## Impermanence ##
+    impermanence.url = "github:nix-community/impermanence";
+    
+    ## System packages ##
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # for rust-analyzer
     fenix = {
       url = "github:nix-community/fenix";
@@ -8,22 +16,9 @@
     };
     hyprland.url = "github:hyprwm/Hyprland";
     xdg-desktop-portal-hyprland.url = "github:hyprwm/xdg-desktop-portal-hyprland";
-    # fhs.url = "github:GermanBread/nixos-fhs";
 
-    # Lilex Font
-    #    lilex-font.url = "github:LemonjamesD/Lilex-Flake/pre-compiled";
-
-    # Impermanence
-    impermanence.url = "github:nix-community/impermanence";
-
-    # Home-manager packager
+    ## Home-manager packager ##
     home-manager.url = "github:nix-community/home-manager";
-    # helix bs (the workaround is insane)
-    # dream2nix.url = "github:nix-community/dream2nix";
-    #   nci = {
-    #  url = "github:yusdacra/nix-cargo-integration";
-    # inputs.dream2nix.follows = "dream2nix";
-    #  };
     helix-master = {
       url = "github:SoraTenshi/helix/new-daily-driver";
       # inputs.nci.follows = "nci";
@@ -48,7 +43,7 @@
   };
 
   outputs = {
-    self, nixpkgs, hyprland, xdg-desktop-portal-hyprland, home-manager, helix-master, hypr-contrib, flatpaks, impermanence, nixvim, fenix, zig, waterfox, firefox-nightly, nixpkgs2405, ... 
+    self, nixpkgs, hyprland, xdg-desktop-portal-hyprland, home-manager, helix-master, hypr-contrib, flatpaks, impermanence, nixvim, fenix, zig, waterfox, firefox-nightly, nixpkgs2405, nur, ... 
   }@inputs: let
     secrets = import "/etc/nixos/secrets.nix";
     machine-settings = import ./settings/machine-settings.nix;
@@ -62,14 +57,21 @@
       inherit system;
       specialArgs = { inherit nixpkgs system stateVersion machine-settings host user secrets inputs; };
       modules = [
-        machine-settings.system-settings
-        # inputs.fhs.nixosModules.default
+        ## Impermanence ##
         "${inputs.impermanence}/nixos.nix"
-        # System
+
+        ## System ##
         (./configuration.nix)
+        machine-settings.system-settings
+        # Adds the NUR overlay
+        nur.modules.nixos.default
+        # NUR modules to import
+        nur.legacyPackages."${system}".repos.iopq.modules.xraya
+        
         (./machines + "/${machine-settings.host}/hardware.nix")
-        # User
+        ## User ##
         (./system + "/${machine-settings.user}/default.nix")
+        
       ];
     };
   in {
