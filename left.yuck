@@ -1,4 +1,5 @@
 (include "./simple-revealer.yuck")
+(include "./powermenu.yuck")
 
 (defpoll song-title :interval "1s"
   `spotifycli --song`)
@@ -55,6 +56,14 @@
     :spacing 0
     :space-evenly false
     :halign "start"
+    (button
+      :class "rcorners"
+      :onclick `eww open powermenu --toggle`
+      (literal
+        :class "padded-emoji"
+        "⏻"
+      )
+    )
     (eventbox
       :onhover "${EWW_EXECUTABLE} open kepi"
       :onhoverlost "${EWW_EXECUTABLE} close kepi"

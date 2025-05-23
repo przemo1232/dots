@@ -1,0 +1,68 @@
+(defwindow powermenu
+  :monitor 0
+  :exclusive false
+  :stacking "overlay"
+  :geometry (geometry
+    :anchor "top left"
+    :x "0.6%"
+    :y 10
+  )
+  (powermenu)
+)
+
+(defwidget powermenu []
+  (box
+    :orientation "vertical"
+    :space-evenly false
+    (button
+      :class "rcorners"
+      :onclick `eww close powermenu & eww open areyousure --arg command="hyprctl --instance 0 'dispatch exec hyprlock'" --arg commandtext="lock your screen"`
+      " Lock")
+    (button
+      :class "rcorners"
+      :onclick `eww close powermenu & eww open areyousure --arg command="hyprctl dispatch exit" --arg commandtext="logout"`
+      "󰍃 Logout")
+    (button
+      :class "rcorners"
+      :onclick `eww close powermenu & eww open areyousure --arg command="poweroff" --arg commandtext="shutdown"`
+      " Shutdown")
+    (button
+      :class "rcorners"
+      :onclick `eww close powermenu & eww open areyousure --arg command="reboot" --arg commandtext="reboot"`
+      "󰑐 Reboot")
+  )
+)
+
+(defwindow areyousure [command ?commandtext]
+  :monitor 0
+  :exclusive false
+  :stacking "overlay"
+  :geometry (geometry
+    :anchor "center"
+    :x "0.6%"
+    :y 10
+  )
+  (areyousure
+    :command { command }
+    :commandtext { commandtext })
+)
+
+(defwidget areyousure [command ?commandtext]
+  (box
+    :orientation "vertical"
+    :class "rcorners"
+    (literal "Are you sure you want to ${commandtext ?: "run `${command}`" }?")
+    (box
+      (button
+        :onclick `eww close areyousure && ${command}`
+        :style "color: #61ff5c"
+        "yes"
+      )
+      (button
+        :onclick `eww close areyousure`
+        :style "color: #ff4f4f"
+        "no"
+      )
+    )
+  )
+)

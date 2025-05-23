@@ -83,7 +83,9 @@
     :class "rcorners"
     :variable { ram-revealed }
     :var-name "ram-revealed"
-    (literal "${visible-emoji ? "🐑" : ""}")
+    (literal
+      :class "padded-emoji"
+      "${visible-emoji ? "" : ""}")
     (literal 
       :visible { visible ?: true }
       "${labels-visible ? "RAM: " : ""}${round(EWW_RAM.used_mem / EWW_RAM.total_mem * 100, 2)}%")
@@ -98,7 +100,9 @@
     :class "rcorners"
     :variable { cpu-revealed }
     :var-name "cpu-revealed"
-    (literal "${visible-emoji ? "🔳" : ""}")
+    (literal
+      :class "padded-emoji"
+      "${visible-emoji ? "" : ""}")
     (literal 
       :visible { visible ?: true }
       "${labels-visible ? "CPU: " : ""}${round(EWW_CPU.avg, 2)}%")
@@ -113,7 +117,9 @@
     :class "rcorners"
     :variable { audio-revealed }
     :var-name "audio-revealed"
-    (literal "${visible-emoji ? (muted != "[MUTED]" ? (volume > 0.5 ? "🔊" : (volume < 0.20 ? "🔈" : "🔉")) : "🔇") : ""}")
+    (literal
+      :class "padded-emoji"
+      "${visible-emoji ? (muted != "[MUTED]" ? (volume > 0.5 ? "󰕾" : (volume < 0.20 ? "󰖀" : "󰕿")) : "") : ""}")
     (button
       :onclick `${EWW_EXECUTABLE} open audio-devices --toggle`
       "${labels-visible ? "AUDIO: " : ""}${round(volume * 100, 2)}%")
@@ -128,7 +134,9 @@
     :class "rcorners"
     :variable { disk-revealed }
     :var-name "disk-revealed"
-    (literal "${(visible-emoji ? "💾" : "")}")
+    (literal
+      :class "padded-emoji"
+      "${(visible-emoji ? "" : "")}")
     (literal 
       "${(EWW_DISK[mount-point] ?: "") != "" ? (labels-visible ? disk-name + ": " : "") + round(EWW_DISK[mount-point].used_perc, 2) + "%" : ""}")
   )
