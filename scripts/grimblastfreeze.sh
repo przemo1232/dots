@@ -1,4 +1,4 @@
-hyprpicker -r -n -z &
+hyprpicker -r -v &
 hyprpicker_pid=$!
 
 grimblast copy area $@
