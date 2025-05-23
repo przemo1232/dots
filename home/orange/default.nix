@@ -92,6 +92,10 @@
     godot_4
 
     zoom-us
+
+    python3
+
+    xclicker
   ];
 
   services.flatpak = {

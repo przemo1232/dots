@@ -70,9 +70,9 @@
     "hid_microsoft"
   ];
 
-  services.udev.extraRules = ''
-    SUBSYSTEM==usb, ATTR{idVendor}==045e, ATTR{idProduct}==02ea, MODE=0666
-  '';
+  # services.udev.extraRules = ''
+  #   SUBSYSTEM==usb, ATTR{idVendor}==045e, ATTR{idProduct}==02ea, MODE=0666
+  # '';
 
   # Set initial kernel module settings
   # https://github.com/umlaeute/v4l2loopback

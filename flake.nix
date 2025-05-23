@@ -40,6 +40,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs2405.url = "github:NixOS/nixpkgs/nixos-24.05";
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
   };
 
   outputs = {

@@ -25,6 +25,7 @@ in
       machine-settings.home-settings
       inputs.nixvim.homeManagerModules.nixvim
       inputs.flatpaks.homeManagerModules.default
+      # inputs.spicetify-nix.homeManagerModules.spicetify
       home-nix
     ];
   };

@@ -13,7 +13,7 @@ in {
     # ./plasma.nix
     ./hyprland.nix
     ./polkit.nix
-    # ./android.nix
+    ./android.nix
     # ./virtual.nix
     #./enableopengl.nix
     ./maestral.nix
