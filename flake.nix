@@ -54,9 +54,16 @@
     user = machine-settings.user;
     stateVersion = machine-settings.stateVersion;
 
+    pkgs2405 = import nixpkgs2405 {
+      inherit system;
+      config.allowUnfree = true;
+      overlays = [
+      ];
+    };
+
     mkNixOS = nixpkgs.lib.nixosSystem {
       inherit system;
-      specialArgs = { inherit nixpkgs system stateVersion machine-settings host user secrets inputs; };
+      specialArgs = { inherit nixpkgs nixpkgs2405 pkgs2405 system stateVersion machine-settings host user secrets inputs; };
       modules = [
         ## Impermanence ##
         "${inputs.impermanence}/nixos.nix"
@@ -78,7 +85,7 @@
   in {
   
     homeConfigurations = import ./home/home-configuration.nix { 
-      inherit home-manager nixpkgs machine-settings secrets inputs host user system stateVersion; 
+      inherit home-manager nixpkgs nixpkgs2405 pkgs2405 machine-settings secrets inputs host user system stateVersion; 
     };
 
     nixosConfigurations = {

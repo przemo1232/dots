@@ -1,4 +1,4 @@
-{ system, nixpkgs, home-manager, user, secrets, stateVersion, machine-settings, inputs, ... }:
+{ system, nixpkgs, pkgs2405, home-manager, user, secrets, stateVersion, machine-settings, inputs, ... }:
 
 let
   username = user;
@@ -11,7 +11,7 @@ let
     config.xdg.configHome = configHome;
     overlays = [
       inputs.firefox-nightly.overlays.default
-      inputs.nur.overlay
+      inputs.nur.overlays.default
     ];
   };
 
@@ -20,12 +20,12 @@ in
 {
   "${user}" = home-manager.lib.homeManagerConfiguration {
     pkgs = pkgs;
-    extraSpecialArgs = { inherit username homeDirectory secrets stateVersion inputs machine-settings; }; 
+    extraSpecialArgs = { inherit pkgs2405 username homeDirectory secrets stateVersion inputs machine-settings; }; 
     modules = [
       machine-settings.home-settings
       inputs.nixvim.homeManagerModules.nixvim
       inputs.flatpaks.homeManagerModules.default
-      # inputs.spicetify-nix.homeManagerModules.spicetify
+      inputs.spicetify-nix.homeManagerModules.spicetify
       home-nix
     ];
   };

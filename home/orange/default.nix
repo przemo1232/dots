@@ -26,6 +26,7 @@
     ./terminal-kitty.nix
     ./git.nix
     ./archive-tools.nix
+    ./python.nix
   ];
 
   home.sessionPath = [
@@ -93,9 +94,14 @@
 
     zoom-us
 
-    python3
-
     xclicker
+    vesktop
+
+    ffmpeg
+    libopus
+
+    # Terrafirmacraft game
+    vintagestory
   ];
 
   services.flatpak = {
