@@ -27,6 +27,7 @@
     ./git.nix
     ./archive-tools.nix
     ./python.nix
+    ./hyprland-plugins.nix
   ];
 
   home.sessionPath = [
@@ -102,6 +103,10 @@
 
     # Terrafirmacraft game
     vintagestory
+
+    signal-desktop
+
+    nix-prefetch-github
   ];
 
   services.flatpak = {

@@ -1,6 +1,6 @@
-args@{ config, pkgs, machine-settings, inputs, ...}: let
-
+args@{ lib, config, pkgs, machine-settings, inputs, ...}: let
 in {
+
   imports = [
     ./wayland.nix
     # ./hyprland-tuigreet.nix

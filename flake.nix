@@ -15,6 +15,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland.url = "github:hyprwm/Hyprland";
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
+    split-monitor-workspaces = {
+      url = "github:Duckonaut/split-monitor-workspaces";
+      inputs.hyprland.follows = "hyprland"; # <- make sure this line is present for the plugin to work as intended
+    };
     xdg-desktop-portal-hyprland.url = "github:hyprwm/xdg-desktop-portal-hyprland";
 
     ## Home-manager packager ##
@@ -44,7 +52,7 @@
   };
 
   outputs = {
-    self, nixpkgs, hyprland, xdg-desktop-portal-hyprland, home-manager, helix-master, hypr-contrib, flatpaks, impermanence, nixvim, fenix, zig, waterfox, firefox-nightly, nixpkgs2405, nur, ... 
+    self, nixpkgs, hyprland, xdg-desktop-portal-hyprland, home-manager, helix-master, hypr-contrib, flatpaks, impermanence, nixvim, fenix, zig, waterfox, firefox-nightly, nixpkgs2405, nur, hyprland-plugins, split-monitor-workspaces, ... 
   }@inputs: let
     secrets = import "/etc/nixos/secrets.nix";
     machine-settings = import ./settings/machine-settings.nix;
