@@ -40,7 +40,7 @@
           :show-truncated true
           ; :visible { ((jq(workspace-json, ".[] | select(.id == " + current-number + ")") ?: "") == "" ? "none" : jq(workspace-json, ".[] | select(.id == " + current-number + ")").monitorID) == entry.id ? true : false }
           :text {
-              jq(workspace-json, ".[] | select(.id == ${entry.id == 0 ? "" : entry.id}${current-number})")?.lastwindowtitle 
+              jq(workspace-json, ".[] | select(.id == ${entry.id == 0 ? "" : entry.id}${current-number})")?.lastwindowtitle ?: ""
           }
         )
       )
