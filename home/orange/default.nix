@@ -27,7 +27,7 @@
     ./git.nix
     ./archive-tools.nix
     ./python.nix
-    ./hyprland-plugins.nix
+    ./hyprland.nix
   ];
 
   home.sessionPath = [

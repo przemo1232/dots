@@ -5,6 +5,7 @@
   hyprland,
   hyprlandPlugins,
   pkgs,
+  inputs,
   ...
 }:
 hyprlandPlugins.mkHyprlandPlugin hyprland {
@@ -18,16 +19,13 @@ hyprlandPlugins.mkHyprlandPlugin hyprland {
     hash = "sha256-LL1+gGBQcb+P0hiCGhHKDIhy7+UqwUBmU+kh0YQTYI0=";
   };
 
-  nativeBuildInputs = with pkgs; [ pkg-config pixman libdrm ];
+  nativeBuildInputs = with pkgs; [ pkg-config gcc14 ];
 
-  buildInputs = [];
-
-  installPhase = ''
-    runHook preInstall
-    mkdir -p $out/lib
-    cp nstackLayoutPlugin.so $out/lib/
-    runHook postInstall
-  '';
+  buildInputs = with pkgs; [
+    inputs.hyprland.packages.${system}.hyprland.dev
+    pixman
+    libdrm
+  ] ++ inputs.hyprland.packages.${system}.hyprland.buildInputs;
 
   meta = {
     homepage = "https://github.com/zakk4223/hyprNStack";
