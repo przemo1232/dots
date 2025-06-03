@@ -28,6 +28,7 @@
     ./archive-tools.nix
     ./python.nix
     ./hyprland.nix
+    # ./timers/eww-too-much-ram.nix
   ];
 
   home.sessionPath = [

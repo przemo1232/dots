@@ -6,6 +6,17 @@ in {
   };
 
   networking.networkmanager.enable = true;
+  networking.networkmanager.dns = "none";
+  networking.useDHCP = false;
+  networking.dhcpcd.enable = false;
+  networking.networkmanager.wifi.powersave = true;
+  networking.networkmanager.plugins = with pkgs; [
+    networkmanager-openvpn
+  ];
+  networking.nameservers = [
+    "1.1.1.1"
+  ];
+  
   # should fix nmtui not saving network info problem :pray:
   services.gnome.gnome-keyring.enable = true;
 
@@ -33,6 +44,10 @@ in {
     # Verify commits and such
     gnupg
     pinentry-curses
+
+    # vpn
+    networkmanager-openvpn
+    openvpn
   ];
 
   environment.sessionVariables = rec {

@@ -46,7 +46,7 @@
         "col.active_border" = "rgba(ff6bf6ee) rgba(8afff3ee) 45deg";
         "col.inactive_border" = "rgba(595959aa)";
 
-        layout = "dwindle";
+        layout = "nstack";
       };
 
       misc = {
@@ -140,8 +140,6 @@
         # Move the window
         "$mainMod SHIFT, left, movewindow, l"
         "$mainMod SHIFT, right, movewindow, r"
-        "$mainMod SHIFT, up, movewindow, u"
-        "$mainMod SHIFT, down, movewindow, d"
         # Move the window to another monitor
         "$mainMod SHIFT CTRL, left, movewindow, mon:-1"
         "$mainMod SHIFT CTRL, right, movewindow, mon:+1"
@@ -206,6 +204,14 @@
         # Screenshot
         "$mainMod, Print, exec, hyprshot -m region --freeze -s -f screenshot.png"
         "$mainMod SHIFT, Print, exec, hyprshot -m region --freeze -s -f screenshot.png && sleep 1 && satty --filename ~/screenshot.png"
+
+        # Tab grouping stuff
+        "$mainMod, t, togglegroup"
+        "$mainMod SHIFT, t, lockactivegroup"
+        "$mainMod, up, changegroupactive, f"
+        "$mainMod, down, changegroupactive, b"
+        "$mainMod, w, changegroupactive, f"
+        "$mainMod, s, changegroupactive, b"
       ];
 
       bindm = [
