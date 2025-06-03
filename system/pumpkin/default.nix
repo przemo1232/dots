@@ -13,6 +13,7 @@
     ./maestral.nix
     ./protonvpn.nix
     ./laptop-coolaid.nix
+    ./timers/eww-too-much-ram.nix
   ];
   services.upower.enable = true;
   services.flatpak.enable = true;
