@@ -16,6 +16,11 @@ in {
   systemd.user.services.${name} = {
     Service = {
       Type = "oneshot";
+      Environment = [
+        "XDG_RUNTIME_DIR=/run/user/1000"
+        "WAYLAND_DISPLAY=wayland-0"
+        "DISPLAY=:0"
+      ];
       ExecStart = "${pkgs.bash}/bin/bash -c ''
         ${pkgs.procps}/bin/pgrep -f \".eww-wrapped\" | xargs --no-run-if-empty kill || true
         ${pkgs.eww}/bin/eww daemon &
