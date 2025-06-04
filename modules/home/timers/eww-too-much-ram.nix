@@ -17,9 +17,7 @@ in {
     Service = {
       Type = "oneshot";
       ExecStart = ''
-        set +e
-        ${pkgs.eww}/bin/eww close bar
-        set +e
+        kill $(pidof ".eww-wrapped")
         ${pkgs.eww}/bin/eww open bar
       '';
     };
