@@ -1,7 +1,7 @@
 { pkgs, machine-settings, ... }: let
   name =  builtins.trace "eww dir: ${pkgs.eww}/bin" "eww-using-too-much-ram";
 in {
-  systemd.timers.${name} = {
+  systemd.user.timers.${name} = {
     wantedBy = [ "timers.target" ];
     timerConfig = {
       OnBootSec = "15m";
@@ -11,7 +11,7 @@ in {
   };
 
 
-  systemd.services.${name} = {
+  systemd.user.services.${name} = {
     script = ''
       ${pkgs.eww}/bin/eww close bar
       ${pkgs.eww}/bin/eww open bar

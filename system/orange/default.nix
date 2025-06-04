@@ -21,7 +21,6 @@ in {
     ./protonvpn.nix
     # ./single-gpu-passthrough.nix
     ./thunar.nix
-    ./timers/eww-too-much-ram.nix
   ];
 
   programs.kdeconnect.enable = true;
