@@ -2,7 +2,12 @@ user:
 
 let
   inherit (builtins) toString;
-  inherit (import <nixpkgs/lib>) removePrefix;
+
+  removePrefix = prefix: str:
+    if builtins.substring 0 (builtins.stringLength prefix) str == prefix
+    then builtins.substring (builtins.stringLength prefix) (builtins.stringLength str - builtins.stringLength prefix) str
+    else throw "removePrefix: '${prefix}' is not a prefix of '${str}'";
+
 
   userPath = ../../home + "/${user}";
   userPathStr = toString userPath;

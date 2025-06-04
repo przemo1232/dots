@@ -2,7 +2,7 @@
 
 in {
   imports = [
-  ] ++ machine-settings.mkSystemModulePaths user [
+  ] ++ machine-settings.mkSystemModulePaths pkgs user [
     ./amd.nix
     # ./nvidia-open.nix
     # ./nvidia-pinned.nix
