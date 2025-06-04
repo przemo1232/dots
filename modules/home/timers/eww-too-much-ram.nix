@@ -32,6 +32,11 @@ in {
   };
 
   Service = {
+    Environment = [
+      "XDG_RUNTIME_DIR=/run/user/1000"
+      "WAYLAND_DISPLAY=wayland-0"
+      "DISPLAY=:0"
+    ];
     ExecStart = "${pkgs.eww}/bin/eww daemon";
     Restart = "on-failure";
   };
