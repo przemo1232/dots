@@ -10,6 +10,8 @@ in {
     };
   };
 
+  builtins.trace "${pkgs.eww}/bin"
+
   systemd.services.${name} = {
     script = ''
       ${pkgs.eww}/bin/eww close bar
