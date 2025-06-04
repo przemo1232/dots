@@ -22,11 +22,12 @@ in {
         "DISPLAY=:0"
       ];
       ExecStart = "${pkgs.bash}/bin/bash -c ''
-        echo 'Closing Bar'
-        ${pkgs.procps}/bin/pgrep -f \".eww-wrapped\" | xargs --no-run-if-empty kill
-        echo 'Opening Bar'
-        hyprctl dispatch exec '${pkgs.eww}/bin/eww open bar'
+        echo '>> killing old eww'
+        ${pkgs.procps}/bin/pgrep -f \".eww-wrapped\" | xargs --no-run-if-empty kill || true
+        echo '>> dispatching open bar'
+        ${pkgs.hyprland}/bin/hyprctl dispatch exec \"${pkgs.eww}/bin/eww open bar\"
       ''";
+
     };
   };
 }
