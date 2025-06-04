@@ -16,7 +16,12 @@ in {
   systemd.user.services.${name} = {
     Service = {
       Type = "oneshot";
-      ExecStart = "${pkgs.bash}/bin/bash -c 'pgrep .eww-wrapped | xargs kill || true; ${pkgs.eww}/bin/eww open bar'";
+      ExecStart = "${pkgs.bash}/bin/bash -c ''
+        ${pkgs.procps}/bin/pgrep -f \".eww-wrapped\" | xargs --no-run-if-empty kill || true
+        ${pkgs.eww}/bin/eww daemon &
+        sleep 0.2
+        ${pkgs.eww}/bin/eww open bar
+      ''";
     };
   };
 }
