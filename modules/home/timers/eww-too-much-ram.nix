@@ -25,18 +25,20 @@ in {
     };
   };
 
+
   systemd.user.services.eww-daemon = {
-    Unit = {
-      Description = "Persistent Eww Daemon";
-    };
-
-    Service = {
-      ExecStart = "${pkgs.eww}/bin/eww daemon";
-      Restart = "on-failure";
-    };
-
-    Install = {
-      WantedBy = [ "default.target" ];
-    };
+  Unit = {
+    Description = "Persistent Eww Daemon";
   };
+
+  Service = {
+    ExecStart = "${pkgs.eww}/bin/eww daemon";
+    Restart = "on-failure";
+  };
+
+  Install = {
+    WantedBy = [ "default.target" ];
+  };
+};
+
 }
