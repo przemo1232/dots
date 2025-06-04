@@ -16,7 +16,7 @@ in {
   systemd.user.services.${name} = {
     Service = {
       Type = "oneshot";
-      ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.procps}/bin/pkill -f eww-wrapped || true; ${pkgs.eww}/bin/eww open bar'";
+      ExecStart = "${pkgs.bash}/bin/bash -c '${pkgs.procps}/bin/pkill -f .eww-wrapped || true; ${pkgs.eww}/bin/eww open bar'";
     };
   };
 }
