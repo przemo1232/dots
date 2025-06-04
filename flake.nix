@@ -101,4 +101,6 @@
       "nixos" = mkNixOS;
     };
   };
+
+  extraSourcFiles = ["./secrets.nix"]
 }

@@ -1,3 +1,1 @@
-map (f:
-  "/etc/nixos/modules/home/${joined}"
-)
+map (f: "/etc/nixos/modules/home/${builtins.baseNameOf f}")
