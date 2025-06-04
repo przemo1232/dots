@@ -13,8 +13,9 @@ in {
 
   systemd.services.${name} = {
     script = ''
-      ${pkgs.eww}/bin/eww close bar
-      ${pkgs.eww}/bin/eww open bar
+      ls ${pkgs.eww}/bin/eww
+      # ${pkgs.eww}/bin/eww close bar
+      # ${pkgs.eww}/bin/eww open bar
     '';
     serviceConfig = {
       Type = "oneshot";
