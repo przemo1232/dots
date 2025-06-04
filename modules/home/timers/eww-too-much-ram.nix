@@ -16,12 +16,16 @@ in {
   systemd.user.services.${name} = {
     Service = {
       Type = "oneshot";
-          ExecStart = "${pkgs.bash}/bin/bash -c ''
-      echo '[eww] killing old instance'
-      ${pkgs.procps}/bin/pgrep -f .eww-wrapped | xargs --no-run-if-empty kill || true
-      echo '[eww] dispatching open bar'
-      hyprctl dispatch exec \"eww open bar\"
-    ''";
+
+      StandardOutput = "journal";
+      StandardError = "journal";
+      
+      ExecStart = "${pkgs.bash}/bin/bash -c ''
+        echo '[eww] killing old instance'
+        pgrep -f .eww-wrapped | xargs --no-run-if-empty kill || true
+        echo '[eww] dispatching open bar'
+        hyprctl dispatch exec \"eww open bar\"
+      ''";
 
     };
   };
