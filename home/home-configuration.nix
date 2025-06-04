@@ -15,7 +15,7 @@ let
     ];
   };
 
-  home-nix = ../${username};
+  home-nix = ./${username};
 in
 {
   "${user}" = home-manager.lib.homeManagerConfiguration {

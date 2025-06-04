@@ -12,7 +12,7 @@
   
   imports = [
     ../lemon/helix.nix
-  ] ++ machine-settings.mkHomeModulePaths [
+  ] ++ machine-settings.mkHomeModulePaths username [
     ./gaming.nix
     ./vulkan-glfw.nix
     ./rust.nix
