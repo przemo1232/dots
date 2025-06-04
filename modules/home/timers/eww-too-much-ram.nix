@@ -17,9 +17,7 @@ in {
     Service = {
       Type = "oneshot";
       ExecStart = ''
-        set +e
-        ${pkgs.bash}/bin/bash -c 'kill $(pidof ".eww-wrapped")'
-        set -e
+        ${pkgs.bash}/bin/bash -c 'kill $(pidof ".eww-wrapped") || true'
         ${pkgs.eww}/bin/eww open bar
       '';
     };
