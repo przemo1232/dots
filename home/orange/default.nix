@@ -1,4 +1,4 @@
-{ pkgs, machine-settings, secrets, username, homeDirectory, stateVersion, inputs, ... }:
+{ pkgs, machine-settings, secrets, username, homeDirectory, stateVersion, inputs, lib, ... }:
 
 {
   home = {
@@ -12,7 +12,7 @@
   
   imports = [
     ../lemon/helix.nix
-  ] ++ machine-settings.mkHomeModulePaths pkgs username [
+  ] ++ machine-settings.mkHomeModulePaths username lib [
     ./gaming.nix
     ./vulkan-glfw.nix
     ./rust.nix
