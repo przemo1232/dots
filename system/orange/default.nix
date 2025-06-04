@@ -38,6 +38,8 @@ in {
     
     gparted
     xorg.xhost
+
+    glances
   ];
 
   # Flatpak
