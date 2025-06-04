@@ -22,7 +22,7 @@ in {
       StandardError = "journal";
 
       ExecStartPre = [
-        "${pkgs.procps}/bin/pgrep -f .eww-wrapped | kill"
+        "${pkgs.procps}/bin/pkill -f .eww-wrapped"
       ];
       ExecStart = "${pkgs.hyprland}/bin/hyprctl dispatch exec '${pkgs.eww}/bin/eww open bar'";
     };
