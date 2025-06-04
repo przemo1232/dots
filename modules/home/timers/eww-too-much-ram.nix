@@ -22,7 +22,7 @@ in {
         "DISPLAY=:0"
       ];
       ExecStart = "${pkgs.bash}/bin/bash -c ''
-        ${pkgs.procps}/bin/pgrep -f \".eww-wrapped\" | xargs --no-run-if-empty kill || true
+        ${pkgs.procps}/bin/pgrep -f \".eww-wrapped\" | xargs --no-run-if-empty kill
         hyprctl dispatch exec '${pkgs.eww}/bin/eww open bar'
       ''";
     };
