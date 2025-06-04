@@ -1,7 +1,7 @@
 { pkgs, machine-settings, ... }: let
   name = "eww-using-too-much-ram";
 in {
-  systemd.timers.name = {
+  systemd.timers.${name} = {
     wantedBy = [ "timers.target" ];
     timerConfig = {
       OnBootSec = "15m";
@@ -10,10 +10,10 @@ in {
     };
   };
 
-  systemd.services.name = {
+  systemd.services.${name} = {
     script = ''
-      ${pkgs.eww} close bar
-      ${pkgs.eww} open bar
+      ${pkgs.eww}/bin/eww close bar
+      ${pkgs.eww}/bin/eww open bar
     '';
     serviceConfig = {
       Type = "oneshot";
