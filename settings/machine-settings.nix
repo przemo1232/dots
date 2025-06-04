@@ -1,7 +1,6 @@
-{ host, ... }:
-
-{
-  builtins.trace "host: ${host}"
+{ hostname }:
+rec {
+  host = hostname;
   user = import ./functions/machine-match.nix { inherit host; };
 
   system = "x86_64-linux";

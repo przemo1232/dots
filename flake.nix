@@ -61,10 +61,11 @@
     self, nixpkgs, hyprland, xdg-desktop-portal-hyprland, home-manager, helix-master, hypr-contrib, flatpaks, impermanence, nixvim, fenix, zig, waterfox, firefox-nightly, nixpkgs2405, nur, hyprland-plugins, split-monitor-workspaces, secrets, ... 
   }@inputs: let
     secrets = import "${inputs.secrets}/secrets.nix";
-    host = import "${inputs.secrets}/host.nix";
-    machine-settings = import ./settings/machine-settings.nix { inherit host; };
+    hostname = import "${inputs.secrets}/host.nix";
+    machine-settings = import ./settings/machine-settings.nix { inherit hostname; };
     
     system = machine-settings.system;
+    host = machine-settings.host;
     user = machine-settings.user;
     stateVersion = machine-settings.stateVersion;
 

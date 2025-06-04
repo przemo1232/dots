@@ -1,9 +1,10 @@
+{ user }:
+
 let
   inherit (builtins) toString;
   inherit (import <nixpkgs/lib>) removePrefix;
 
-  machine-settings = import ../machine-settings.nix;
-  userPath = ../../system + "/${machine-settings.user}";
+  userPath = ../../system + "/${user}";
   userPathStr = toString userPath;
 in
 map (f:
