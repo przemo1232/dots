@@ -23,32 +23,8 @@ in {
       ];
       ExecStart = "${pkgs.bash}/bin/bash -c ''
         ${pkgs.procps}/bin/pgrep -f \".eww-wrapped\" | xargs --no-run-if-empty kill || true
-        ${pkgs.eww}/bin/eww daemon &
-        sleep 0.2
-        ${pkgs.eww}/bin/eww open bar
+        hyprctl dispatch exec '${pkgs.eww}/bin/eww open bar'
       ''";
     };
   };
-
-
-  systemd.user.services.eww-daemon = {
-  Unit = {
-    Description = "Persistent Eww Daemon";
-  };
-
-  Service = {
-    Environment = [
-      "XDG_RUNTIME_DIR=/run/user/1000"
-      "WAYLAND_DISPLAY=wayland-0"
-      "DISPLAY=:0"
-    ];
-    ExecStart = "${pkgs.eww}/bin/eww daemon";
-    Restart = "on-failure";
-  };
-
-  Install = {
-    WantedBy = [ "default.target" ];
-  };
-};
-
 }
