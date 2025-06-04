@@ -18,7 +18,7 @@ in {
       Type = "oneshot";
       ExecStart = ''
         set +e
-        kill $(pidof ".eww-wrapped")
+        ${pkgs.bash}/bin/bash -c 'kill $(pidof ".eww-wrapped")'
         set -e
         ${pkgs.eww}/bin/eww open bar
       '';
