@@ -3,7 +3,7 @@
 in {
   systemd.user.timers.${name} = {
     Timer = {
-      OnCalander = "*:0/15";
+      OnCalender = "*:0/15";
       Persistent = true;
     };
 
