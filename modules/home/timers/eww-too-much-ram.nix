@@ -16,17 +16,12 @@ in {
   systemd.user.services.${name} = {
     Service = {
       Type = "oneshot";
-      Environment = [
-        "XDG_RUNTIME_DIR=/run/user/1000"
-        "WAYLAND_DISPLAY=wayland-0"
-        "DISPLAY=:0"
-      ];
-      ExecStart = "${pkgs.bash}/bin/bash -c ''
-        echo '>> killing old eww'
-        ${pkgs.procps}/bin/pgrep -f \".eww-wrapped\" | xargs --no-run-if-empty kill || true
-        echo '>> dispatching open bar'
-        ${pkgs.hyprland}/bin/hyprctl dispatch exec \"${pkgs.eww}/bin/eww open bar\"
-      ''";
+          ExecStart = "${pkgs.bash}/bin/bash -c ''
+      echo '[eww] killing old instance'
+      ${pkgs.procps}/bin/pgrep -f \".eww-wrapped\" | xargs --no-run-if-empty kill || true
+      echo '[eww] dispatching open bar'
+      ${pkgs.hyprland}/bin/hyprctl dispatch exec \"${pkgs.eww}/bin/eww open bar\"
+    ''";
 
     };
   };
