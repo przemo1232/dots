@@ -1090,6 +1090,7 @@
         "nixpkgs2405": "nixpkgs2405",
         "nixvim": "nixvim",
         "nur": "nur",
+        "secrets": "secrets",
         "spicetify-nix": "spicetify-nix",
         "split-monitor-workspaces": "split-monitor-workspaces",
         "waterfox": "waterfox",
@@ -1133,6 +1134,19 @@
         "owner": "oxalica",
         "repo": "rust-overlay",
         "type": "github"
+      }
+    },
+    "secrets": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1748997818,
+        "narHash": "sha256-ZI8J1BiTfhHp21zyb++wAxaGSx1Lt1K+ybMfkRhIwAA=",
+        "path": "/etc/nixos/secrets",
+        "type": "path"
+      },
+      "original": {
+        "path": "/etc/nixos/secrets",
+        "type": "path"
       }
     },
     "spicetify-nix": {

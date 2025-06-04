@@ -25,7 +25,13 @@
     };
     xdg-desktop-portal-hyprland.url = "github:hyprwm/xdg-desktop-portal-hyprland";
 
-    ## Home-manager packager ##
+    ## Secrets ##
+    secrets = {
+      url = "path:/etc/nixos/secrets";
+      flake = false;
+    };
+
+    ## Home-manager packages ##
     home-manager.url = "github:nix-community/home-manager";
     helix-master = {
       url = "github:SoraTenshi/helix/new-daily-driver";
@@ -52,13 +58,13 @@
   };
 
   outputs = {
-    self, nixpkgs, hyprland, xdg-desktop-portal-hyprland, home-manager, helix-master, hypr-contrib, flatpaks, impermanence, nixvim, fenix, zig, waterfox, firefox-nightly, nixpkgs2405, nur, hyprland-plugins, split-monitor-workspaces, ... 
+    self, nixpkgs, hyprland, xdg-desktop-portal-hyprland, home-manager, helix-master, hypr-contrib, flatpaks, impermanence, nixvim, fenix, zig, waterfox, firefox-nightly, nixpkgs2405, nur, hyprland-plugins, split-monitor-workspaces, secrets, ... 
   }@inputs: let
-    secrets = import "/etc/nixos/secrets.nix";
-    machine-settings = import ./settings/machine-settings.nix;
+    secrets = import "${inputs.secrets}/secrets.nix";
+    host = import "${inputs.secrets}/host.nix";
+    machine-settings = import ./settings/machine-settings.nix { inherit host; };
     
     system = machine-settings.system;
-    host = machine-settings.host;
     user = machine-settings.user;
     stateVersion = machine-settings.stateVersion;
 
@@ -101,6 +107,4 @@
       "nixos" = mkNixOS;
     };
   };
-
-  extraSourcFiles = ["./secrets.nix"]
 }

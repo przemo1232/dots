@@ -1,5 +1,7 @@
-rec {
-  host = import /etc/nixos/host.nix;
+{ host, ... }:
+
+{
+  builtins.trace "host: ${host}"
   user = import ./functions/machine-match.nix { inherit host; };
 
   system = "x86_64-linux";
