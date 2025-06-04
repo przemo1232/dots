@@ -18,9 +18,9 @@ in {
       Type = "oneshot";
           ExecStart = "${pkgs.bash}/bin/bash -c ''
       echo '[eww] killing old instance'
-      ${pkgs.procps}/bin/pgrep -f \".eww-wrapped\" | xargs --no-run-if-empty kill || true
+      ${pkgs.procps}/bin/pgrep -f .eww-wrapped | xargs --no-run-if-empty kill || true
       echo '[eww] dispatching open bar'
-      ${pkgs.hyprland}/bin/hyprctl dispatch exec \"${pkgs.eww}/bin/eww open bar\"
+      hyprctl dispatch exec \"eww open bar\"
     ''";
 
     };
