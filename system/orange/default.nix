@@ -12,6 +12,7 @@ in {
     ./pipewire.nix
     # ./plasma.nix
     ./hyprland.nix
+    ./gnome-login-manager.nix
     ./polkit.nix
     ./android.nix
     # ./virtual.nix

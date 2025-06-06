@@ -9,6 +9,10 @@
     NIXPKGS_ALLOW_UNFREE = "1";
     NIXPKGS_ALLOW_BROKEN = "1";
   };
+
+  nixpkgs.config = {
+    allowUnfree = true;
+  };
   
   imports = [
     ../lemon/helix.nix
