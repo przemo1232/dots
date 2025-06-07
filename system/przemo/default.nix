@@ -1,8 +1,8 @@
-{ machine-settings, ... }:
+{ machine-settings, pkgs, user, ... }:
 
 {
   imports = [
-  ] ++ machine-settings.mkSystemModulePaths [
+  ] ++ machine-settings.mkSystemModulePaths pkgs user [
     ./fonts.nix
     ./polkit.nix
     ./pipewire.nix
