@@ -1,8 +1,8 @@
-{ config, pkgs, machine-settings, secrets, user, ... }: let
+{ config, pkgs, machine-settings, secrets, user, lib, ... }: let
 
 in {
   imports = [
-  ] ++ machine-settings.mkSystemModulePaths pkgs user [
+  ] ++ machine-settings.mkSystemModulePaths user lib [
     ./amd.nix
     # ./nvidia-open.nix
     # ./nvidia-pinned.nix
