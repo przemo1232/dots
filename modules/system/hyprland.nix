@@ -3,8 +3,6 @@ in {
 
   imports = [
     ./wayland.nix
-    # ./hyprland-tuigreet.nix
-    ./gnome-login-manager.nix
   ];
 
   environment.systemPackages = with pkgs; [
