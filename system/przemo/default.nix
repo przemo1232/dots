@@ -1,6 +1,7 @@
 { machine-settings, pkgs, user, lib, ... }:
 
 {
+  # system wide imports
   imports = [
   ] ++ machine-settings.mkSystemModulePaths user lib [
     ./fonts.nix

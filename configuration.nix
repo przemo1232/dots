@@ -51,7 +51,7 @@ in {
   ];
 
   environment.sessionVariables = rec {
-    EDITOR = "hx";
+    EDITOR = "nano";
   };
 
   # Stupid stupid git thing
@@ -93,7 +93,7 @@ in {
     ];
     files = [];
   };
-  nix.settings.trusted-users = [ "root" "lemon" "orange" "pumpkin" ];
+  nix.settings.trusted-users = [ "root" "lemon" "orange" "pumpkin" "przemo"];
   
   users.users.root.initialHashedPassword = secrets.passwd;
 }

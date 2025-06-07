@@ -12,7 +12,7 @@
   networking.hostName = "stellated";
   
   # Timezone
-  time.timeZone = "Poland";
+  time.timeZone = "Poland/Warsaw";
   
   # Locale
   i18n.defaultLocale = "en_US.UTF-8";

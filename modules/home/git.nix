@@ -5,7 +5,7 @@
   programs.git = {
     enable = true;
     userName = "przemo1232";
-    # userEmail = "lemonjameslem@protonmail.com";
+    userEmail = "p.sobczak01@gmail.com";
     extraConfig = {
       credential.helper = "store";
       safe.directory = "*";

@@ -12,5 +12,6 @@
     # driSupport32Bit = true;
   };
 
+  # use open source version?
   hardware.nvidia.open = false;
 }
