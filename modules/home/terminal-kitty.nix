@@ -12,7 +12,7 @@
       background_opacity = "0.9";
     };
 
-    theme = "Catppuccin-Latte";
+    theme = "Catppuccin-Mocha";
   };
 
   # zsh
