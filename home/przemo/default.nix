@@ -1,4 +1,4 @@
-{ config, pkgs, secrets, username, homeDirectory, stateVersion, machine-settings, inputs, ... }:
+{ config, pkgs, secrets, username, homeDirectory, stateVersion, machine-settings, inputs, lib, ... }:
 
 {
   home = {
