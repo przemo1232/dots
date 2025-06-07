@@ -26,7 +26,7 @@
     pavucontrol
     openssl
 
-    vencord # discord
+    vesktop # discord
   ];
 
   services.flatpak = {
