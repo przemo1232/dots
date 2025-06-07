@@ -27,7 +27,7 @@
 
     ## Secrets ##
     secrets = {
-      url = "path:/etc/nixos/secrets";
+      url = "path:/mnt/etc/nixos/secrets";
       flake = false;
     };
 
