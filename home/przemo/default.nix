@@ -11,7 +11,7 @@
   };
 
   imports = [
-  ] ++ machine-settings.mkHomeModulePaths pkgs username [
+  ] ++ machine-settings.mkHomeModulePaths username lib [
     ./gaming.nix
     ./terminal-kitty.nix
     ./git.nix
