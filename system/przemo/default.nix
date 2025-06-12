@@ -11,7 +11,7 @@
     ./sddm.nix
     ./nvidia.nix
   ];
-  services.upower.enable = true;
+  services.upower.enable = false;
   services.flatpak.enable = true;
 }
 

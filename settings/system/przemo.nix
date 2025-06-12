@@ -1,6 +1,8 @@
 { pkgs, secrets, ... }:
 
 {
+  powerManagement.enable = false;
+  # boot.resumeDevice = "/dev/disk/by-uuid/dev/disk/by-uuid/f12ba31b-b559-47ca-83f7-9eed472b4e8d";
   # Allow Unfree
   nixpkgs.config = {
     allowUnfree = true;

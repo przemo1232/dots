@@ -19,6 +19,7 @@
     ./gaming.nix
     ./terminal-kitty.nix
     ./git.nix
+    ./spotify.nix
   ];
   
   # append this to the $PATH
@@ -34,6 +35,8 @@
     vscode
     github-desktop
     eza
+    signal-desktop
+    roccat-tools
 
     vesktop # discord
   ];

@@ -7,7 +7,7 @@ in {
       adblockify
     ];
      theme = spicePkgs.themes.catppuccin;
-     colorScheme = "latte";
+     colorScheme = "mocha";
   };
 
   services.spotifyd = {
