@@ -1,8 +1,8 @@
 {
-  description = "Nix flake for building yafc-ce (.NET + SDL2 app)";
+  description = "Yafc CE multi-platform dotnet build via Nix";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
   };
 
@@ -12,55 +12,81 @@
 
       perSystem = { pkgs, system, ... }:
         let
-          inherit (pkgs) lib fetchFromGitHub SDL2 SDL2_ttf SDL2_image buildDotnetModule;
+          inherit (pkgs) lib fetchFromGitHub runCommandLocal buildDotnetModule;
           dotnet = pkgs.dotnetCorePackages.dotnet_8;
-        in {
-          packages.default = self.packages.${system}.yafc-ce;
 
-          packages.yafc-ce = buildDotnetModule (finalAttrs: {
-            pname = "yafc-ce";
-            version = "2.13.0";
+          version = "2.13.0";
 
-            src = fetchFromGitHub {
-              owner = "shpaass";
-              repo = "yafc-ce";
-              rev = finalAttrs.version;
-              hash = "sha256-ftAKHUWhEdvTJ5ETy6Bc0hVVw9/xkrkcIhwLuBczf4g=";
-            };
+          src = fetchFromGitHub {
+            owner = "shpaass";
+            repo = "yafc-ce";
+            rev = version;
+            hash = "sha256-ftAKHUWhEdvTJ5ETy6Bc0hVVw9/xkrkcIhwLuBczf4g=";
+          };
 
-            projectFile = [ "Yafc/Yafc.csproj" ];
-            testProjectFile = [ "Yafc.Model.Tests/Yafc.Model.Tests.csproj" ];
+          nugetDeps = import ./restore.nuget.nix { inherit pkgs dotnet src; };
 
-            dotnet-sdk = dotnet.sdk;
-            dotnet-runtime = dotnet.runtime;
+          makeBuild = runtime:
+            let
+              rid = if runtime == "win-x64-sc" then "win-x64" else runtime;
+              selfContained = runtime == "win-x64-sc";
+              outDir = "out-${runtime}";
+              outputName =
+                if runtime == "linux-x64" then "Yafc-CE-Linux-${version}.tar.gz"
+                else if runtime == "osx-x64" then "Yafc-CE-OSX-intel-${version}.tar.gz"
+                else if runtime == "osx-arm64" then "Yafc-CE-OSX-arm64-${version}.tar.gz"
+                else if runtime == "win-x64" then "Yafc-CE-Windows-${version}.zip"
+                else "Yafc-CE-Windows-self-contained-${version}.zip";
+              archive =
+                if lib.hasSuffix ".zip" outputName then
+                  "zip -r $out/${outputName} ${outDir}"
+                else
+                  "tar czf $out/${outputName} ${outDir}";
+              warning =
+                if runtime == "osx-arm64" then ''
+                  echo "The libraries of this release were scanned on Virustotal, but we could not reproduce the checksums." > ${outDir}/_WARNING.TXT
+                  echo "If you want to help with the checksums, please navigate to https://github.com/shpaass/yafc-ce/issues/274" >> ${outDir}/_WARNING.TXT
+                '' else "";
+              publishFlags =
+                if selfContained then "--self-contained true" else "--self-contained false";
+            in
+            buildDotnetModule {
+              pname = "yafc-ce-${runtime}";
+              inherit version src nugetDeps;
+              projectFile = [ "Yafc/Yafc.csproj" ];
 
-            executables = [ "Yafc" ];
+              dotnet-sdk = dotnet.sdk;
+              dotnet-runtime = dotnet.runtime;
 
-            runtimeDeps = [ SDL2 SDL2_ttf SDL2_image ];
+              runtimeIdentifiers = [ rid ];
+              executables = [ "Yafc" ];
 
-            meta = {
-              description = "Powerful Factorio calculator/analyser that works with mods, Community Edition";
-              longDescription = ''
-                Yet Another Factorio Calculator or YAFC is a planner and analyzer.
-                The main goal of YAFC is to help with heavily modded Factorio games.
-
-                YAFC Community Edition is an updated and actively-maintained version of the original YAFC.
+              buildPhase = ''
+                runHook preBuild
+                dotnet build Yafc.I18n.Generator
+                runHook postBuild
               '';
-              homepage = "https://github.com/shpaass/yafc-ce";
-              downloadPage = "https://github.com/shpaass/yafc-ce/releases/tag/${finalAttrs.version}";
-              changelog = "https://github.com/shpaass/yafc-ce/releases/tag/${finalAttrs.version}";
-              license = lib.licenses.gpl3;
-              maintainers = with lib.maintainers; [ ];
-              platforms = lib.platforms.linux ++ lib.platforms.darwin;
-              mainProgram = "Yafc";
-            };
-          });
 
-          devShells.default = pkgs.mkShell {
-            nativeBuildInputs = with pkgs; [
-              pkgs.dotnetCorePackages.sdk_7_0
+              installPhase = ''
+                mkdir -p $out/${outDir}
+                dotnet publish Yafc/Yafc.csproj -c Release -r ${rid} ${publishFlags} -o $out/${outDir}
+                ${warning}
+                cd $out
+                ${archive}
+              '';
+
+              meta.mainProgram = "Yafc";
+            };
+        in {
+          packages.default = pkgs.symlinkJoin {
+            name = "yafc-ce-archives";
+            paths = map makeBuild [
+              "linux-x64"
+              "osx-x64"
+              "osx-arm64"
+              "win-x64"
+              "win-x64-sc"
             ];
-            DOTNET_BIN = "${pkgs.dotnetCorePackages.sdk_7_0}/bin/dotnet";
           };
         };
     };
