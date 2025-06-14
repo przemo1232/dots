@@ -37,6 +37,9 @@
     eza
     signal-desktop
     roccat-tools
+    gpu-screen-recorder-gtk
+    libqalculate
+    yafc-ce
 
     vesktop # discord
   ];

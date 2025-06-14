@@ -5,6 +5,11 @@
     ./hardware-configuration.nix
   ];
 
+  fileSystems."/run/media/storage" =
+    { device = "/dev/disk/by-uuid/9e45e5d1-7280-44cf-b66a-ff207aaea957";
+      fsType = "ext4";
+    };
+
   boot.loader = {
     # efi = {
     #   canTouchEfiVariables = true;
