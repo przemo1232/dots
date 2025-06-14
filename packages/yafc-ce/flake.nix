@@ -16,6 +16,7 @@
           dotnet = pkgs.dotnetCorePackages.dotnet_8;
         in {
           packages.default = self.packages.${system}.yafc-ce;
+
           packages.yafc-ce = buildDotnetModule (finalAttrs: {
             pname = "yafc-ce";
             version = "2.13.0";
@@ -29,7 +30,6 @@
 
             projectFile = [ "Yafc/Yafc.csproj" ];
             testProjectFile = [ "Yafc.Model.Tests/Yafc.Model.Tests.csproj" ];
-            nugetDeps = ./deps.json;
 
             dotnet-sdk = dotnet.sdk;
             dotnet-runtime = dotnet.runtime;
