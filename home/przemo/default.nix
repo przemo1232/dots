@@ -40,6 +40,7 @@
     gpu-screen-recorder-gtk
     libqalculate
     yafc-ce
+    steam-run
 
     vesktop # discord
   ];
