@@ -41,6 +41,7 @@
   ];
   
   home.packages = with pkgs; [
+    inputs.yafc-ce.packages.${system}.yafc-ce
     remote-touchpad
   
     libqalculate

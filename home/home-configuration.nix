@@ -26,7 +26,6 @@ in
       inputs.nixvim.homeManagerModules.nixvim
       inputs.flatpaks.homeManagerModules.default
       inputs.spicetify-nix.homeManagerModules.spicetify
-      inputs.yafc-ce.packages.default
       home-nix
     ];
   };
