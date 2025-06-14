@@ -55,10 +55,13 @@
     };
     nixpkgs2405.url = "github:NixOS/nixpkgs/nixos-24.05";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+    yafc-ce = {
+      url = "path:/etc/nixos/packages/yafc-ce";
+    };
   };
 
   outputs = {
-    self, nixpkgs, hyprland, xdg-desktop-portal-hyprland, home-manager, helix-master, hypr-contrib, flatpaks, impermanence, nixvim, fenix, zig, waterfox, firefox-nightly, nixpkgs2405, nur, hyprland-plugins, split-monitor-workspaces, secrets, ... 
+    self, nixpkgs, hyprland, xdg-desktop-portal-hyprland, home-manager, helix-master, hypr-contrib, flatpaks, impermanence, nixvim, fenix, zig, waterfox, firefox-nightly, nixpkgs2405, nur, hyprland-plugins, split-monitor-workspaces, secrets, yafc-ce, ... 
   }@inputs: let
     secrets = import "${inputs.secrets}/secrets.nix";
     hostname = import "${inputs.secrets}/host.nix";

@@ -207,7 +207,7 @@
 
         # Tab grouping stuff
         "$mainMod, t, togglegroup"
-        "$mainMod SHIFT, t, lockgroups"
+        "$mainMod SHIFT, t, lockgroups, toggle"
         "$mainMod, up, changegroupactive, f"
         "$mainMod, down, changegroupactive, b"
         "$mainMod, w, changegroupactive, f"
