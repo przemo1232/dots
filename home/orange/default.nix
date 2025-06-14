@@ -41,7 +41,6 @@
   ];
   
   home.packages = with pkgs; [
-    inputs.yafc-ce.packages.${system}.yafc-ce
     remote-touchpad
   
     libqalculate
@@ -113,6 +112,8 @@
     signal-desktop
 
     nix-prefetch-github
+
+    yafc-ce
   ];
 
   services.flatpak = {
