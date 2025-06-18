@@ -15,6 +15,7 @@
 
   # import from relative path in first array, ++ merges arrays and shit after that modifies the second array to use modules/home as base path
   imports = [
+    ./vscode.nix
   ] ++ machine-settings.mkHomeModulePaths username lib [
     ./gaming.nix
     ./terminal-kitty.nix
@@ -32,7 +33,6 @@
     firefox
     pavucontrol
     openssl
-    vscode
     github-desktop
     eza
     signal-desktop
@@ -41,6 +41,7 @@
     libqalculate
     yafc-ce
     steam-run
+    droidcam
 
     vesktop # discord
   ];
