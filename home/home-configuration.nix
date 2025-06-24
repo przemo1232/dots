@@ -12,6 +12,12 @@ let
     overlays = [
       inputs.firefox-nightly.overlays.default
       inputs.nur.overlays.default
+      (final: prev: {
+        factorio-space-age = prev.factorio-space-age.override {
+            username = "LambdaLemon";
+            token = secrets.factorio-token;
+        };
+      })
     ];
   };
 

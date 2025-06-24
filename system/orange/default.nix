@@ -43,6 +43,13 @@ in {
     glances
   ];
 
+  services.zerotierone = {
+    enable = true;
+    joinNetworks = [
+      secrets.przemonetwork
+    ];
+  };
+
   # Flatpak
   services.flatpak.enable = true;
 

@@ -8,6 +8,6 @@
   hardware.graphics.enable32Bit = true;
   hardware.graphics.extraPackages = with pkgs; [
     amdvlk
-    mesa.drivers
+    mesa
   ];
 }
