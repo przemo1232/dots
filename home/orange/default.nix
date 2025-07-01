@@ -93,6 +93,7 @@
     audacity
 
     htop
+    nvtopPackages.amd
 
     stremio
 

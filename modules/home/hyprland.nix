@@ -1,4 +1,8 @@
 { pkgs, inputs, ... }: {
+  home.packages = with pkgs; [
+    kando
+  ];
+
   wayland.windowManager.hyprland = {
     enable = true;
 
@@ -95,6 +99,19 @@
         workspace_swipe = true;
       };
 
+      windowrule = [
+        "noblur, class:kando"
+        "opaque, class:kando"
+        "size 100% 100%, class:kando"
+        "noborder, class:kando"
+        "noanim, class:kando"
+        "float, class:kando"
+        "pin, class:kando"
+
+        "float, class:feh"
+        "noscreenshare, class:org.keepassxc.KeePassXC"
+      ];
+
       plugin = {
         nstack = {
           layout = {
@@ -127,8 +144,7 @@
         "$mainMod, C, killactive, "
         "$mainMod, M, exit, "
         "$mainMod, F, togglefloating, "
-        "$mainMod, R, exec, wofi --show drun"
-        "$mainMod, E, exec, wofi-emoji"
+        # "$mainMod, E, exec, wofi-emoji"
         "$mainMod, P, pseudo, # dwindle"
         "$mainMod, J, togglesplit, # dwindle"
 
@@ -232,6 +248,10 @@
         "$mainMod, down, changegroupactive, b"
         "$mainMod, w, changegroupactive, f"
         "$mainMod, s, changegroupactive, b"
+
+        # kando
+        "$mainMod, Space, exec, kando --menu 'Example Menu'"
+        "$mainMod, r, exec, kando --menu 'Example Menu'"
       ];
 
       bindm = [
