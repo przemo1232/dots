@@ -42,6 +42,7 @@
     yafc-ce
     steam-run
     droidcam
+    ckan
 
     vesktop # discord
   ];

@@ -13,5 +13,11 @@
   ];
   services.upower.enable = false;
   services.flatpak.enable = true;
+  services.zerotierone = {
+  enable = true;
+  joinNetworks = [
+    "8bd5124fd65ad30c"
+  ];
+};
 }
 
