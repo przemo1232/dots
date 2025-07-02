@@ -6,5 +6,7 @@ else if host == "aphrodite" then
   "pumpkin"
 else if host == "janus" then
   "orange"
+else if host == "stellated" then
+  "przemo"
 else
   "nixos"

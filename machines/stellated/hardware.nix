@@ -1,27 +1,26 @@
+
 { config, pkgs, ... }: 
 {
   imports = [
     ./hardware-configuration.nix
   ];
 
-  boot.loader = {
-    efi = {
-      canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot";
+  fileSystems."/run/media/storage" =
+    { device = "/dev/disk/by-uuid/9e45e5d1-7280-44cf-b66a-ff207aaea957";
+      fsType = "ext4";
     };
+
+  boot.loader = {
+    # efi = {
+    #   canTouchEfiVariables = true;
+    #   efiSysMountPoint = "/boot";
+    # };
     grub = {
       configurationLimit = 5;
-      efiSupport = true;
+      # efiSupport = true;
       # efiInstallAsRemovable = true;
-      device = "nodev";
+      device = "/dev/sda";
       extraEntries = ''
-        menuentry "Windows" {
-          insmod part_gpt
-          insmod fat
-          insmod search_fs_uuid
-          search --fs-uuid --no-floppy --set=root 8C07-315B
-          chainloader /EFI/Microsoft/Boot/bootmgfw.efi
-        }
         menuentry "Reboot" {
           reboot
         }
@@ -31,21 +30,6 @@
       '';
     }; 
   };
-
-  fileSystems."/run/media/Gaming" =
-    { device = "/dev/disk/by-uuid/b909f5c5-311d-4750-ba60-ba1f165f2926";
-      fsType = "btrfs";
-    };
-
-  fileSystems."/run/media/Programmador" =
-    { device = "/dev/disk/by-uuid/01D78420CB137970";
-      fsType = "ntfs";
-    };
-
-  fileSystems."/run/media/Programming" =
-    { device = "/dev/disk/by-uuid/7BE462B403C20D04";
-      fsType = "ntfs";
-    };
 
   # Make some extra kernel modules available to NixOS
   boot.extraModulePackages = with config.boot.kernelPackages;
@@ -68,9 +52,9 @@
     "hid_microsoft"
   ];
 
-  services.udev.extraRules = ''
-    SUBSYSTEM==usb, ATTR{idVendor}==045e, ATTR{idProduct}==02ea, MODE=0666
-  '';
+  # services.udev.extraRules = ''
+  #   SUBSYSTEM==usb, ATTR{idVendor}==045e, ATTR{idProduct}==02ea, MODE=0666
+  # '';
 
   # Set initial kernel module settings
   # https://github.com/umlaeute/v4l2loopback
@@ -78,3 +62,4 @@
     options v4l2loopback card_label="Virtual Camera"
   '';
 }
+

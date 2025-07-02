@@ -1,3 +1,5 @@
+# args@ adds all variables to args as a map
+# they're still accesible normally
 args@{ lib, config, pkgs, machine-settings, inputs, ...}: let
 in {
 
