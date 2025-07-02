@@ -1,0 +1,407 @@
+{
+  "menus": [
+    {
+      "shortcut": "Control+Space",
+      "shortcutID": "example-menu",
+      "centered": false,
+      "root": {
+        "type": "submenu",
+        "name": "Example Menu",
+        "icon": "award_star",
+        "iconTheme": "material-symbols-rounded",
+        "children": [
+          {
+            "type": "command",
+            "data": {
+              "command": "feh -g 1080x1080+1080+200 -Z /home/orange/.config/eww/images/kepi.png",
+              "delayed": false
+            },
+            "name": "Open the Kepi",
+            "icon": "g_mobiledata",
+            "iconTheme": "material-symbols-rounded"
+          },
+          {
+            "type": "submenu",
+            "name": "Apps",
+            "icon": "apps",
+            "iconTheme": "material-symbols-rounded",
+            "children": [
+              {
+                "type": "submenu",
+                "data": {},
+                "name": "Common",
+                "icon": "api",
+                "iconTheme": "material-symbols-rounded",
+                "children": [
+                  {
+                    "type": "command",
+                    "data": {
+                      "command": "net.waterfox.waterfox"
+                    },
+                    "name": "Waterfox",
+                    "icon": "globe",
+                    "iconTheme": "material-symbols-rounded",
+                    "angle": 36
+                  },
+                  {
+                    "type": "command",
+                    "data": {
+                      "command": "firefox-nightly",
+                      "delayed": false
+                    },
+                    "name": "Firefox Nightly",
+                    "icon": "globe",
+                    "iconTheme": "material-symbols-rounded"
+                  },
+                  {
+                    "type": "command",
+                    "data": {
+                      "command": "vesktop",
+                      "delayed": false
+                    },
+                    "name": "Vesktop",
+                    "icon": "phone_in_talk",
+                    "iconTheme": "material-symbols-rounded"
+                  }
+                ]
+              },
+              {
+                "type": "submenu",
+                "data": {},
+                "name": "Configure",
+                "icon": "settings_motion_mode",
+                "iconTheme": "material-symbols-rounded",
+                "children": [
+                  {
+                    "type": "command",
+                    "data": {
+                      "command": "kando",
+                      "delayed": false
+                    },
+                    "name": "Kando",
+                    "icon": "settings",
+                    "iconTheme": "material-symbols-rounded",
+                    "angle": 0
+                  },
+                  {
+                    "type": "command",
+                    "data": {
+                      "command": "kitty nvtop",
+                      "delayed": false
+                    },
+                    "name": "Nvtop",
+                    "icon": "monitor",
+                    "iconTheme": "material-symbols-rounded"
+                  },
+                  {
+                    "type": "command",
+                    "data": {
+                      "command": "kitty htop",
+                      "delayed": false
+                    },
+                    "name": "Htop",
+                    "icon": "memory",
+                    "iconTheme": "material-symbols-rounded"
+                  },
+                  {
+                    "type": "submenu",
+                    "data": {},
+                    "name": "System",
+                    "icon": "computer",
+                    "iconTheme": "material-symbols-rounded",
+                    "children": [
+                      {
+                        "type": "command",
+                        "data": {
+                          "command": "keepassxc",
+                          "delayed": false
+                        },
+                        "name": "Passwords",
+                        "icon": "password",
+                        "iconTheme": "material-symbols-rounded"
+                      },
+                      {
+                        "type": "command",
+                        "data": {
+                          "command": "kitty rebuild-system",
+                          "delayed": false
+                        },
+                        "name": "Rebuild system",
+                        "icon": "browser_updated",
+                        "iconTheme": "material-symbols-rounded"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "submenu",
+                "data": {},
+                "name": "Play",
+                "icon": "child_care",
+                "iconTheme": "material-symbols-rounded",
+                "children": [
+                  {
+                    "type": "submenu",
+                    "data": {},
+                    "name": "Games",
+                    "icon": "stadia_controller",
+                    "iconTheme": "material-symbols-rounded",
+                    "children": [
+                      {
+                        "type": "command",
+                        "data": {
+                          "command": "steam steam://launch/394360",
+                          "delayed": false
+                        },
+                        "name": "Hearts of Iron IV",
+                        "icon": "heart_broken",
+                        "iconTheme": "material-symbols-rounded"
+                      },
+                      {
+                        "type": "submenu",
+                        "data": {},
+                        "name": "Factorio",
+                        "icon": "manufacturing",
+                        "iconTheme": "material-symbols-rounded",
+                        "children": [
+                          {
+                            "type": "command",
+                            "data": {
+                              "command": "steam steam://launch/427520",
+                              "delayed": false
+                            },
+                            "name": "Factorio",
+                            "icon": "precision_manufacturing",
+                            "iconTheme": "material-symbols-rounded"
+                          },
+                          {
+                            "type": "command",
+                            "data": {
+                              "command": "wine /home/orange/FactorioWin/Release/Foreman.exe",
+                              "delayed": false
+                            },
+                            "name": "Foreman 2.0",
+                            "icon": "terminal",
+                            "iconTheme": "material-symbols-rounded"
+                          },
+                          {
+                            "type": "command",
+                            "data": {
+                              "command": "Yafc",
+                              "delayed": false
+                            },
+                            "name": "Yafc",
+                            "icon": "terminal",
+                            "iconTheme": "material-symbols-rounded"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "command",
+                        "data": {
+                          "command": "steam",
+                          "delayed": false
+                        },
+                        "name": "Steam",
+                        "icon": "videogame_asset",
+                        "iconTheme": "material-symbols-rounded"
+                      }
+                    ],
+                    "angle": 180
+                  },
+                  {
+                    "type": "command",
+                    "data": {
+                      "command": "stremio",
+                      "delayed": false
+                    },
+                    "name": "Stremio",
+                    "icon": "videocam",
+                    "iconTheme": "material-symbols-rounded"
+                  }
+                ]
+              },
+              {
+                "type": "submenu",
+                "data": {},
+                "name": "Work",
+                "icon": "functions",
+                "iconTheme": "material-symbols-rounded",
+                "children": [
+                  {
+                    "type": "command",
+                    "data": {
+                      "command": "gimp"
+                    },
+                    "name": "GIMP",
+                    "icon": "gimp",
+                    "iconTheme": "simple-icons"
+                  },
+                  {
+                    "type": "command",
+                    "data": {
+                      "command": "audacity",
+                      "delayed": false
+                    },
+                    "name": "Audacity",
+                    "icon": "edit_audio",
+                    "iconTheme": "material-symbols-rounded"
+                  },
+                  {
+                    "type": "command",
+                    "data": {
+                      "command": "obs",
+                      "delayed": false
+                    },
+                    "name": "OBS",
+                    "icon": "video_camera_back_add",
+                    "iconTheme": "material-symbols-rounded"
+                  },
+                  {
+                    "type": "command",
+                    "data": {
+                      "command": "thunar ~"
+                    },
+                    "name": "Thunar",
+                    "icon": "folder_shared",
+                    "iconTheme": "material-symbols-rounded"
+                  },
+                  {
+                    "type": "command",
+                    "data": {
+                      "command": "gitkraken",
+                      "delayed": false
+                    },
+                    "name": "Git Kraken",
+                    "icon": "cognition_2",
+                    "iconTheme": "material-symbols-rounded"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "submenu",
+            "name": "Audio",
+            "icon": "play_circle",
+            "iconTheme": "material-symbols-rounded",
+            "children": [
+              {
+                "type": "hotkey",
+                "data": {
+                  "hotkey": "MediaTrackNext",
+                  "delayed": false
+                },
+                "name": "Next Track",
+                "icon": "skip_next",
+                "iconTheme": "material-symbols-rounded",
+                "angle": 90
+              },
+              {
+                "type": "hotkey",
+                "data": {
+                  "hotkey": "MediaPlayPause",
+                  "delayed": false
+                },
+                "name": "Play / Pause",
+                "icon": "play_pause",
+                "iconTheme": "material-symbols-rounded"
+              },
+              {
+                "type": "hotkey",
+                "data": {
+                  "hotkey": "AudioVolumeMute",
+                  "delayed": false
+                },
+                "name": "Mute",
+                "icon": "music_off",
+                "iconTheme": "material-symbols-rounded"
+              },
+              {
+                "type": "hotkey",
+                "data": {
+                  "hotkey": "MediaTrackPrevious",
+                  "delayed": false
+                },
+                "name": "Previous Track",
+                "icon": "skip_previous",
+                "iconTheme": "material-symbols-rounded",
+                "angle": 270
+              }
+            ]
+          },
+          {
+            "type": "submenu",
+            "name": "Windows",
+            "icon": "select_window",
+            "iconTheme": "material-symbols-rounded",
+            "children": [
+              {
+                "type": "hotkey",
+                "data": {
+                  "hotkey": "MetaLeft+ShiftLeft+ArrowRight",
+                  "delayed": true
+                },
+                "name": "Tile Right",
+                "icon": "text_select_jump_to_end",
+                "iconTheme": "material-symbols-rounded"
+              },
+              {
+                "type": "hotkey",
+                "data": {
+                  "hotkey": "MetaLeft+KeyC",
+                  "delayed": true
+                },
+                "name": "Close Window",
+                "icon": "cancel_presentation",
+                "iconTheme": "material-symbols-rounded"
+              },
+              {
+                "type": "hotkey",
+                "data": {
+                  "hotkey": "MetaLeft+KeyF",
+                  "delayed": true
+                },
+                "name": "Float",
+                "icon": "float_landscape_2",
+                "iconTheme": "material-symbols-rounded"
+              },
+              {
+                "type": "hotkey",
+                "data": {
+                  "hotkey": "F11",
+                  "delayed": true
+                },
+                "name": "Toggle Maximize",
+                "icon": "open_in_full",
+                "iconTheme": "material-symbols-rounded"
+              },
+              {
+                "type": "hotkey",
+                "data": {
+                  "hotkey": "MetaLeft+ShiftLeft+ArrowLeft",
+                  "delayed": true
+                },
+                "name": "Tile Left",
+                "icon": "text_select_jump_to_beginning",
+                "iconTheme": "material-symbols-rounded"
+              }
+            ]
+          },
+          {
+            "type": "command",
+            "data": {
+              "command": "wofi --show drun",
+              "delayed": false
+            },
+            "name": "Search",
+            "icon": "search",
+            "iconTheme": "material-symbols-rounded"
+          }
+        ]
+      }
+    }
+  ],
+  "templates": []
+}
