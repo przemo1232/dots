@@ -202,6 +202,12 @@
       :labels-visible { disk-visible-labels }
       :disk-name "Gaming"
       :mount-point "/run/media/Gaming")
+    (disk 
+      :visible { disk-visible }
+      :visible-emoji { disk-visible-emoji }
+      :labels-visible { disk-visible-labels }
+      :disk-name "Programming"
+      :mount-point "/run/media/Programming")
     (toggle-items)
   )
 )
