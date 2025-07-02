@@ -9,6 +9,6 @@
 
     retroarchFull
   ] ++ [
-    pkgs2405.sozu
+      # pkgs2405.torzu
   ];
 }

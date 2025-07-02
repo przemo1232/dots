@@ -1,9 +1,11 @@
 { ... }:
 
 {
+  
+  services.displayManager.gdm.enable = true;
+
   services.xserver = {
-    layout = "us";
-    xkbVariant = "dvorak";
-    displayManager.gdm.enable = true;
+    xkb.layout = "us";
+    xkb.variant = "dvorak";
   };
 }

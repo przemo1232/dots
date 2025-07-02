@@ -93,6 +93,7 @@
     audacity
 
     htop
+    nvtopPackages.amd
 
     stremio
 
@@ -114,8 +115,14 @@
     nix-prefetch-github
 
     yafc-ce
-  ];
+    goldberg-emu
+    steam-run
 
+    nix-prefetch
+
+    protonvpn-gui
+  ];
+  
   services.flatpak = {
     remotes = {
       "flathub" = "https://flathub.org/repo/flathub.flatpakrepo";

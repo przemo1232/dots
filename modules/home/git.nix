@@ -1,6 +1,10 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
+  home.packages = with pkgs; [
+    gitkraken
+  ];
+
   # Git
   programs.git = {
     enable = true;

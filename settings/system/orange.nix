@@ -10,6 +10,12 @@
 
   # Host name
   networking.hostName = "janus";
+
+  # Port stuff
+  networking.firewall = {
+    enable = true;
+    allowedUDPPorts = [34197];
+  };
   
   # Timezone
   time.timeZone = "America/New_York";
