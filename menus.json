@@ -11,16 +11,6 @@
         "iconTheme": "material-symbols-rounded",
         "children": [
           {
-            "type": "command",
-            "data": {
-              "command": "feh -g 1080x1080+1080+200 -Z /home/orange/.config/eww/images/kepi.png",
-              "delayed": false
-            },
-            "name": "Open the Kepi",
-            "icon": "g_mobiledata",
-            "iconTheme": "material-symbols-rounded"
-          },
-          {
             "type": "submenu",
             "name": "Apps",
             "icon": "apps",
@@ -46,10 +36,10 @@
                   {
                     "type": "command",
                     "data": {
-                      "command": "firefox-nightly",
+                      "command": "firefox",
                       "delayed": false
                     },
-                    "name": "Firefox Nightly",
+                    "name": "Firefox",
                     "icon": "globe",
                     "iconTheme": "material-symbols-rounded"
                   },
@@ -178,10 +168,10 @@
                           {
                             "type": "command",
                             "data": {
-                              "command": "wine /home/orange/FactorioWin/Release/Foreman.exe",
+                              "command": "cd /run/media/storage/factorio/bin/x64/; ./py\\ factorio.sh",
                               "delayed": false
                             },
-                            "name": "Foreman 2.0",
+                            "name": "py dev",
                             "icon": "terminal",
                             "iconTheme": "material-symbols-rounded"
                           },
@@ -261,19 +251,19 @@
                   {
                     "type": "command",
                     "data": {
-                      "command": "thunar ~"
+                      "command": "dolphin ~"
                     },
-                    "name": "Thunar",
+                    "name": "dolphin",
                     "icon": "folder_shared",
                     "iconTheme": "material-symbols-rounded"
                   },
                   {
                     "type": "command",
                     "data": {
-                      "command": "gitkraken",
+                      "command": "github-desktop",
                       "delayed": false
                     },
-                    "name": "Git Kraken",
+                    "name": "Github Desktop",
                     "icon": "cognition_2",
                     "iconTheme": "material-symbols-rounded"
                   }
