@@ -13,6 +13,13 @@
       inputs.split-monitor-workspaces.packages.${pkgs.system}.hyprsplit
     ];
 
+    extraConfig = ''
+      device {
+        name=roccat-roccat-kova-mouse
+        sensitivity=-0.6
+      }
+    '';
+
     settings = {
       exec-once = [
         "hypridle"
@@ -50,11 +57,12 @@
         "col.active_border" = "rgba(ff6bf6ee) rgba(8afff3ee) 45deg";
         "col.inactive_border" = "rgba(595959aa)";
 
-        layout = "nstack";
+        # layout = "nstack";
       };
 
       misc = {
         vfr = true;
+        force_default_wallpaper = 2;
       };
 
       decoration = {
@@ -132,9 +140,7 @@
       "$mainMod" = "SUPER";
 
       monitor = [
-        "HDMI-A-2, 1440x900@60, 0x900, 1 #, mirror, HDMI-A-1"
-        "eDP-1, highres, 0x0, 1"
-        "DP-1, highres, 1440x0, 1"
+        "HDMI-A-1, 1920x1080@60, 0x0, 1"
       ];
 
       bind = [
@@ -246,8 +252,8 @@
         "$mainMod SHIFT, t, lockgroups, toggle"
         "$mainMod, up, changegroupactive, f"
         "$mainMod, down, changegroupactive, b"
-        "$mainMod, w, changegroupactive, f"
-        "$mainMod, s, changegroupactive, b"
+        "$mainMod, s, changegroupactive, f"
+        "$mainMod, w, changegroupactive, b"
 
         # kando
         "$mainMod, Space, exec, kando --menu 'Example Menu'"

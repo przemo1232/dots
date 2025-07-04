@@ -7,17 +7,19 @@
     ./fonts.nix
     ./polkit.nix
     ./pipewire.nix
-    ./plasma.nix
+    # ./plasma.nix
+    ./hyprland.nix
     ./sddm.nix
     ./nvidia.nix
   ];
   services.upower.enable = false;
   services.flatpak.enable = true;
   services.zerotierone = {
-  enable = true;
-  joinNetworks = [
-    "8bd5124fd65ad30c"
-  ];
-};
-}
+    enable = true;
+    joinNetworks = [
+      "8bd5124fd65ad30c"
+    ];
+  };
 
+  services.gvfs.enable = true;
+}

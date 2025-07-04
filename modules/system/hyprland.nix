@@ -23,12 +23,19 @@ in {
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
-    # enableNvidiaPatches = true;
   };
 
   xdg.portal = {
     enable = true;
     xdgOpenUsePortal = true;
-    extraPortals = with pkgs; [ inputs.xdg-desktop-portal-hyprland ];
+    extraPortals = with pkgs; [
+      inputs.xdg-desktop-portal-hyprland
+      xdg-desktop-portal-gtk
+    ];
   };
+
+  # Stupid stupid xdg thing
+  environment.extraInit = ''
+    unset -v NIXOS_XDG_OPEN_USE_PORTAL
+  '';
 }

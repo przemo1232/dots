@@ -10,9 +10,9 @@
     QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
     SDL_VIDEODRIVER = "wayland";
     XDG_SESSION_TYPE = "wayland";
-    LIBVA_DRIVER_NAME = "amd";
-    GBM_BACKEND = "amd-drm";
-    __GLX_VENDOR_LIBRARY_NAME = "amd";
+    LIBVA_DRIVER_NAME = "nvidia";
+    GBM_BACKEND = "nvidia-drm";
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
     WLR_NO_HARDWARE_CURSORS = "1";
   };
 

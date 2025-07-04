@@ -21,6 +21,8 @@
     ./terminal-kitty.nix
     ./git.nix
     ./spotify.nix
+    ./hyprland.nix
+    # ./timers/eww-too-much-ram.nix
   ];
   
   # append this to the $PATH
@@ -36,13 +38,17 @@
     github-desktop
     eza
     signal-desktop
-    roccat-tools
+    # roccat-tools
     gpu-screen-recorder-gtk
     libqalculate
     yafc-ce
     steam-run
     droidcam
     ckan
+    kdePackages.dolphin
+    htop
+    zip
+    unzip
 
     vesktop # discord
   ];
