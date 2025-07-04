@@ -6,16 +6,16 @@
 (defwidget bar []
   (centerbox 
     ; :class "bar"
-    (left) (center) (right)))
+    (left) (center) (center)))
 
 (defpoll timeleft :interval "1s"
   `upower -i $(upower -e | grep BAT) | grep --color=never -E "to full|to empty" | cut -d':' -f2- | sed 's/^[[:space:]]*//'`)
 
 (defwidget center []
   (box
-    :even-spacing false
-    :spacing 0
-    (workspaces)
+    ; :even-spacing false
+    ; :spacing 0
+    ; (workspaces)
   )
 )
 
