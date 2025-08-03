@@ -21,6 +21,7 @@
     ./terminal-kitty.nix
     ./git.nix
     ./spotify.nix
+    # ./python.nix
   ];
   
   # append this to the $PATH
@@ -36,13 +37,16 @@
     github-desktop
     eza
     signal-desktop
-    roccat-tools
+    # roccat-tools
     gpu-screen-recorder-gtk
     libqalculate
     yafc-ce
     steam-run
     droidcam
     ckan
+    lm_sensors
+    libreoffice
+    vlc
 
     vesktop # discord
   ];

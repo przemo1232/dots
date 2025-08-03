@@ -11,14 +11,14 @@
     };
 
   boot.loader = {
-    # efi = {
-    #   canTouchEfiVariables = true;
-    #   efiSysMountPoint = "/boot";
-    # };
+     efi = {
+       canTouchEfiVariables = true;
+       efiSysMountPoint = "/boot";
+     };
     grub = {
       configurationLimit = 5;
-      # efiSupport = true;
-      # efiInstallAsRemovable = true;
+       efiSupport = true;
+       #efiInstallAsRemovable = true;
       device = "/dev/sda";
       extraEntries = ''
         menuentry "Reboot" {

@@ -9,7 +9,7 @@
     ./pipewire.nix
     ./plasma.nix
     ./sddm.nix
-    ./nvidia.nix
+    ./amd.nix
   ];
   services.upower.enable = false;
   services.flatpak.enable = true;
