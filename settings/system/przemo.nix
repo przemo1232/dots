@@ -14,9 +14,10 @@
   networking.hostName = "stellated";
 
   networking.firewall = {
-  enable = true;
-  allowedUDPPorts = [ 34197 ];
-};
+    enable = true;
+    allowedUDPPorts = [ 34197 ];
+    allowedTCPPorts = [ 34197 ];
+  };
   
   # Timezone
   time.timeZone = "Poland";

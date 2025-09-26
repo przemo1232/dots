@@ -1,4 +1,4 @@
-{ machine-settings, pkgs, user, lib, ... }:
+{ machine-settings, pkgs, secrets, user, lib, ... }:
 
 {
   # system wide imports
@@ -14,10 +14,14 @@
   services.upower.enable = false;
   services.flatpak.enable = true;
   services.zerotierone = {
-  enable = true;
-  joinNetworks = [
-    "8bd5124fd65ad30c"
-  ];
-};
+    enable = true;
+    joinNetworks = [
+      secrets.factorionetwork
+    ];
+  };
+  virtualisation.docker.enable = true;
+  environment.sessionVariables = rec {
+    CC = "clang";
+    RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
+  };
 }
-

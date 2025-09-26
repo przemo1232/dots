@@ -21,6 +21,7 @@
     ./terminal-kitty.nix
     ./git.nix
     ./spotify.nix
+    ./rust.nix
     # ./python.nix
   ];
   
@@ -47,6 +48,9 @@
     lm_sensors
     libreoffice
     vlc
+    gcc
+    gimp
+    docker
 
     vesktop # discord
   ];
