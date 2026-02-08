@@ -23,6 +23,7 @@
     { device = "/dev/disk/by-uuid/f12ba31b-b559-47ca-83f7-9eed472b4e8d";
       fsType = "btrfs";
       options = [ "subvol=@etc" ];
+      neededForBoot = true;
     };
 
   fileSystems."/home" =
@@ -34,12 +35,14 @@
     { device = "/dev/disk/by-uuid/C963-A74D";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
+      neededForBoot = true;
     };
 
   fileSystems."/nix" =
     { device = "/dev/disk/by-uuid/f12ba31b-b559-47ca-83f7-9eed472b4e8d";
       fsType = "btrfs";
       options = [ "subvol=@nix" ];
+      neededForBoot = true;
     };
 
   swapDevices =
