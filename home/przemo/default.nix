@@ -51,6 +51,7 @@
     gcc
     gimp
     docker
+    activate-linux
 
     vesktop # discord
   ];

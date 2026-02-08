@@ -17,6 +17,7 @@
     enable = true;
     joinNetworks = [
       secrets.factorionetwork
+      secrets.gtnhnetwork
     ];
   };
   virtualisation.docker.enable = true;
