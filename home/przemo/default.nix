@@ -22,6 +22,7 @@
     ./git.nix
     ./spotify.nix
     ./rust.nix
+    ./archive-tools.nix
     # ./python.nix
   ];
   

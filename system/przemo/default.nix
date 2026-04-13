@@ -14,7 +14,7 @@
   services.upower.enable = false;
   services.flatpak.enable = true;
   services.zerotierone = {
-    enable = true;
+    enable = false;
     joinNetworks = [
       secrets.factorionetwork
       secrets.gtnhnetwork
